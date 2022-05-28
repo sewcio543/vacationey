@@ -1,8 +1,8 @@
-﻿using Back_end.Models;
+﻿using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace Back_end.Controllers
+namespace Backend.Controllers
 {
     public class HomeController : Controller
     {
