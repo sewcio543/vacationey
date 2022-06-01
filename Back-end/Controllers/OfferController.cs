@@ -41,20 +41,6 @@ namespace Backend.Controllers
             return View(offer);
         }
 
-        // POST: OfferController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         // GET: OfferController/Edit/5
         public ActionResult Edit(int id)
