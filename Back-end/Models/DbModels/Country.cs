@@ -15,9 +15,8 @@ namespace Backend.Models.DbModels
 
         public Country(){ }
 
-        public Country(int countryId, string? name)
+        public Country(string? name)
         {
-            CountryId = countryId;
             Name = name;
         }
     }
