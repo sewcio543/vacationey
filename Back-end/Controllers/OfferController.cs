@@ -1,23 +1,25 @@
-﻿using Backend.Models.DbModels;
-using BookApp.Models;
+﻿using Backend.Models;
+using Backend.Models.DbModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace Backend.Controllers
 {
     public class OfferController : Controller
     {
-        
-        public ActionResult Index()
+        private readonly DatabaseContext _context;
+
+        public OfferController(DatabaseContext context)
         {
-            return View();
+            _context = context;
         }
 
-        // GET: OfferController/Details/5
-        public ActionResult ViewAll()
+        public ActionResult Index()
         {
-            return View();
+            return View(_context.Offer);
         }
+
 
         // GET
         public ActionResult Create()
@@ -27,19 +29,17 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Offer offer)
+        public async Task<IActionResult> Create(Offer offer)
         {
             if (ModelState.IsValid)
             {
-                using (DatabaseContext db = new DatabaseContext())
-                {
-                    db.Offer.Add(offer);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
+                _context.Add(offer);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
             return View(offer);
         }
+        
 
 
         // GET: OfferController/Edit/5
@@ -82,6 +82,12 @@ namespace Backend.Controllers
             {
                 return View();
             }
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

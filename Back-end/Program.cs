@@ -1,11 +1,17 @@
-using BookApp.Models;
+using Backend.Models;
+using Backend.Models.DbModels;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddDbContext<DatabaseContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SS-Connection")));
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -15,6 +21,13 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+// adding data to db
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    SeedModel.Initialize(services);
+}
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

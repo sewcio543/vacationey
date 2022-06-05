@@ -26,9 +26,8 @@ namespace Backend.Models.DbModels
 
         public Hotel(){}
 
-        public Hotel(int hotelId, string? name, string? description, City? city, bool pool, bool wiFi)
+        public Hotel(string? name, string? description, City? city, bool pool, bool wiFi)
         {
-            HotelId = hotelId;
             Name = name;
             Description = description;
             City = city;

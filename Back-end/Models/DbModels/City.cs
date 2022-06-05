@@ -14,15 +14,14 @@ namespace Backend.Models.DbModels
         public string? Name { get; set; }
 
         [Required]
-        public Region? Region { get; set; }
+        public Country? Country{ get; set; }
 
         public City(){}
 
-        public City(int cityId, string? name, Region? region)
+        public City(string? name, Country? country)
         {
-            CityId = cityId;
             Name = name;
-            Region = region;
+            Country = country;
         }
     }
 }
