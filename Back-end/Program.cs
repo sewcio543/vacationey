@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<DatabaseContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SS-Connection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Azure-Connection")));
 
 var app = builder.Build();
 
