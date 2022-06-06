@@ -1,0 +1,29 @@
+﻿@model Backend.Models.DbModels.Offer
+
+@{
+
+
+}
+
+<div class="offer">
+    <img src="/images/test.jpg" />
+    <div class="info">
+
+        <p>
+            @Html.DisplayFor(item => item.Hotel.Name)
+        </p>
+        <p>
+            @Html.DisplayFor(item => item.Hotel.City.Country.Name)
+        </p>
+        <p>
+            @Html.DisplayFor(item => item.ArrivalCity)
+        </p>
+        <p>
+            @Html.DisplayFor(item => item.DateFrom) -
+            @Html.DisplayFor(item => item.DateTo)
+        </p>
+
+    </div>
+</div>
+
+

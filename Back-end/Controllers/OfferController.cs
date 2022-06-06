@@ -18,8 +18,8 @@ namespace Backend.Controllers
         // view all
         public ActionResult Index(string country)
         {
-    
-            var offers = _context.Offer.Where(o => o.Hotel.City.Country.Name.Contains(country));
+
+            var offers = _context.Offer;//.Where(o => o.Hotel.City.Country.Name.Contains(country));
 
 
             if (offers == null)

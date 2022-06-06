@@ -1,71 +1,11 @@
 ﻿@model IEnumerable<Backend.Models.DbModels.Offer>
 
-@{
-    ViewData["Title"] = "ViewAll";
+<div id="landing-page">
+    <img src="/images/test.jpg" alt="Hello">
+</div>
+
+@foreach (var item in Model)
+{
+    @Html.Partial("Offer", item)
+
 }
-
-<h1>ViewAll</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-
-
-
-
-<table class="table">
-    <thead>
-        <tr>
-             <th>
-                Hotel
-            </th>
-             <th>
-                Country
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateFrom)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateTo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FullBoard)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-
-@foreach (var item in Model) {
-        <tr>
-             <td>
-                @Html.DisplayFor(modelItem => item.Hotel.Name)
-            </td>
-             <td>
-                @Html.DisplayFor(modelItem => item.Hotel.City.Country.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateFrom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateTo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullBoard)
-            </td>
-
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new {  id=item.OfferId }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
