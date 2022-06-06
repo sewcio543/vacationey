@@ -10,6 +10,7 @@ hr {
     margin: auto;
     border: none;
     height: 0px;
+    margin-top: 2%;
     box-shadow: 0 1px 3px 1px var(--hrshadows);
 }
 

@@ -15,14 +15,13 @@ namespace Backend.Models.DbModels
 
         public int Rate { get; set; }
 
+        public int CityId { get; set; }
+
         [Required]
         public City? City { get; set; }
 
         public bool Pool { get; set; }
         public bool WiFi { get; set; }
-
-
-        List<Offer> Offers = new List<Offer>();
 
         public Hotel(){}
 

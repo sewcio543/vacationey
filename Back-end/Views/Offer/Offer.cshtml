@@ -1,4 +1,4 @@
-﻿@model Backend.Models.DbModels.Offer
+﻿@model Backend.Models.ViewModels.OfferViewModel
 
 @{
 
@@ -10,17 +10,19 @@
     <div class="info">
 
         <p>
-            @Html.DisplayFor(item => item.Hotel.Name)
+            @Model.City.Name
+          
         </p>
         <p>
-            @Html.DisplayFor(item => item.Hotel.City.Country.Name)
+            @Model.Hotel.Name
         </p>
         <p>
-            @Html.DisplayFor(item => item.ArrivalCity)
+            @Model.Offer.Price
+            $
         </p>
         <p>
-            @Html.DisplayFor(item => item.DateFrom) -
-            @Html.DisplayFor(item => item.DateTo)
+            @Model.Offer.DateFrom.ToString("dd.MM.yyy") -
+            @Model.Offer.DateTo.ToString("dd.MM.yyy")
         </p>
 
     </div>

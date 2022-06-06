@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220606121146_lite")]
-    partial class lite
+    [Migration("20220606233524_first")]
+    partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -86,16 +86,15 @@ namespace Backend.Migrations
                     b.Property<int>("CityId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Description")
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Pool")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Rate")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("WiFi")
@@ -117,7 +116,7 @@ namespace Backend.Migrations
                     b.Property<int?>("AdminId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ArrivalCityCityId")
+                    b.Property<int>("ArrivalCityId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("DateFrom")
@@ -126,21 +125,13 @@ namespace Backend.Migrations
                     b.Property<DateTime>("DateTo")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("DepartureCityCityId")
+                    b.Property<int>("DepartureCityId")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("FullBoard")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("HotelId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("NumberOfPeople")
                         .HasColumnType("INTEGER");
 
                     b.Property<decimal>("Price")
@@ -150,9 +141,9 @@ namespace Backend.Migrations
 
                     b.HasIndex("AdminId");
 
-                    b.HasIndex("ArrivalCityCityId");
+                    b.HasIndex("ArrivalCityId");
 
-                    b.HasIndex("DepartureCityCityId");
+                    b.HasIndex("DepartureCityId");
 
                     b.HasIndex("HotelId");
 
@@ -220,11 +211,15 @@ namespace Backend.Migrations
 
                     b.HasOne("Backend.Models.DbModels.City", "ArrivalCity")
                         .WithMany()
-                        .HasForeignKey("ArrivalCityCityId");
+                        .HasForeignKey("ArrivalCityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Backend.Models.DbModels.City", "DepartureCity")
                         .WithMany()
-                        .HasForeignKey("DepartureCityCityId");
+                        .HasForeignKey("DepartureCityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Backend.Models.DbModels.Hotel", "Hotel")
                         .WithMany()

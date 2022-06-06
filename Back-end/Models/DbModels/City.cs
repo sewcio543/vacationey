@@ -12,6 +12,7 @@ namespace Backend.Models.DbModels
         [Required]
         [StringLength(50)]
         public string? Name { get; set; }
+        public int CountryId { get; set; }
 
         [Required]
         public Country? Country{ get; set; }

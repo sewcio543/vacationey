@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Backend.Migrations
 {
-    public partial class lite : Migration
+    public partial class first : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -79,7 +79,7 @@ namespace Backend.Migrations
                     HotelId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    Description = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
+                    Rate = table.Column<int>(type: "INTEGER", nullable: false),
                     CityId = table.Column<int>(type: "INTEGER", nullable: false),
                     Pool = table.Column<bool>(type: "INTEGER", nullable: false),
                     WiFi = table.Column<bool>(type: "INTEGER", nullable: false)
@@ -101,15 +101,13 @@ namespace Backend.Migrations
                 {
                     OfferId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     HotelId = table.Column<int>(type: "INTEGER", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
                     DateFrom = table.Column<DateTime>(type: "TEXT", nullable: false),
                     DateTo = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DepartureCityCityId = table.Column<int>(type: "INTEGER", nullable: true),
-                    ArrivalCityCityId = table.Column<int>(type: "INTEGER", nullable: true),
+                    DepartureCityId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ArrivalCityId = table.Column<int>(type: "INTEGER", nullable: false),
                     FullBoard = table.Column<bool>(type: "INTEGER", nullable: false),
-                    NumberOfPeople = table.Column<int>(type: "INTEGER", nullable: false),
                     AdminId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
@@ -121,15 +119,17 @@ namespace Backend.Migrations
                         principalTable: "Admin",
                         principalColumn: "AdminId");
                     table.ForeignKey(
-                        name: "FK_Offer_City_ArrivalCityCityId",
-                        column: x => x.ArrivalCityCityId,
+                        name: "FK_Offer_City_ArrivalCityId",
+                        column: x => x.ArrivalCityId,
                         principalTable: "City",
-                        principalColumn: "CityId");
+                        principalColumn: "CityId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Offer_City_DepartureCityCityId",
-                        column: x => x.DepartureCityCityId,
+                        name: "FK_Offer_City_DepartureCityId",
+                        column: x => x.DepartureCityId,
                         principalTable: "City",
-                        principalColumn: "CityId");
+                        principalColumn: "CityId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Offer_Hotel_HotelId",
                         column: x => x.HotelId,
@@ -154,14 +154,14 @@ namespace Backend.Migrations
                 column: "AdminId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Offer_ArrivalCityCityId",
+                name: "IX_Offer_ArrivalCityId",
                 table: "Offer",
-                column: "ArrivalCityCityId");
+                column: "ArrivalCityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Offer_DepartureCityCityId",
+                name: "IX_Offer_DepartureCityId",
                 table: "Offer",
-                column: "DepartureCityCityId");
+                column: "DepartureCityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Offer_HotelId",

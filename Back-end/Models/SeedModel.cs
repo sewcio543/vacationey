@@ -31,7 +31,20 @@ namespace Backend.Models
                     new City("Barcelona", Spain),
                     new City("Valencia", Spain),
                     new City("Madryt", Spain),
-                    new City("Bilbao", Spain)
+                    new City("Bilbao", Spain),
+                    new City("Cracow", Poland),
+                    new City("Warsaw", Poland),
+                    new City("Gdansk", Poland),
+                    new City("Kielce", Poland),
+                    new City("Milan", Italy ),
+                    new City("Rome", Italy ),
+                    new City("Mediolan", Italy ),
+                    new City("Piza", Italy ),
+                    new City("Porto", Portugal),
+                    new City("Lisboa", Portugal),
+                    new City("Braga", Portugal),
+                    new City("Paris", France),
+                    new City("Lyon", France),
                 };
 
                 var Hotels = new List<Hotel>();
@@ -48,7 +61,7 @@ namespace Backend.Models
                     }
                 }
 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 50; i++)
                 {
                     Random random = new Random();
                     var indexHotel = random.Next(Hotels.Count);

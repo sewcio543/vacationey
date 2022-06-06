@@ -1,7 +1,10 @@
 ﻿using Backend.Models;
 using Backend.Models.DbModels;
+using Backend.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Backend.Controllers
@@ -15,18 +18,50 @@ namespace Backend.Controllers
             _context = context;
         }
 
-        // view all
-        public ActionResult Index(string country)
+        public async Task<IActionResult> Index(string country, string searchString)
         {
+            IQueryable<string> countryQuery = from c in _context.Country
+                                              select c.Name;
 
-            var offers = _context.Offer;//.Where(o => o.Hotel.City.Country.Name.Contains(country));
+            var offers = _context.Offer;
+
+            //if (!string.IsNullOrEmpty(searchString))
+            //{
+            //    offers = offers.Where(s => s.Hotel.City.Country.Name!.Contains(searchString));
+            //}
+
+            //if (!string.IsNullOrEmpty(country))
+            //{
+            //    offers = offers.Where(x => x.Hotel.City.Country.Name == country);
+            //}
+
+            List<OfferViewModel> offersViewModels = new List<OfferViewModel>();
+
+            foreach(var offer in offers)
+            {
+                var hotel = _context.Hotel.Where(Hotel => Hotel.HotelId == offer.HotelId).First();
+                var city = _context.City.Where(City => City.CityId == hotel.CityId).First();
 
 
-            if (offers == null)
-                return View(offers);
-            else
-                return View(offers);
+                offersViewModels.Add(new OfferViewModel()
+                {
+                    Country = new Country("Spain"),
+                    Offer = offer,
+                    Hotel = hotel,
+                    City = city
+                }); 
+            }
+            
+
+            var countryOfferVM = new CountryOfferViewModel()
+            {
+                Countries = new SelectList(await countryQuery.Distinct().ToListAsync()),
+                Offers = await offers.ToListAsync()
+            };
+
+            return View(offersViewModels);
         }
+
 
 
         // GET
@@ -47,7 +82,7 @@ namespace Backend.Controllers
             }
             return View(offer);
         }
-        
+
 
 
         // GET: OfferController/Edit/5

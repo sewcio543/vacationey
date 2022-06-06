@@ -24,6 +24,8 @@ namespace Backend.Models.DbModels
         public int OfferId { get; set; }
 
 
+        public int HotelId { get; set; }
+
         [Required]
         public Hotel? Hotel { get; set; }
 
@@ -39,7 +41,10 @@ namespace Backend.Models.DbModels
         [DataType(DataType.Date)]
         public DateTime DateTo { get; set; }
 
+        public int DepartureCityId { get; set; }
+
         public City? DepartureCity { get; set; }
+        public int ArrivalCityId { get; set; }
 
         public City? ArrivalCity { get; set; }
 

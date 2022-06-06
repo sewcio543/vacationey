@@ -20,23 +20,15 @@
 <body>
 
     @Html.Partial("Navbar")
-
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <hr>
-
-    <footer>
-        @Html.Partial("Footer")
-    </footer>
+    @RenderBody()
+    @Html.Partial("Footer")
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/clock.js" asp-append-version="true"></script>
+    <script src="~/js/header.js" asp-append-version="true"></script>
+
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
