@@ -13,6 +13,7 @@ namespace Backend.Models.DbModels
         [StringLength(50)]
         public string? Name { get; set; }
 
+        [StringLength(50)]
         public string? Description { get; set; }
 
         [Required]
