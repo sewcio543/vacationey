@@ -15,6 +15,7 @@ namespace Backend.Controllers
             _context = context;
         }
 
+        // view all
         public ActionResult Index()
         {
             return View(_context.Offer);
@@ -62,6 +63,17 @@ namespace Backend.Controllers
                 return View();
             }
         }
+
+        public ActionResult Details(int id)
+        {
+            Offer? offer = _context.Offer.First(of => of.OfferId == id);
+
+            if (offer == null)
+                return View("Index");
+            else
+                return View(offer);
+        }
+
 
         // GET: OfferController/Delete/5
         public ActionResult Delete(int id)
