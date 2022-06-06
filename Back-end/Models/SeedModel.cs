@@ -43,7 +43,7 @@ namespace Backend.Models
                     {
                         Random random = new Random();
                         var index = random.Next(Cities.Count);
-                        var hotel = new Hotel(s, "giit", Cities[index], true, true);
+                        var hotel = new Hotel(s, 3, Cities[index], true, true);
                         Hotels.Add(hotel);
                     }
                 }

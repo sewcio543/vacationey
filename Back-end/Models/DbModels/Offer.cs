@@ -8,7 +8,6 @@ namespace Backend.Models.DbModels
         public Offer(string? name, Hotel? hotel, decimal price, DateTime dateFrom, DateTime dateTo, City? 
             departureCity, City? arrivalCity, bool fullBoard, int numberOfPeople)
         {
-            Name = name;
             Hotel = hotel;
             Price = price;
             DateFrom = dateFrom;
@@ -16,7 +15,6 @@ namespace Backend.Models.DbModels
             DepartureCity = departureCity;
             ArrivalCity = arrivalCity;
             FullBoard = fullBoard;
-            NumberOfPeople = numberOfPeople;
             //Admin = admin;
         }
         public Offer() { }
@@ -25,9 +23,6 @@ namespace Backend.Models.DbModels
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int OfferId { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string? Name { get; set; }
 
         [Required]
         public Hotel? Hotel { get; set; }
@@ -50,10 +45,6 @@ namespace Backend.Models.DbModels
 
         public bool FullBoard { get; set; }
 
-  
-
-        //default 1
-        public int NumberOfPeople { get; set; }
 
         [Column("CreatedBy")]
         public Admin? Admin { get; set; }

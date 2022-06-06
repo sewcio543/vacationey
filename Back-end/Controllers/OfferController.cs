@@ -16,9 +16,16 @@ namespace Backend.Controllers
         }
 
         // view all
-        public ActionResult Index()
+        public ActionResult Index(string country)
         {
-            return View(_context.Offer);
+    
+            var offers = _context.Offer.Where(o => o.Hotel.City.Country.Name.Contains(country));
+
+
+            if (offers == null)
+                return View(offers);
+            else
+                return View(offers);
         }
 
 
@@ -72,6 +79,17 @@ namespace Backend.Controllers
                 return View("Index");
             else
                 return View(offer);
+        }
+
+        public ActionResult Filter(string country)
+        {
+            var offers = _context.Offer.Where(o => o.Hotel.City.Country.Name == country);
+
+
+            if (offers == null)
+                return View("Index");
+            else
+                return View("Index", offers);
         }
 
 

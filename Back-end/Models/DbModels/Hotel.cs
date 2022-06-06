@@ -13,8 +13,7 @@ namespace Backend.Models.DbModels
         [StringLength(50)]
         public string? Name { get; set; }
 
-        [StringLength(50)]
-        public string? Description { get; set; }
+        public int Rate { get; set; }
 
         [Required]
         public City? City { get; set; }
@@ -27,10 +26,10 @@ namespace Backend.Models.DbModels
 
         public Hotel(){}
 
-        public Hotel(string? name, string? description, City? city, bool pool, bool wiFi)
+        public Hotel(string? name, int rate, City? city, bool pool, bool wiFi)
         {
             Name = name;
-            Description = description;
+            Rate = rate;
             City = city;
             Pool = pool;
             WiFi = wiFi;
