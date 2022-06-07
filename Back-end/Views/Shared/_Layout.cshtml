@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="~/css/navbar.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/footer.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Structure.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/scrollbar.css" asp-append-version="true" />
+
 
 
 
@@ -19,9 +21,10 @@
 </head>
 <body>
 
-    @Html.Partial("Navbar")
+    <partial name="Navbar" />
     @RenderBody()
-    @Html.Partial("Footer")
+    <partial name="Footer" />
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

@@ -9,5 +9,7 @@ namespace Backend.Models.ViewModels
         public City? City { get; set; }
 
         public Hotel? Hotel { get; set; }
+
+        public string? countryString { get; set; }
     }
 }

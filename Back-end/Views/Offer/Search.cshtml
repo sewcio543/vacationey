@@ -8,7 +8,7 @@
     function submitForm() {
         var select = document.getElementById("selectCountry");
         var value = select.options[select.selectedIndex].value;
-        window.location.replace("Offer/Search?countrySearch=" + value );
+        window.location.replace("Search?countrySearch=" + value );
     };
 </script>
 
@@ -21,8 +21,6 @@
 
     <input type="submit" onclick="submitForm()" value="Filter" />
 </p>
-
-
 
 
 

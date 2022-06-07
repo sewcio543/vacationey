@@ -18,50 +18,112 @@ namespace Backend.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(string country, string searchString)
+        public async Task<IActionResult> Index(string countrySearch, string sortOrder)
         {
             IQueryable<string> countryQuery = from c in _context.Country
                                               select c.Name;
 
-            var offers = _context.Offer;
+            var offers = from o in _context.Offer
+                         select o;
 
-            //if (!string.IsNullOrEmpty(searchString))
-            //{
-            //    offers = offers.Where(s => s.Hotel.City.Country.Name!.Contains(searchString));
-            //}
-
-            //if (!string.IsNullOrEmpty(country))
-            //{
-            //    offers = offers.Where(x => x.Hotel.City.Country.Name == country);
-            //}
+            switch (sortOrder)
+            {
+                case "desc":
+                    offers = offers.OrderByDescending(s => s.Price);
+                    break;
+                case "asc":
+                    offers = offers.OrderBy(s => s.Price);
+                    break;
+            }
 
             List<OfferViewModel> offersViewModels = new List<OfferViewModel>();
 
-            foreach(var offer in offers)
+            foreach (var offer in offers)
             {
                 var hotel = _context.Hotel.Where(Hotel => Hotel.HotelId == offer.HotelId).First();
                 var city = _context.City.Where(City => City.CityId == hotel.CityId).First();
+                var country = _context.Country.Where(c => c.CountryId == city.CountryId).First();
 
-
-                offersViewModels.Add(new OfferViewModel()
+                if (!string.IsNullOrEmpty(countrySearch))
                 {
-                    Country = new Country("Spain"),
-                    Offer = offer,
-                    Hotel = hotel,
-                    City = city
-                }); 
-            }
-            
+                    if (country.Name.Contains(countrySearch))
+                    {
+                        offersViewModels.Add(new OfferViewModel()
+                        {
+                            Country = country,
+                            Offer = offer,
+                            Hotel = hotel,
+                            City = city
+                        });
 
-            var countryOfferVM = new CountryOfferViewModel()
-            {
-                Countries = new SelectList(await countryQuery.Distinct().ToListAsync()),
-                Offers = await offers.ToListAsync()
-            };
+                    }
+                }
+                else
+                {
+                    offersViewModels.Add(new OfferViewModel()
+                    {
+                        Country = country,
+                        Offer = offer,
+                        Hotel = hotel,
+                        City = city
+                    });
+                }
+
+            }
+
+            ViewBag.Countries = new SelectList(await countryQuery.Distinct().ToListAsync());
+
 
             return View(offersViewModels);
         }
 
+        public IActionResult Search(string? countrySearch)
+        {
+            IQueryable<string> countryQuery = from c in _context.Country
+                                              select c.Name;
+
+            var offers = from o in _context.Offer
+                         select o;
+
+            List<OfferViewModel> offersViewModels = new List<OfferViewModel>();
+
+            foreach (var offer in offers)
+            {
+                var hotel = _context.Hotel.Where(Hotel => Hotel.HotelId == offer.HotelId).First();
+                var city = _context.City.Where(City => City.CityId == hotel.CityId).First();
+                var country = _context.Country.Where(c => c.CountryId == city.CountryId).First();
+
+                if (!string.IsNullOrEmpty(countrySearch))
+                {
+                    if (country.Name == countrySearch)
+                    {
+                        offersViewModels.Add(new OfferViewModel()
+                        {
+                            Country = country,
+                            Offer = offer,
+                            Hotel = hotel,
+                            City = city
+                        });
+
+                    }
+                }
+                else
+                {
+                    offersViewModels.Add(new OfferViewModel()
+                    {
+                        Country = country,
+                        Offer = offer,
+                        Hotel = hotel,
+                        City = city
+                    });
+                }
+
+            }
+            ViewBag.Countries = new SelectList(countryQuery.Distinct().ToList());
+
+            return View(offersViewModels);
+
+        }
 
 
         // GET
