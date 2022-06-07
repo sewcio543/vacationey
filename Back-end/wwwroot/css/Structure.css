@@ -17,6 +17,7 @@ header {
 }
 
 body {
+    padding-top: 8vh;
     place-items: center;
     min-height: 100vh;
     margin: 0;
@@ -28,6 +29,9 @@ body {
     text-align: justify;
 }
 
+body:first-child{
+    margin-top: 8vh;
+}
 
 /*p {
     text-align: justify;

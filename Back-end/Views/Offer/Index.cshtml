@@ -4,23 +4,54 @@
     <img src="/images/test.jpg" alt="Hello">
 </div>
 
-<script type="text/javascript">
-    function submitForm() {
-        var select = document.getElementById("selectCountry");
-        var value = select.options[select.selectedIndex].value;
-        window.location.replace("Offer/Search?countrySearch=" + value );
-    };
-</script>
 
-<p>
+<div class="query">
 
-    Country
-    <select id="selectCountry" asp-items="ViewBag.Countries">
-        <option value="">All</option>
-    </select>
+    <div class="filter">
+        <p>
+            Country
+        </p>
 
-    <input type="submit" onclick="submitForm()" value="Filter" />
-</p>
+        <select id="selectCountry" asp-items="ViewBag.Countries">
+            <option value="">ViewBag.Default</option>
+        </select>
+    </div>
+
+    <div class="filter">
+        <p>
+            Country
+        </p>
+
+        <select id="selectCountry" asp-items="ViewBag.Countries">
+            <option value="">ViewBag.Default</option>
+        </select>
+    </div>
+     <div class="filter">
+        <p>
+            Country
+        </p>
+
+        <select id="selectCountry" asp-items="ViewBag.Countries">
+            <option value="">ViewBag.Default</option>
+        </select>
+    </div>
+
+     <div class="filter">
+        <p>
+            Country
+        </p>
+
+        <select id="selectCountry" asp-items="ViewBag.Countries">
+            <option value="">ViewBag.Default</option>
+        </select>
+    </div>
+
+
+
+    <input id="submit" type="submit" onclick="submitForm('Offer/Search?countrySearch=')" value="Filter" />
+
+
+</div>
 
 
 

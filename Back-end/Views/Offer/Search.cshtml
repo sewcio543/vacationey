@@ -1,16 +1,5 @@
 ﻿@model IEnumerable<Backend.Models.ViewModels.OfferViewModel>
 
-<div id="landing-page">
-    <img src="/images/test.jpg" alt="Hello">
-</div>
-
-<script type="text/javascript">
-    function submitForm() {
-        var select = document.getElementById("selectCountry");
-        var value = select.options[select.selectedIndex].value;
-        window.location.replace("Search?countrySearch=" + value );
-    };
-</script>
 
 <p>
 
@@ -19,7 +8,7 @@
         <option value="">All</option>
     </select>
 
-    <input type="submit" onclick="submitForm()" value="Filter" />
+    <input type="submit" onclick="submitForm('?countrySearch=')" value="Filter" />
 </p>
 
 

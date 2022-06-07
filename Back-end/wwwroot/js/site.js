@@ -1,4 +1,7 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
+﻿
+// redirecting with filters
+function submitForm(page) {
+    var select = document.getElementById("selectCountry");
+    var value = select.options[select.selectedIndex].value;
+    window.location.replace(page + value);
+};

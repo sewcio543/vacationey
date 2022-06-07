@@ -46,7 +46,7 @@ namespace Backend.Controllers
 
                 if (!string.IsNullOrEmpty(countrySearch))
                 {
-                    if (country.Name.Contains(countrySearch))
+                    if (country.Name == countrySearch)
                     {
                         offersViewModels.Add(new OfferViewModel()
                         {
@@ -71,19 +71,31 @@ namespace Backend.Controllers
 
             }
 
+
             ViewBag.Countries = new SelectList(await countryQuery.Distinct().ToListAsync());
 
 
             return View(offersViewModels);
         }
 
-        public IActionResult Search(string? countrySearch)
+        public IActionResult Search(string? countrySearch, string sortOrder)
         {
             IQueryable<string> countryQuery = from c in _context.Country
                                               select c.Name;
 
             var offers = from o in _context.Offer
                          select o;
+
+
+            switch (sortOrder)
+            {
+                case "desc":
+                    offers = offers.OrderByDescending(s => s.Price);
+                    break;
+                case "asc":
+                    offers = offers.OrderBy(s => s.Price);
+                    break;
+            }
 
             List<OfferViewModel> offersViewModels = new List<OfferViewModel>();
 
@@ -120,6 +132,7 @@ namespace Backend.Controllers
 
             }
             ViewBag.Countries = new SelectList(countryQuery.Distinct().ToList());
+            //ViewBag.Default = string.IsNullOrEmpty(countrySearch) && countryQuery.Distinct().ToList().Contains(countrySearch) ? "All" : countrySearch;
 
             return View(offersViewModels);
 
