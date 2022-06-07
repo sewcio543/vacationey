@@ -4,28 +4,30 @@
 
 
 }
+ <a asp-area="" asp-controller="Offer" asp-action="Details"  asp-route-id=@Model.Offer.OfferId>
 
-<div class="offer">
-    <img src="/images/test.jpg" />
-    <div class="info">
+    <div class="offer">
+        <img src="/images/test.jpg" />
+        <div class="info">
+            <p>
+                @Model.Country.Name
 
-        <p>
-            @Model.Country.Name
-          
-        </p>
-        <p>
-            @Model.Hotel.Name
-        </p>
-        <p>
-            @Model.Offer.Price
-            $
-        </p>
-        <p>
-            @Model.Offer.DateFrom.ToString("dd.MM.yyy") -
-            @Model.Offer.DateTo.ToString("dd.MM.yyy")
-        </p>
+            </p>
+            <p>
+                @Model.Hotel.Name
+            </p>
+            <p>
+                @Model.Offer.Price
+                $
+            </p>
+            <p>
+                @Model.Offer.DateFrom.ToString("dd.MM.yyy") -
+                @Model.Offer.DateTo.ToString("dd.MM.yyy")
+            </p>
 
+        </div>
     </div>
-</div>
+
+</a>
 
 

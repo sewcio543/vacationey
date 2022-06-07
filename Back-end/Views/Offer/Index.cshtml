@@ -13,7 +13,7 @@
         </p>
 
         <select id="selectCountry" asp-items="ViewBag.Countries">
-            <option value="">ViewBag.Default</option>
+            <option value="xd">ViewBag.Option</option>
         </select>
     </div>
 
@@ -48,13 +48,10 @@
 
 
 
-    <input id="submit" type="submit" onclick="submitForm('Offer/Search?countrySearch=')" value="Filter" />
+    <input id="submit" type="submit" onclick="submitForm('?countrySearch=')" value="Filter" />
 
 
 </div>
-
-
-
 
 
 @foreach (var item in Model)

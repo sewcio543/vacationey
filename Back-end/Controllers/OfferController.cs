@@ -71,6 +71,11 @@ namespace Backend.Controllers
 
             }
 
+            if (!string.IsNullOrEmpty(countrySearch))
+            {
+                ViewBag.Option = countrySearch;
+            }
+            ViewBag.Option = "XD";// (string.IsNullOrEmpty(countrySearch) || countryQuery.Distinct().ToList().Contains(countrySearch)) ? "All" : countrySearch;
 
             ViewBag.Countries = new SelectList(await countryQuery.Distinct().ToListAsync());
 
@@ -132,7 +137,7 @@ namespace Backend.Controllers
 
             }
             ViewBag.Countries = new SelectList(countryQuery.Distinct().ToList());
-            //ViewBag.Default = string.IsNullOrEmpty(countrySearch) && countryQuery.Distinct().ToList().Contains(countrySearch) ? "All" : countrySearch;
+            ViewBag.Option = (string.IsNullOrEmpty(countrySearch) && countryQuery.Distinct().ToList().Contains(countrySearch)) ? "All" : countrySearch;
 
             return View(offersViewModels);
 
@@ -181,14 +186,27 @@ namespace Backend.Controllers
             }
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details(int id = 1)
         {
             Offer? offer = _context.Offer.First(of => of.OfferId == id);
 
             if (offer == null)
                 return View("Index");
             else
-                return View(offer);
+            {
+                var hotel = _context.Hotel.Where(Hotel => Hotel.HotelId == offer.HotelId).First();
+                var city = _context.City.Where(City => City.CityId == hotel.CityId).First();
+                var country = _context.Country.Where(c => c.CountryId == city.CountryId).First();
+
+                var viewModel = new OfferViewModel()
+                {
+                    Country = country,
+                    Offer = offer,
+                    Hotel = hotel,
+                    City = city
+                };
+                return View(viewModel);
+            }
         }
 
         public ActionResult Filter(string country)

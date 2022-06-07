@@ -16,7 +16,7 @@ form {
     /*float: right;*/
 }
 
-.offer img {
+.details img {
     width: 60%;
     height: 100%;
     float: left;
@@ -40,72 +40,58 @@ form {
         height: 100vh;
     }
 
-.offer img:hover {
+.details img:hover {
     transform: scale(0.99);
 }
 
-.offer {
-    margin-top: 4%;
+.details {
+    margin-top: 6%;
     padding: 2%;
     width: 70%;
+    height: 70vh;
     border-style: outset;
-    height: 20vw;
     border-radius: 10px;
     transition: transform .5s, visibility .25s ease-in;
 }
 
-    .offer:hover {
-        transform: scale(1.02);
-        cursor: pointer;
-    }
 
 .info {
-    float: right;
-    width: 40%;
-    /* border-style: outset; */
-    height: 100%
+    width: 36%;
+    border-style: outset;
+    border-radius: 20px;
+    height: 100%;
 }
 
     .info p {
         width: 100%;
-        height: 25%;
+        height: 10%;
+        font-family: 'Montserrat', sans-seri;
+        font-size: 1.5rem;
+        font-weight: bold;
+        display: flex;
+        justify-content: left;
+        margin: auto;
+        margin-left:4%;
+    }
+
+    .info a {
+        width: 90%;
+        height: 10%;
         font-family: 'Montserrat', sans-seri;
         font-size: 1.5rem;
         font-weight: bold;
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: auto
+        margin-top: 10%;
+        border-radius: 50px;
+        border-style: outset;
+        background-color: var(--imageClassColor);
+        transition: transform .5s, visibility .25s ease-in;
     }
 
-.query {
-    margin-top: 2%;
-    width: 70vw;
-    height: 10vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-    .query .filter {
-        width: 20%;
-        height: 90%;
-        float: left;
-    }
-
-.filter p {
-    width: 100%;
-    font-size: 1.5rem;
-}
-
-.filter select {
-    width: 100%;
-    height: 40%;
-}
-
-#submit{
-    width: 10%;
-    height: 50%;
-    margin-left: 2%
-}
+        .info a:hover {
+            transform: scale(0.95);
+            border: 2px solid black;
+            cursor: pointer;
+        }

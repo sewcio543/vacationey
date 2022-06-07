@@ -7,6 +7,15 @@
     --bodyBackground: linear-gradient(to right top, #484c58, #434550, #3e3e47, #39373f, #333037);
 }
 
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+    a:hover {
+        color: inherit;
+        text-decoration: inherit;
+    }
 
 
 header {
@@ -29,9 +38,6 @@ body {
     text-align: justify;
 }
 
-body:first-child{
-    margin-top: 8vh;
-}
 
 /*p {
     text-align: justify;

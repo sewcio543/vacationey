@@ -32,12 +32,10 @@
     position: fixed;
     top: 0;
     left: 0;
-    padding: 0.5% 8% 0.5% 10%;
+    padding: 0.5% 8% 0.5% 0%;
     background-color: var(--background);
     width: 100%;
     height: 8vh;
-    display: flex;
-    justify-content: flex-end;
     align-items: center;
     font-family: 'Montserrat', sans-seri;
     font-weight: bold;
@@ -45,23 +43,21 @@
 
     .menu .logo {
         color: var(--nameColor);
-        width: 10%;
+        width: 30%;
         height: 100%;
-        margin-right: auto;
         display: flex;
         float: left;
         align-items: center;
         justify-content: center;
         font-weight: 500;
         font-size: 2rem;
-        animation: nameAnimation forwards 2s ease-in-out;
     }
 
 .dropbtn {
     text-decoration: none;
     width: 90%;
     height: 100%;
-    margin-left: 10%;
+    float: right;
     border-radius: 70px;
     font-size: 2rem;
     color: var(--buttonsBackground);
@@ -76,7 +72,7 @@
 }
 
 .dropdown {
-    margin-left: 10%;
+    float: right;
     width: 20%;
     height: 80%;
     justify-content: center;
