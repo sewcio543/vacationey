@@ -17,7 +17,7 @@ form {
 }
 
 .offer img {
-    width: 60%;
+    width: 50%;
     height: 100%;
     float: left;
     box-shadow: var(--imgshadows) 3px 1px 3px;
@@ -61,8 +61,8 @@ form {
 
 .info {
     float: right;
-    width: 30%;
-    /* border-style: outset; */
+    width: 40%;
+     /*border-style: outset;*/ 
     height: 100%;
 }
 
@@ -75,7 +75,8 @@ form {
         display: flex;
         justify-content: left;
         align-items: center;
-        margin: auto
+        margin: auto;
+        margin-left: 10%;
     }
 
 .query {

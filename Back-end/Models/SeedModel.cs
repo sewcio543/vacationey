@@ -56,7 +56,9 @@ namespace Backend.Models
                     {
                         Random random = new Random();
                         var index = random.Next(Cities.Count);
-                        var hotel = new Hotel(s, 3, Cities[index], true, true);
+                        var hotel = new Hotel(s, random.Next(1, 6), Cities[index], 
+                            random.Next(0,2) == 1 ? true : false,
+                            random.Next(0, 2) == 1 ? true : false) ;
                         Hotels.Add(hotel);
                     }
                 }

@@ -1,6 +1,7 @@
 ﻿using Backend.Models;
 using Backend.Models.DbModels;
 using Backend.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -69,17 +70,12 @@ namespace Backend.Controllers
                                 Hotel = hotel,
                                 City = city
                             });
-
                         }
                     }
-
                 }
             }
 
-
-
-
-            ViewBag.Option = string.IsNullOrEmpty(countrySearch) ? "All" : countrySearch;
+            ViewBag.Country = string.IsNullOrEmpty(countrySearch) ? "All" : countrySearch;
             ViewBag.Order = string.IsNullOrEmpty(sortOrder) ? "" : sortOrder;
             ViewBag.CityFrom = string.IsNullOrEmpty(cityFrom) ? "All" : cityFrom;
             ViewBag.CityTo = string.IsNullOrEmpty(cityTo) ? "All" : cityTo;
@@ -88,8 +84,6 @@ namespace Backend.Controllers
             ViewBag.CitiesFrom = new SelectList(cityQuery.Distinct().ToList());
             ViewBag.CitiesTo = new SelectList(cityQuery.Distinct().ToList());
 
-
-
             return View(offersViewModels);
         }
 
@@ -97,6 +91,7 @@ namespace Backend.Controllers
 
 
         // GET
+        [Authorize]
         public ActionResult Create()
         {
             var offer = new Offer();

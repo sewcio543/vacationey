@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Backend.Models.ViewModels.OfferViewModel>
 
 <div id="landing-page">
-    <img src="/images/photos/test.jpg" alt="Hello">
+    <img src="/images/photos/test1.jpg" alt="Hello">
 </div>
 
 
@@ -13,8 +13,8 @@
         </p>
 
         <select id="selectCountry" asp-items=@ViewBag.Countries>
-            <option>@ViewBag.Option</option>
-            @if (@ViewBag.Option != "All")
+            <option>@ViewBag.Country</option>
+            @if (@ViewBag.Country != "All")
             {
                 <option>All</option>
             }
