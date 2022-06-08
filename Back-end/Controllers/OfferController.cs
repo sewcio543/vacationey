@@ -18,20 +18,28 @@ namespace Backend.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(string countrySearch, string sortOrder)
+        public async Task<IActionResult> Index(string countrySearch, string sortOrder, string cityFrom, string cityTo)
         {
             IQueryable<string> countryQuery = from c in _context.Country
+                                              where c.Name != countrySearch
+                                              orderby c.Name
                                               select c.Name;
+
+            IQueryable<string> cityQuery = from c in _context.City
+                                           where c.Name != cityFrom && c.Name != cityTo
+                                           orderby c.Name
+                                           select c.Name;
+
 
             var offers = from o in _context.Offer
                          select o;
 
             switch (sortOrder)
             {
-                case "desc":
+                case "Descending":
                     offers = offers.OrderByDescending(s => s.Price);
                     break;
-                case "asc":
+                case "Ascending":
                     offers = offers.OrderBy(s => s.Price);
                     break;
             }
@@ -42,106 +50,50 @@ namespace Backend.Controllers
             {
                 var hotel = _context.Hotel.Where(Hotel => Hotel.HotelId == offer.HotelId).First();
                 var city = _context.City.Where(City => City.CityId == hotel.CityId).First();
+                var cityDep = _context.City.Where(City => City.CityId == offer.DepartureCityId).First();
+
+
                 var country = _context.Country.Where(c => c.CountryId == city.CountryId).First();
 
-                if (!string.IsNullOrEmpty(countrySearch))
+
+                if (country.Name == countrySearch || string.IsNullOrEmpty(countrySearch))
                 {
-                    if (country.Name == countrySearch)
+                    if (cityDep.Name == cityFrom || string.IsNullOrEmpty(cityFrom))
                     {
-                        offersViewModels.Add(new OfferViewModel()
+                        if (city.Name == cityTo || string.IsNullOrEmpty(cityTo))
                         {
-                            Country = country,
-                            Offer = offer,
-                            Hotel = hotel,
-                            City = city
-                        });
+                            offersViewModels.Add(new OfferViewModel()
+                            {
+                                Country = country,
+                                Offer = offer,
+                                Hotel = hotel,
+                                City = city
+                            });
 
+                        }
                     }
-                }
-                else
-                {
-                    offersViewModels.Add(new OfferViewModel()
-                    {
-                        Country = country,
-                        Offer = offer,
-                        Hotel = hotel,
-                        City = city
-                    });
-                }
 
+                }
             }
 
-            if (!string.IsNullOrEmpty(countrySearch))
-            {
-                ViewBag.Option = countrySearch;
-            }
-            ViewBag.Option = "XD";// (string.IsNullOrEmpty(countrySearch) || countryQuery.Distinct().ToList().Contains(countrySearch)) ? "All" : countrySearch;
-
-            ViewBag.Countries = new SelectList(await countryQuery.Distinct().ToListAsync());
 
 
-            return View(offersViewModels);
-        }
 
-        public IActionResult Search(string? countrySearch, string sortOrder)
-        {
-            IQueryable<string> countryQuery = from c in _context.Country
-                                              select c.Name;
+            ViewBag.Option = string.IsNullOrEmpty(countrySearch) ? "All" : countrySearch;
+            ViewBag.Order = string.IsNullOrEmpty(sortOrder) ? "" : sortOrder;
+            ViewBag.CityFrom = string.IsNullOrEmpty(cityFrom) ? "All" : cityFrom;
+            ViewBag.CityTo = string.IsNullOrEmpty(cityTo) ? "All" : cityTo;
 
-            var offers = from o in _context.Offer
-                         select o;
-
-
-            switch (sortOrder)
-            {
-                case "desc":
-                    offers = offers.OrderByDescending(s => s.Price);
-                    break;
-                case "asc":
-                    offers = offers.OrderBy(s => s.Price);
-                    break;
-            }
-
-            List<OfferViewModel> offersViewModels = new List<OfferViewModel>();
-
-            foreach (var offer in offers)
-            {
-                var hotel = _context.Hotel.Where(Hotel => Hotel.HotelId == offer.HotelId).First();
-                var city = _context.City.Where(City => City.CityId == hotel.CityId).First();
-                var country = _context.Country.Where(c => c.CountryId == city.CountryId).First();
-
-                if (!string.IsNullOrEmpty(countrySearch))
-                {
-                    if (country.Name == countrySearch)
-                    {
-                        offersViewModels.Add(new OfferViewModel()
-                        {
-                            Country = country,
-                            Offer = offer,
-                            Hotel = hotel,
-                            City = city
-                        });
-
-                    }
-                }
-                else
-                {
-                    offersViewModels.Add(new OfferViewModel()
-                    {
-                        Country = country,
-                        Offer = offer,
-                        Hotel = hotel,
-                        City = city
-                    });
-                }
-
-            }
             ViewBag.Countries = new SelectList(countryQuery.Distinct().ToList());
-            ViewBag.Option = (string.IsNullOrEmpty(countrySearch) && countryQuery.Distinct().ToList().Contains(countrySearch)) ? "All" : countrySearch;
+            ViewBag.CitiesFrom = new SelectList(cityQuery.Distinct().ToList());
+            ViewBag.CitiesTo = new SelectList(cityQuery.Distinct().ToList());
+
+
 
             return View(offersViewModels);
-
         }
+
+
 
 
         // GET

@@ -18,14 +18,14 @@ namespace Backend.Models.DbModels
         public DbSet<User>? User { get; set; }
         public DbSet<Admin>? Admin { get; set; }
 
-  
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            modelBuilder.Entity<Offer>().Property(o => o.Price).HasConversion<double>();
         }
 
-    
+
     }
 
 }

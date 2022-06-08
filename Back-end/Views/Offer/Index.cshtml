@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Backend.Models.ViewModels.OfferViewModel>
 
 <div id="landing-page">
-    <img src="/images/test.jpg" alt="Hello">
+    <img src="/images/photos/test.jpg" alt="Hello">
 </div>
 
 
@@ -12,43 +12,69 @@
             Country
         </p>
 
-        <select id="selectCountry" asp-items="ViewBag.Countries">
-            <option value="xd">ViewBag.Option</option>
+        <select id="selectCountry" asp-items=@ViewBag.Countries>
+            <option>@ViewBag.Option</option>
+            @if (@ViewBag.Option != "All")
+            {
+                <option>All</option>
+            }
         </select>
     </div>
 
     <div class="filter">
         <p>
-            Country
+            Price
         </p>
+        <select id="priceOrder">
+            <option>@ViewBag.Order</option>
+            @if (@ViewBag.Order != "Ascending")
+            {
+                <option>Ascending</option>
+            }
+            @if (@ViewBag.Order != "Descending")
+            {
+                <option>Descending</option>
+            }
+            @if (@ViewBag.Order != "")
+            {
+                <option></option>
+            }
 
-        <select id="selectCountry" asp-items="ViewBag.Countries">
-            <option value="">ViewBag.Default</option>
         </select>
     </div>
+
      <div class="filter">
         <p>
-            Country
+            From
         </p>
 
-        <select id="selectCountry" asp-items="ViewBag.Countries">
-            <option value="">ViewBag.Default</option>
+        <select id="selectFrom" asp-items=@ViewBag.CitiesFrom>
+            <option>@ViewBag.CityFrom</option>
+            @if (@ViewBag.CityFrom != "All")
+            {
+                <option>All</option>
+            }
         </select>
     </div>
 
      <div class="filter">
         <p>
-            Country
+            To
         </p>
-
-        <select id="selectCountry" asp-items="ViewBag.Countries">
-            <option value="">ViewBag.Default</option>
+        <select id="selectTo" asp-items=@ViewBag.CitiesTo>>
+            <option>@ViewBag.CityTo</option>
+            @if (@ViewBag.CityTo != "All")
+            {
+                <option>All</option>
+            }
         </select>
     </div>
 
 
 
-    <input id="submit" type="submit" onclick="submitForm('?countrySearch=')" value="Filter" />
+
+
+    <input id="submit" type="submit" onclick="submitForm()" value="Filter" />
 
 
 </div>

@@ -64,10 +64,12 @@ namespace Backend.Models
                 for (int i = 0; i < 50; i++)
                 {
                     Random random = new Random();
+                    // To
                     var indexHotel = random.Next(Hotels.Count);
+                    // From
                     var indexCity = random.Next(Cities.Count);
 
-                    var offer = new Offer("---", Hotels[indexHotel], 2000, DateTime.Now, DateTime.Now,
+                    var offer = new Offer("---", Hotels[indexHotel], random.Next(1000,3000), DateTime.Now, DateTime.Now.AddDays(7),
                         Cities[indexCity], Hotels[indexHotel].City, true, 1);
                     context.Offer.Add(offer);
 

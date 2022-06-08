@@ -6,10 +6,14 @@
         return active ? "Yes" : "No";
     }
 
+    var random = new Random();
+    var photoID = random.Next(1, 11);
+    var path = $"/images/photos/test{photoID}.jpg";
+
 }
 
 <div class="details">
-    <img src="/images/test.jpg" />
+    <img src=@path />
     <div class="info">
         <p>
             Country: &nbsp;&nbsp; @Model.Country.Name
