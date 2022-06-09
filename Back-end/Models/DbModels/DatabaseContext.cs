@@ -27,6 +27,14 @@ namespace Backend.Models.DbModels
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Offer>().Property(o => o.Price).HasConversion<double>();
+
+            modelBuilder.Entity<Offer>()
+           .Property(o => o.DateFrom)
+           .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<Offer>()
+           .Property(o => o.DateTo)
+           .HasDefaultValueSql("getdate()");
         }
 
     }

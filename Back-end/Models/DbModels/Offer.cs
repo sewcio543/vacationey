@@ -13,9 +13,7 @@ namespace Backend.Models.DbModels
             DateFrom = dateFrom;
             DateTo = dateTo;
             DepartureCity = departureCity;
-            ArrivalCity = arrivalCity;
             FullBoard = fullBoard;
-            //Admin = admin;
         }
         public Offer() { }
 
@@ -44,14 +42,8 @@ namespace Backend.Models.DbModels
         public int DepartureCityId { get; set; }
 
         public City? DepartureCity { get; set; }
-        public int ArrivalCityId { get; set; }
-
-        public City? ArrivalCity { get; set; }
 
         public bool FullBoard { get; set; }
 
-
-        [Column("CreatedBy")]
-        public Admin? Admin { get; set; }
     }
 }
