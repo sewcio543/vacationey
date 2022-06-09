@@ -1,31 +1,35 @@
 ﻿using Backend.Models.DbModels;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 //using System.Data.Entity;
 
 
 namespace Backend.Models.DbModels
 {
-    public class DatabaseContext : DbContext
+    public class DatabaseContext : IdentityDbContext<IdentityUser>
     {
-        public DatabaseContext(DbContextOptions<DatabaseContext> options)
-            : base(options) { }
+        private readonly DbContextOptions _options;
+
+        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
+        {
+            _options = options;
+        }
 
         public DbSet<Country>? Country { get; set; }
-        //public DbSet<Region>? Region { get; set; }
         public DbSet<City>? City { get; set; }
         public DbSet<Hotel>? Hotel { get; set; }
         public DbSet<Offer>? Offer { get; set; }
-        public DbSet<User>? User { get; set; }
-        public DbSet<Admin>? Admin { get; set; }
 
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Offer>().Property(o => o.Price).HasConversion<double>();
         }
-
 
     }
 
 }
+

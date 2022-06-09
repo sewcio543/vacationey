@@ -20,6 +20,10 @@ function submitForm() {
     if (cityFrom != "All") { url = url + 'cityFrom=' + cityFrom + '&' };
     if (cityTo != "All") { url = url + 'cityTo=' + cityTo };
 
-    window.location.replace(url);
 
+    window.location.replace(url);
+    //delay(5000).then(() => console.log('ran after 1 second1 passed'));
+    //document.getElementById("query-filters").scrollIntoView();
+    
 };
+

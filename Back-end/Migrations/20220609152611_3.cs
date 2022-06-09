@@ -4,7 +4,7 @@
 
 namespace Backend.Migrations
 {
-    public partial class mod : Migration
+    public partial class _3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

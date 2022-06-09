@@ -1,0 +1,68 @@
+﻿:root {
+    --foreground: #C9C5CE;
+    --hrshadows: #342B09;
+    --textshadow: #ffffff;
+    --bodyBackground: linear-gradient(to right top, #484c58, #434550, #3e3e47, #39373f, #333037);
+}
+
+.log-form {
+    width: 60%;
+    height: 60vh;
+    margin-top: 8%;
+    border-style: outset;
+    margin-bottom: 10%;
+    border-radius: 30px
+}
+
+.form-floating {
+    margin-top: 1.5%;
+    /*float: left;*/
+    width: 50%;
+    font-size: 1.3rem;
+    color: black;
+    font-style: italic;
+}
+
+.checkbox {
+    margin-top: 1%;
+    font-size: 1.1rem;
+}
+
+#login {
+    margin-top: 1%;
+    width: 40%;
+    height: 5vh;
+    border-radius: 40px;
+    color: black;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-style: outset;
+    background-color: aliceblue;
+    transition: transform .5s, visibility .25s ease-in;
+}
+
+    #login:hover {
+        transform: scale(1.02);
+    }
+
+#register {
+    margin-top: 3%;
+    width: 1px;
+    width: 40%;
+    height: 6vh;
+    border-radius: 40px;
+    color: black;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-style: outset;
+    background-color: aliceblue;
+    transition: transform .5s, visibility .25s ease-in;
+}
+
+    #register:hover {
+        transform: scale(1.02);
+    }
+
+.requests {
+    margin-top: 2%;
+}

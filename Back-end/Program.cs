@@ -5,17 +5,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 using Microsoft.AspNetCore.Identity;
-using Backend.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("BackendContextConnection") ?? throw new InvalidOperationException("Connection string 'BackendContextConnection' not found.");
-
-builder.Services.AddDbContext<BackendContext>(options =>
-    options.UseSqlite(connectionString));;
 
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<BackendContext>();;
+builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<DatabaseContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -62,11 +56,17 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Offer}/{action=Index}/{id?}");
+    endpoints.MapRazorPages();
+});
 
 
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Offer}/{action=Index}/{id?}");
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Offer}/{action=Index}/{id?}");
 
 app.Run();

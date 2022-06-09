@@ -19,8 +19,10 @@ namespace Backend.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(string countrySearch, string sortOrder, string cityFrom, string cityTo)
+        public IActionResult Index(string countrySearch, string sortOrder, string cityFrom, string cityTo)
         {
+
+ 
             IQueryable<string> countryQuery = from c in _context.Country
                                               where c.Name != countrySearch
                                               orderby c.Name
@@ -30,6 +32,7 @@ namespace Backend.Controllers
                                            where c.Name != cityFrom && c.Name != cityTo
                                            orderby c.Name
                                            select c.Name;
+
 
 
             var offers = from o in _context.Offer
@@ -82,6 +85,19 @@ namespace Backend.Controllers
 
             ViewBag.Countries = new SelectList(countryQuery.Distinct().ToList());
             ViewBag.CitiesFrom = new SelectList(cityQuery.Distinct().ToList());
+
+
+
+            if (!string.IsNullOrEmpty(countrySearch))
+            {
+                var countryId = _context.Country.Where(c => c.Name == countrySearch).First().CountryId;
+                cityQuery = from c in _context.City
+                            join cn in _context.Country on c.CountryId equals cn.CountryId
+                            where c.Name != cityFrom && c.Name != cityTo && c.CountryId == countryId
+                            orderby c.Name
+                            select c.Name;
+            }
+
             ViewBag.CitiesTo = new SelectList(cityQuery.Distinct().ToList());
 
             return View(offersViewModels);
