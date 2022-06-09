@@ -1,0 +1,97 @@
+﻿#image_container {
+    margin-top:5vh;
+    width: 70vw;
+    height: 30vw;
+    background-color: white;
+    display: flex;
+    overflow: hidden;
+    border-radius:20px;
+}
+
+.photo {
+    width: 70vw;
+    height: 30vw;
+}
+
+.slider {
+    width: 70vw;
+    height: 30vw;
+    border-radius: 10px;
+}
+
+input {
+    display: none;
+}
+
+.slide {
+    transition: 2s;
+}
+
+.navig-auto {
+    position: absolute;
+    width: 70vw;
+    margin-top: 460px;
+    justify-content: center;
+    display: flex;
+}
+
+.navig-auto div {
+     border: 4px solid #484C58;
+     padding: 5px;
+     margin: 10px;
+     border-radius: 10px;
+     transition: 0.5s;
+    }
+
+.nav-manual {
+    position: absolute;
+    width: 70vw;    
+    margin-top: 460px;
+    justify-content: center;
+    display: flex;
+}
+
+.manual-btn {
+    border: 4px solid #484C58;
+    padding: 5px;
+    margin: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.5s
+}
+
+.manual-btn:hover {
+    background-color: white;
+}
+
+#btn1:checked ~ .first {
+    margin-left: 0;
+}
+
+#btn2:checked ~ .first {
+    margin-left: -100%;
+}
+
+#btn3:checked ~ .first {
+    margin-left: -200%;
+}
+
+#btn4:checked ~ .first {
+    margin-left: -300%;
+}
+
+#btn1:checked ~ .navig-auto .auto-btn1 {
+    background-color: white;
+}
+
+#btn2:checked ~ .navig-auto .auto-btn2 {
+    background-color: white;
+}
+
+#btn3:checked ~ .navig-auto .auto-btn3 {
+    background-color: white;
+}
+
+#btn4:checked ~ .navig-auto .auto-btn4 {
+    background-color: white;
+}
