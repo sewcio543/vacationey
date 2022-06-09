@@ -109,6 +109,17 @@ namespace Backend.Controllers
         [Authorize]
         public ActionResult Create()
         {
+            //IQueryable<string> cityQuery = from c in _context.City
+            //                               orderby c.Name
+            //                               select c.Name;
+
+            //IQueryable<string> hotelQuery = from h in _context.Hotel
+            //                               orderby h.Name
+            //                               select h.Name;
+
+            //ViewBag.Cities = new SelectList(cityQuery.Distinct().ToList());
+            //ViewBag.Hotels = new SelectList(hotelQuery.Distinct().ToList());
+
             var offer = new Offer();
             return View(offer);
         }
@@ -116,13 +127,35 @@ namespace Backend.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Offer offer)
         {
-            if (ModelState.IsValid)
+            IQueryable<string> cityQuery = from c in _context.City
+                                           orderby c.Name
+                                           select c.Name;
+
+            IQueryable<string> hotelQuery = from h in _context.Hotel
+                                            orderby h.Name
+                                            select h.Name;
+
+            //var hotelId = _context.Hotel.Where(Hotel => Hotel.Name == offer.HotelId).First().HotelId;
+            //var cityId = _context.City.Where(City => City.CityId == hotelId).First().CityId;
+
+            //offer.HotelId = hotelId;
+            //offer.DepartureCityId = cityId;
+            //ViewBag.c = offer.HotelId;
+            //offer.DateFrom = Convert.ToDateTime(offer.DateFrom.ToString("yyyy-MM-dd")); 
+            //offer.DateTo = Convert.ToDateTime(offer.DateTo.ToString("yyyy-MM-dd"));
+            //ViewBag.o = offer;
+
+            if (true)
             {
                 _context.Add(offer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewBag.Cities = new SelectList(cityQuery.Distinct().ToList());
+            ViewBag.Hotels = new SelectList(hotelQuery.Distinct().ToList());
             return View(offer);
+
         }
 
 

@@ -1,60 +1,71 @@
 ﻿@model Backend.Models.DbModels.Offer
 
 @{
-    ViewData["Title"] = "Create";
+    var today = DateTime.Now.Date.ToString("yyyy-MM-dd");
+    var oneWeek = DateTime.Now.Date.AddDays(7).ToString("yyyy-MM-dd");
+
 }
 
-<h1>Create</h1>
-
-<h4>Offer</h4>
+<h1>Create Offer</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="HotelId" class="control-label"></label>
-                <select asp-for="HotelId" class ="form-control" asp-items="ViewBag.HotelId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateFrom" class="control-label"></label>
-                <input asp-for="DateFrom" class="form-control" />
-                <span asp-validation-for="DateFrom" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateTo" class="control-label"></label>
-                <input asp-for="DateTo" class="form-control" />
-                <span asp-validation-for="DateTo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DepartureCityId" class="control-label"></label>
-                <select asp-for="DepartureCityId" class ="form-control" asp-items="ViewBag.DepartureCityId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="ArrivalCityId" class="control-label"></label>
-                <select asp-for="ArrivalCityId" class ="form-control" asp-items="ViewBag.ArrivalCityId"></select>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="FullBoard" /> @Html.DisplayNameFor(model => model.FullBoard)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+
+<div class="createForm">
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="HotelId" class="control-label">Hotel</label>
+            <input asp-for="HotelId" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Price" class="control-label">Price</label>
+            <input asp-for="Price" class="form-control" value=2000 />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DateFrom" class="control-label">Date From</label>
+            <input asp-for="DateFrom" placeholder=@today value=@today class="form-control" />
+            <span asp-validation-for="DateFrom" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DateTo" class="control-label">Date To</label>
+            <input asp-for="DateTo" placeholder=@oneWeek value=@oneWeek class="form-control" />
+            <span asp-validation-for="DateTo" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DepartureCityId" class="control-label">Departure City</label>
+            <input asp-for="DepartureCityId" class="form-control" />
+        </div>
+
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="FullBoard" /> Full Board
+            </label>
+        </div>
+
+        <div>
+            <button id="submitCreate" type="submit">Create</button>
+        </div>
+
+    </form>
 </div>
+
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
 
+
+
+
+
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
 }
+}
+
