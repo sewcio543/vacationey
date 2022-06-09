@@ -22,7 +22,6 @@ namespace Backend.Controllers
         public IActionResult Index(string countrySearch, string sortOrder, string cityFrom, string cityTo)
         {
 
- 
             IQueryable<string> countryQuery = from c in _context.Country
                                               where c.Name != countrySearch
                                               orderby c.Name
@@ -36,7 +35,7 @@ namespace Backend.Controllers
 
 
             var offers = from o in _context.Offer
-                         select o;
+                                        select o;
 
             switch (sortOrder)
             {

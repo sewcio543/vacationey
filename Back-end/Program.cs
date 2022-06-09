@@ -1,9 +1,6 @@
 using Backend.Models;
 using Backend.Models.DbModels;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,15 +16,6 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 
 builder.Services.AddRazorPages();
 
-//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-//    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
-//        options =>
-//        {
-//            options.LoginPath = new PathString("/auth/login");
-//            options.AccessDeniedPath = new PathString("/auth/denied");
-//        });
-
-//builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<BackendContext>();
 
 var app = builder.Build();
 
@@ -64,9 +52,5 @@ app.UseEndpoints(endpoints =>
     endpoints.MapRazorPages();
 });
 
-
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Offer}/{action=Index}/{id?}");
 
 app.Run();
