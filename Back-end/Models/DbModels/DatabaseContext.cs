@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Models.DbModels
 {
-    public class DatabaseContext : IdentityDbContext<IdentityUser>
+    public class DatabaseContext : IdentityDbContext<IdentityUser, IdentityRole, string>
     {
         private readonly DbContextOptions _options;
 

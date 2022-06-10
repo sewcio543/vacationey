@@ -12,9 +12,11 @@ namespace Backend.Models.DbModels
         [Required]
         [StringLength(50)]
         public string? Name { get; set; }
-        public int CountryId { get; set; }
 
         [Required]
+        [ForeignKey("Country")]
+        public int CountryId { get; set; }
+
         public Country? Country{ get; set; }
 
         public City(){}

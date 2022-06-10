@@ -13,8 +13,10 @@ namespace Backend.Models.DbModels
         [StringLength(50)]
         public string? Name { get; set; }
 
+        [Range(1, 5, ErrorMessage = "Value out of range")] 
         public int Rate { get; set; }
 
+        [ForeignKey("City")]
         public int CityId { get; set; }
 
         [Required]

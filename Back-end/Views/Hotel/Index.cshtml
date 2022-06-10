@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Backend.Models.ViewModels.HotelViewModel>
+
+@foreach (var item in Model)
+{
+    <partial name="Hotel" model=item />
+}
+
+@try{
+    Model.First();
+
+    <div class="buttons">
+        <a id="prevPage" onclick="submitForm(-1)"> &lt; </a>
+        <a id="nextPage" onclick="submitForm(1)"> > </a>
+    </div>
+
+
+} catch{}

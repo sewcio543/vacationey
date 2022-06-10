@@ -28,7 +28,7 @@ namespace Backend.Controllers
                      select h.Name;
         }
 
-
+        [AllowAnonymous]
         public IActionResult Index(string countrySearch, string sortOrder, string cityFrom, string cityTo, int page)
         {
 
@@ -117,7 +117,7 @@ namespace Backend.Controllers
 
 
         // GET
-        //[Authorize]
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.Cities = new SelectList(cities.Distinct().ToList());
@@ -128,8 +128,8 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[Authorize]
+        [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create(CreateOfferViewModel offerModel)
         {
             var hotelId = _context.Hotel.First(Hotel => Hotel.Name == offerModel.Hotel).HotelId;
@@ -158,7 +158,7 @@ namespace Backend.Controllers
 
         }
 
-        //[Authorize]
+        [Authorize]
         public ActionResult Edit(int id)
         {
             var offer = _context.Offer.First(of => of.OfferId == id);
@@ -177,8 +177,8 @@ namespace Backend.Controllers
 
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[Authorize]
+        [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(CreateOfferViewModel newModel)
         {
             var offer = _context.Offer.Find(newModel.OfferId);
@@ -205,7 +205,7 @@ namespace Backend.Controllers
             return View(GenerateCreateOfferViewModel(newModel.OfferId));
         }
 
-        public ActionResult Details(int id = 1)
+        public IActionResult Details(int id = 1)
         {
             var offer = _context.Offer.First(of => of.OfferId == id);
 
@@ -218,6 +218,7 @@ namespace Backend.Controllers
             }
         }
 
+        [Authorize]
         public IActionResult Delete(int id)
         {
             var offer = _context.Offer.First(of => of.OfferId == id);
@@ -234,6 +235,7 @@ namespace Backend.Controllers
         // POST: OfferController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Delete(int id, IFormCollection collection)
         {
             var offer = _context.Offer.First(of => of.OfferId == id);
@@ -257,6 +259,7 @@ namespace Backend.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        //
         public OfferViewModel GenerateOfferViewModel(int offerId)
         {
             var offer = _context.Offer.Find(offerId);

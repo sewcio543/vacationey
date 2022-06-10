@@ -21,10 +21,10 @@ namespace Backend.Models.DbModels
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int OfferId { get; set; }
 
-
+        [Required]
+        [ForeignKey("Hotel")]
         public int HotelId { get; set; }
 
-        [Required]
         public Hotel? Hotel { get; set; }
 
         [Required]
@@ -39,6 +39,7 @@ namespace Backend.Models.DbModels
         [DataType(DataType.Date)]
         public DateTime DateTo { get; set; }
 
+        [ForeignKey("City")]
         public int DepartureCityId { get; set; }
 
         public City? DepartureCity { get; set; }

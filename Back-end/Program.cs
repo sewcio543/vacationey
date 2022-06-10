@@ -3,10 +3,34 @@ using Backend.Models.DbModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<DatabaseContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+                                     options.SignIn.RequireConfirmedAccount = false)
+                                    .AddRoles<IdentityRole>()
+                                    .AddEntityFrameworkStores<DatabaseContext>();
+
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    // Default Lockout settings.
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.AllowedForNewUsers = true;
+});
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    // Default Password settings.
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 6;
+});
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -16,8 +40,8 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 
 builder.Services.AddRazorPages();
 
-
 var app = builder.Build();
+
 
 
 // Configure the HTTP request pipeline.

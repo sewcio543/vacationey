@@ -1,0 +1,53 @@
+﻿@model Backend.Models.ViewModels.HotelViewModel
+
+@{
+
+    var random = new Random();
+    var photoID = random.Next(1, 11);
+    var path = $"/images/photos/test{photoID}.jpg";
+}
+
+<a asp-area="" asp-controller="Hotel" asp-action="Details" asp-route-id=@Model.Hotel.HotelId>
+
+    <div class="offer">
+
+        <img src=@path>
+
+        <div class="info">
+
+            <p>
+                @Model.Hotel.Name
+
+            </p>
+            <p>
+                @Model.City.Name
+            </p>
+           <div id="stars">
+
+                @for (int i = 0; i < Model.Hotel.Rate; i++)
+                {
+                    <span class="star">&#9733;</span>
+                }
+                @for (int i = Model.Hotel.Rate; i < 5; i++)
+                {
+                    <span class="star">&#9734;</span>
+                }
+
+            </div>
+
+        </div>
+        <div class="edit-delete">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a asp-area="" asp-controller="Hotel" asp-action="Edit" asp-route-id=@Model.Hotel.HotelId class="edit">Edit</a>
+                <a asp-area="" asp-controller="Hotel" asp-action="Delete" asp-route-id=@Model.Hotel.HotelId class="edit">Delete</a>
+
+            }
+        </div>
+
+
+    </div>
+
+</a>
+
+

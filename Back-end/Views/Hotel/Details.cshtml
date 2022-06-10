@@ -1,0 +1,57 @@
+﻿@model Backend.Models.ViewModels.HotelViewModel
+@{
+    string YesNo(bool active)
+    {
+        return active ? "Yes" : "No";
+    }
+
+    var random = new Random();
+    var photoID = random.Next(1, 11);
+    var path = $"/images/photos/test{photoID}.jpg";
+
+}
+
+<div class="details">
+    <img src=@path />
+    <div class="infoDetails">
+        <p>
+            Name: &nbsp;&nbsp; @Model.Hotel.Name
+        </p>
+        <p>
+            City: &nbsp;&nbsp; @Model.City.Name
+        </p>
+
+        <p id="stars">
+            @*<div id="stars">*@
+
+            @for (int i = 0; i < Model.Hotel.Rate; i++)
+            {
+                <span class="star">&#9733;</span>
+            }
+            @for (int i = Model.Hotel.Rate; i < 5; i++)
+            {
+                <span class="star">&#9734;</span>
+            }
+
+            @*</div>*@
+
+        </p>
+        <p>
+            Wi-Fi: &nbsp;&nbsp;  @YesNo(Model.Hotel.WiFi)
+        </p>
+        <p>
+            Pool: &nbsp;&nbsp;  @Model.Hotel.Pool
+        </p>
+
+        <a asp-area="" asp-controller="Hotel" asp-action="Edit">Edit</a>
+        <a asp-area="" asp-controller="Hotel" asp-action="Index">Back To List</a>
+
+
+    </div>
+</div>
+
+
+
+
+
+
