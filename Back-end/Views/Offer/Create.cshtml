@@ -1,4 +1,4 @@
-﻿@model Backend.Models.DbModels.Offer
+﻿@model Backend.Models.ViewModels.CreateOfferViewModel
 
 @{
     var today = DateTime.Now.Date.ToString("yyyy-MM-dd");
@@ -14,13 +14,13 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <div class="form-group">
-            <label asp-for="HotelId" class="control-label">Hotel</label>
-            <input asp-for="HotelId" class="form-control" />
+            <label asp-for="Hotel" class="control-label">Hotel</label>
+            <select asp-for="Hotel" class="form-control" asp-items=@ViewBag.Hotels></select>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" id="s">
             <label asp-for="Price" class="control-label">Price</label>
-            <input asp-for="Price" class="form-control" value=2000 />
+            <input asp-for="Price" class="form-control" value=2000/>
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
 
@@ -37,8 +37,9 @@
         </div>
 
         <div class="form-group">
-            <label asp-for="DepartureCityId" class="control-label">Departure City</label>
-            <input asp-for="DepartureCityId" class="form-control" />
+            <label asp-for="DepartureCity" class="control-label">Departure City</label>
+            <select asp-for="DepartureCity" class="form-control" asp-items=@ViewBag.Cities></select>
+
         </div>
 
         <div class="form-group form-check">

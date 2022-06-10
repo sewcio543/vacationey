@@ -10,7 +10,7 @@
 }
 
     .createForm .form-group {
-        margin-top: 3%;
+        margin-top: 4%;
         width: 60%;
         height: 7vh;
     }
@@ -20,10 +20,17 @@
         font-weight: bold;
         margin-bottom: 2%
     }
-    .createForm input {
+    .createForm input{
         font-size: 1.2rem;
+        margin-top: 2%;
         margin-bottom: 2%
     }
+
+    .createForm select {
+        margin-top: 2%;
+        margin-bottom: 2%
+    }
+
 
 #submitCreate {
     width: 40%;

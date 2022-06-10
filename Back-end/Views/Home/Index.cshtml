@@ -1,39 +1,4 @@
-﻿<link href="@Url.Content("/css/slider.css")" rel="stylesheet" type="text/css" />
-@section Scripts {
-  <script src="~/js/slider.js"></script>
-}
-<div id="landing-page">
-    <img src="/images/photos/test1.jpg" alt="Hello">
+﻿
+<div id="slider">
+    <img id="slidePhoto fade" src="~/images/photos/test1.jpg" alt="">
 </div>
-
-  <div id="image_container">
-    <input type="radio" name="radio-btn" onclick="jeden()" id="btn1">
-    <input type="radio" name="radio-btn" onclick="dwa()" id="btn2">
-    <input type="radio" name="radio-btn" onclick="trzy()" id="btn3">
-    <input type="radio" name="radio-btn" onclick="cztery()" id="btn4">
-    <div class="slide first">
-      <img src="/images/photos/test1.jpg" class="photo" id="slider-p1" alt="">
-    </div>
-    <div class="slide">
-      <img src="/images/photos/test2.jpg" class="photo" id="slider-p2" alt="">
-    </div>
-    <div class="slide">
-      <img src="/images/photos/test3.jpg" class="photo" id="slider-p3" alt="">
-    </div>
-    <div class="slide">
-      <img src="/images/photos/test4.jpg" class="photo" id="slider-p4" alt="">
-    </div>
-
-    <div class="navig-auto">
-      <div class="auto-btn1"></div>
-      <div class="auto-btn2"></div>
-      <div class="auto-btn3"></div>
-      <div class="auto-btn4"></div>
-    </div>
-    <div class="nav-manual">
-      <label for="btn1" class="manual-btn"></label>
-      <label for="btn2" class="manual-btn"></label>
-      <label for="btn3" class="manual-btn"></label>
-      <label for="btn4" class="manual-btn"></label>
-    </div>
-  </div>

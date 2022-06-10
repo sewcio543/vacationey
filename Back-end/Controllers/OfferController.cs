@@ -109,23 +109,24 @@ namespace Backend.Controllers
         [Authorize]
         public ActionResult Create()
         {
-            //IQueryable<string> cityQuery = from c in _context.City
-            //                               orderby c.Name
-            //                               select c.Name;
+            IQueryable<string> cityQuery = from c in _context.City
+                                           orderby c.Name
+                                           select c.Name;
 
-            //IQueryable<string> hotelQuery = from h in _context.Hotel
-            //                               orderby h.Name
-            //                               select h.Name;
+            IQueryable<string> hotelQuery = from h in _context.Hotel
+                                            orderby h.Name
+                                            select h.Name;
 
-            //ViewBag.Cities = new SelectList(cityQuery.Distinct().ToList());
-            //ViewBag.Hotels = new SelectList(hotelQuery.Distinct().ToList());
+            ViewBag.Cities = new SelectList(cityQuery.Distinct().ToList());
+            ViewBag.Hotels = new SelectList(hotelQuery.Distinct().ToList());
 
-            var offer = new Offer();
-            return View(offer);
+            var model = new CreateOfferViewModel();
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Offer offer)
+        [Authorize]
+        public async Task<IActionResult> Create(CreateOfferViewModel offerModel)
         {
             IQueryable<string> cityQuery = from c in _context.City
                                            orderby c.Name
@@ -135,17 +136,20 @@ namespace Backend.Controllers
                                             orderby h.Name
                                             select h.Name;
 
-            //var hotelId = _context.Hotel.Where(Hotel => Hotel.Name == offer.HotelId).First().HotelId;
-            //var cityId = _context.City.Where(City => City.CityId == hotelId).First().CityId;
+            var hotelId = _context.Hotel.Where(Hotel => Hotel.Name == offerModel.Hotel).First().HotelId;
+            var cityId = _context.City.Where(City => City.Name == offerModel.DepartureCity).First().CityId;
 
-            //offer.HotelId = hotelId;
-            //offer.DepartureCityId = cityId;
-            //ViewBag.c = offer.HotelId;
-            //offer.DateFrom = Convert.ToDateTime(offer.DateFrom.ToString("yyyy-MM-dd")); 
-            //offer.DateTo = Convert.ToDateTime(offer.DateTo.ToString("yyyy-MM-dd"));
-            //ViewBag.o = offer;
+            var offer = new Offer
+            {
+                HotelId = hotelId,
+                DepartureCityId = cityId,
+                Price = (decimal)offerModel.Price,
+                DateTo = offerModel.DateTo,
+                DateFrom = offerModel.DateFrom,
+                FullBoard = offerModel.FullBoard
+            };
 
-            if (true)
+            if (ModelState.IsValid)
             {
                 _context.Add(offer);
                 await _context.SaveChangesAsync();
