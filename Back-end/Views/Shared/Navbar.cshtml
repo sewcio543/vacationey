@@ -28,7 +28,15 @@
 
 
         <div class="dropdown">
-            <a class="dropbtn" asp-area="" asp-controller="Offer" asp-action="Index">Offers</a>
+            <a class="dropbtn" asp-area="" asp-controller="Offer" asp-action="Index" asp-route-page=1>Offers</a>
+            @if (User.Identity.IsAuthenticated)
+            {
+               <div class="dropdown-content">
+                    <a class="dropbtn" asp-area="" asp-controller="Offer" asp-action="Create">Create</a>
+                    <a class="dropbtn" asp-area="" asp-controller="Offer" asp-action="Edit">Edit</a>
+                    <a class="dropbtn" asp-area="" asp-controller="Offer" asp-action="Delete">Delete</a>
+                </div>  
+            }
         </div>
     </nav>
 

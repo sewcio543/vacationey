@@ -19,7 +19,7 @@ namespace Backend.Controllers
             _context = context;
         }
 
-        public IActionResult Index(string countrySearch, string sortOrder, string cityFrom, string cityTo)
+        public IActionResult Index(string countrySearch, string sortOrder, string cityFrom, string cityTo, int page)
         {
 
             IQueryable<string> countryQuery = from c in _context.Country
@@ -47,7 +47,7 @@ namespace Backend.Controllers
                     break;
             }
 
-            List<OfferViewModel> offersViewModels = new List<OfferViewModel>();
+            List<OfferViewModel> offerViewModels = new List<OfferViewModel>();
 
             foreach (var offer in offers)
             {
@@ -65,7 +65,7 @@ namespace Backend.Controllers
                     {
                         if (city.Name == cityTo || string.IsNullOrEmpty(cityTo))
                         {
-                            offersViewModels.Add(new OfferViewModel()
+                            offerViewModels.Add(new OfferViewModel()
                             {
                                 Country = country,
                                 Offer = offer,
@@ -99,8 +99,12 @@ namespace Backend.Controllers
 
             ViewBag.CitiesTo = new SelectList(cityQuery.Distinct().ToList());
 
-            return View(offersViewModels);
+            // pagination
+            offerViewModels = offerViewModels.Skip((page - 1) * 10).Take(10).ToList();
+
+            return View(offerViewModels);
         }
+
 
 
 
@@ -167,6 +171,17 @@ namespace Backend.Controllers
         // GET: OfferController/Edit/5
         public ActionResult Edit(int id)
         {
+            IQueryable<string> cityQuery = from c in _context.City
+                                           orderby c.Name
+                                           select c.Name;
+
+            IQueryable<string> hotelQuery = from h in _context.Hotel
+                                            orderby h.Name
+                                            select h.Name;
+
+            ViewBag.Cities = new SelectList(cityQuery.Distinct().ToList());
+            ViewBag.Hotels = new SelectList(hotelQuery.Distinct().ToList());
+
             return View();
         }
 

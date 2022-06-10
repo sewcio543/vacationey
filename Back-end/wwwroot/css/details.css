@@ -7,14 +7,6 @@
     --hoverLinkColor: #ffffff;
 }
 
-* {
-    margin: auto;
-    text-align: center;
-}
-
-form {
-    /*float: right;*/
-}
 
 .details img {
     width: 50%;
@@ -45,6 +37,7 @@ form {
 }
 
 .details {
+    margin-bottom: 2%;
     margin-top: 6%;
     padding: 2%;
     width: 70%;

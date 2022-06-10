@@ -6,11 +6,14 @@
     var path = $"/images/photos/test{photoID}.jpg";
 }
 
- <a asp-area="" asp-controller="Offer" asp-action="Details"  asp-route-id=@Model.Offer.OfferId>
+<a asp-area="" asp-controller="Offer" asp-action="Details" asp-route-id=@Model.Offer.OfferId>
 
     <div class="offer">
+
         <img src=@path>
+
         <div class="info">
+
             <p>
                 @Model.Country.Name
 
@@ -26,8 +29,11 @@
                 @Model.Offer.DateFrom.ToString("dd.MM.yyy") -
                 @Model.Offer.DateTo.ToString("dd.MM.yyy")
             </p>
-
         </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a asp-area="" asp-controller="Offer" asp-action="Details" asp-route-id=@Model.Offer.OfferId class="edit">Edit</a>
+            }
     </div>
 
 </a>

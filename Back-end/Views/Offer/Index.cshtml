@@ -44,7 +44,7 @@
         </select>
     </div>
 
-     <div class="filter">
+    <div class="filter">
         <p>
             From
         </p>
@@ -58,11 +58,12 @@
         </select>
     </div>
 
-     <div class="filter">
+    <div class="filter">
         <p>
             To
         </p>
-        <select id="selectTo" asp-items=@ViewBag.CitiesTo>>
+        <select id="selectTo" asp-items=@ViewBag.CitiesTo>
+            >
             <option>@ViewBag.CityTo</option>
             @if (@ViewBag.CityTo != "All")
             {
@@ -71,7 +72,7 @@
         </select>
     </div>
 
-    <input id="submit" type="submit" onclick="submitForm()" value="Filter" />
+    <input id="submit" type="submit" onclick="submitForm(0)" value="Filter" />
 </div>
 
 
@@ -79,3 +80,15 @@
 {
     <partial name="Offer" model=item />
 }
+
+@try{
+    Model.First();
+
+    <div class="buttons">
+        <a id="prevPage" onclick="submitForm(-1)"> &lt; </a>
+        <a id="nextPage" onclick="submitForm(1)"> > </a>
+    </div>
+
+
+} catch{}
+

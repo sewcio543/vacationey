@@ -9,20 +9,6 @@
     --buttonsForeground: #333;
 }
 
-@keyframes nameAnimation {
-    from {
-        color: var(--background);
-        width: 5%;
-        opacity: 0;
-    }
-
-    to {
-        color: aliceblue;
-        width: 10%;
-        margin-top: 0px;
-        opacity: 1;
-    }
-}
 
 * {
     box-sizing: border-box;
