@@ -14,7 +14,6 @@
     text-align: center;
 }
 
-}
 
 #landing-page {
     width: 100%;
@@ -120,7 +119,7 @@
 
     .query .filter {
         width: 20%;
-        height: 90%;
+        height: 100%;
         float: left;
     }
 
@@ -140,16 +139,18 @@
     font-family: 'Montserrat', sans-seri;
     font-size: 1.2rem;
     font-weight: bold;
-    margin-left: 2%;
-    margin-bottom: 0;
-    color: var(--background);
-    border-radius: 30px;
+    margin-left: 1%;
+    border-radius: 50px;
+    border-style: outset;
+    color: var(--textColor);
+    background-color: var(--imageClassColor);
     transition: transform .5s, visibility .25s ease-in;
 }
 
 
     #submit:hover {
-        transform: scale(1.02);
+        transform: scale(0.95);
+        border: 2px solid black;
         cursor: pointer;
     }
 

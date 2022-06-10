@@ -33,8 +33,9 @@
         <div class="edit-delete">
             @if (User.Identity.IsAuthenticated)
             {
-                <a asp-area="" asp-controller="Offer" asp-action="Edit" asp-route-id=@Model.Offer.OfferId class="edit" >Edit</a>
-                <a asp-area="" asp-controller="Offer" asp-action="Delete" asp-route-id=@Model.Offer.OfferId class="edit" method="post">Delete</a>
+                <a asp-area="" asp-controller="Offer" asp-action="Edit" asp-route-id=@Model.Offer.OfferId class="edit">Edit</a>
+                <a asp-area="" asp-controller="Offer" asp-action="Delete" asp-route-id=@Model.Offer.OfferId class="edit">Delete</a>
+
             }
         </div>
 

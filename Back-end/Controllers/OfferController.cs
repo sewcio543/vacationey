@@ -218,6 +218,18 @@ namespace Backend.Controllers
             }
         }
 
+        public IActionResult Delete(int id)
+        {
+            var offer = _context.Offer.First(of => of.OfferId == id);
+
+            if (offer == null)
+                return View("Index");
+            else
+            {
+                var viewModel = GenerateOfferViewModel(id);
+                return View(viewModel);
+            }
+        }
 
         // POST: OfferController/Delete/5
         [HttpPost]
