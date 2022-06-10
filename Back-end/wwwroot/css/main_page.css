@@ -14,17 +14,6 @@
     text-align: center;
 }
 
-
-
-.offer img {
-    width: 50%;
-    height: 100%;
-    float: left;
-    box-shadow: var(--imgshadows) 3px 1px 3px;
-    border-radius: 20px;
-    box-shadow: var(--imgshadows) 3px 3px 3px;
-    transform-origin: right bottom 10px;
-    transition: transform .5s, visibility .25s ease-in;
 }
 
 #landing-page {
@@ -40,9 +29,20 @@
         height: 100vh;
     }
 
-.offer img:hover {
-    transform: scale(0.99);
+.offer img {
+    width: 50%;
+    height: 100%;
+    float: left;
+    box-shadow: var(--imgshadows) 3px 1px 3px;
+    border-radius: 20px;
+    box-shadow: var(--imgshadows) 3px 3px 3px;
+    transform-origin: right bottom 10px;
+    transition: transform .5s, visibility .25s ease-in;
 }
+
+    .offer img:hover {
+        transform: scale(0.99);
+    }
 
 .offer {
     margin-top: 4%;
@@ -77,23 +77,30 @@
         margin-left: 10%;
     }
 
+
+.edit-delete{
+    width: 50%;
+    height: 30%;
+    display: flex;
+    justify-content: space-around;
+}
+
 .edit {
-    width: 18%;
-    height: 17%;
+    width: 30%;
+    height: 50%;
     font-family: 'Montserrat', sans-seri;
     font-size: 1.5rem;
     font-weight: bold;
     display: flex;
     justify-content: center;
     align-items: center;
-    float:right;
     margin-top: 1%;
-    margin-right: 18%;
     border-radius: 50px;
     border-style: outset;
     background-color: var(--imageClassColor);
     transition: transform .5s, visibility .25s ease-in;
 }
+
 
     .edit:hover {
         transform: scale(0.95);

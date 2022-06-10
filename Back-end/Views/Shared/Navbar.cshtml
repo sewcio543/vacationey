@@ -22,7 +22,7 @@
         else
         {
             <div class="dropdown">
-                <a class="dropbtn" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">Logout</a>
+                <a class="dropbtn" asp-area="Identity"  asp-page="/Account/Logout" method="post">Logout</a>
             </div>
         }
 
@@ -32,9 +32,8 @@
             @if (User.Identity.IsAuthenticated)
             {
                <div class="dropdown-content">
+                    <a class="dropbtn" asp-area="" asp-controller="Offer" asp-action="Index" asp-route-page=1>Search</a>
                     <a class="dropbtn" asp-area="" asp-controller="Offer" asp-action="Create">Create</a>
-                    <a class="dropbtn" asp-area="" asp-controller="Offer" asp-action="Edit">Edit</a>
-                    <a class="dropbtn" asp-area="" asp-controller="Offer" asp-action="Delete">Delete</a>
                 </div>  
             }
         </div>

@@ -4,6 +4,7 @@ namespace Backend.Models.ViewModels
 {
     public class CreateOfferViewModel
     {
+        public int OfferId { get; set; }
         public string? Hotel { get; set; }
         public double Price { get; set; }
 

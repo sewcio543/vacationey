@@ -9,13 +9,18 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <div class="form-group">
+            <label asp-for="OfferId" class="control-label">ID</label>
+            <input asp-for="OfferId" class="form-control" value=@ViewBag.ID/>
+        </div>
+
+        <div class="form-group">
             <label asp-for="Hotel" class="control-label">Hotel</label>
             <select asp-for="Hotel" class="form-control" asp-items=@ViewBag.Hotels></select>
         </div>
 
         <div class="form-group" id="s">
             <label asp-for="Price" class="control-label">Price</label>
-            <input asp-for="Price" class="form-control" value=2000/>
+            <input asp-for="Price" class="form-control"/>
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
 
@@ -44,19 +49,11 @@
         </div>
 
         <div>
-            <button id="submitCreate" type="submit">Create</button>
+            <button id="submitCreate" type="submit">Edit</button>
         </div>
 
     </form>
 </div>
-
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-
-
 
 
 @section Scripts {

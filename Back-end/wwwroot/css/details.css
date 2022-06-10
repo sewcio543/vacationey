@@ -48,14 +48,15 @@
 }
 
 
-    .details .info {
+    .details .infoDetails {
         width: 45%;
         border-style: outset;
         border-radius: 20px;
         height: 100%;
+        float: right;
     }
 
-        .details .info p {
+        .details .infoDetails p {
             width: 100%;
             height: 10%;
             font-family: 'Montserrat', sans-seri;
@@ -68,7 +69,7 @@
             margin-top: 2%;
         }
 
-        .details .info a {
+        .details .infoDetails a {
             width: 90%;
             height: 10%;
             font-family: 'Montserrat', sans-seri;
@@ -84,8 +85,9 @@
             transition: transform .5s, visibility .25s ease-in;
         }
 
-            .details .info a:hover {
+            .details .infoDetails a:hover {
                 transform: scale(0.95);
                 border: 2px solid black;
                 cursor: pointer;
             }
+

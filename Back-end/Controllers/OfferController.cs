@@ -13,11 +13,21 @@ namespace Backend.Controllers
     public class OfferController : Controller
     {
         private readonly DatabaseContext _context;
+        private readonly IQueryable<string> cities;
+        private readonly IQueryable<string> hotels;
 
         public OfferController(DatabaseContext context)
         {
             _context = context;
+            cities = from c in _context.City
+                     orderby c.Name
+                     select c.Name;
+
+            hotels = from h in _context.Hotel
+                     orderby h.Name
+                     select h.Name;
         }
+
 
         public IActionResult Index(string countrySearch, string sortOrder, string cityFrom, string cityTo, int page)
         {
@@ -35,7 +45,7 @@ namespace Backend.Controllers
 
 
             var offers = from o in _context.Offer
-                                        select o;
+                         select o;
 
             switch (sortOrder)
             {
@@ -51,9 +61,9 @@ namespace Backend.Controllers
 
             foreach (var offer in offers)
             {
-                var hotel = _context.Hotel.Where(Hotel => Hotel.HotelId == offer.HotelId).First();
-                var city = _context.City.Where(City => City.CityId == hotel.CityId).First();
-                var cityDep = _context.City.Where(City => City.CityId == offer.DepartureCityId).First();
+                var hotel = _context.Hotel.Find(offer.HotelId);
+                var city = _context.City.Find(hotel.CityId);
+                var cityDep = _context.City.Find(offer.DepartureCityId);
 
 
                 var country = _context.Country.Where(c => c.CountryId == city.CountryId).First();
@@ -106,42 +116,24 @@ namespace Backend.Controllers
         }
 
 
-
-
-
         // GET
-        [Authorize]
+        //[Authorize]
         public ActionResult Create()
         {
-            IQueryable<string> cityQuery = from c in _context.City
-                                           orderby c.Name
-                                           select c.Name;
-
-            IQueryable<string> hotelQuery = from h in _context.Hotel
-                                            orderby h.Name
-                                            select h.Name;
-
-            ViewBag.Cities = new SelectList(cityQuery.Distinct().ToList());
-            ViewBag.Hotels = new SelectList(hotelQuery.Distinct().ToList());
+            ViewBag.Cities = new SelectList(cities.Distinct().ToList());
+            ViewBag.Hotels = new SelectList(hotels.Distinct().ToList());
 
             var model = new CreateOfferViewModel();
             return View(model);
         }
 
         [HttpPost]
-        [Authorize]
+        //[ValidateAntiForgeryToken]
+        //[Authorize]
         public async Task<IActionResult> Create(CreateOfferViewModel offerModel)
         {
-            IQueryable<string> cityQuery = from c in _context.City
-                                           orderby c.Name
-                                           select c.Name;
-
-            IQueryable<string> hotelQuery = from h in _context.Hotel
-                                            orderby h.Name
-                                            select h.Name;
-
-            var hotelId = _context.Hotel.Where(Hotel => Hotel.Name == offerModel.Hotel).First().HotelId;
-            var cityId = _context.City.Where(City => City.Name == offerModel.DepartureCity).First().CityId;
+            var hotelId = _context.Hotel.First(Hotel => Hotel.Name == offerModel.Hotel).HotelId;
+            var cityId = _context.City.First(City => City.Name == offerModel.DepartureCity).CityId;
 
             var offer = new Offer
             {
@@ -160,99 +152,90 @@ namespace Backend.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewBag.Cities = new SelectList(cityQuery.Distinct().ToList());
-            ViewBag.Hotels = new SelectList(hotelQuery.Distinct().ToList());
+            ViewBag.Cities = new SelectList(cities.Distinct().ToList());
+            ViewBag.Hotels = new SelectList(hotels.Distinct().ToList());
             return View(offer);
 
         }
 
-
-
-        // GET: OfferController/Edit/5
+        //[Authorize]
         public ActionResult Edit(int id)
         {
-            IQueryable<string> cityQuery = from c in _context.City
-                                           orderby c.Name
-                                           select c.Name;
+            var offer = _context.Offer.First(of => of.OfferId == id);
 
-            IQueryable<string> hotelQuery = from h in _context.Hotel
-                                            orderby h.Name
-                                            select h.Name;
+            if (offer == null)
+                return View("Index");
 
-            ViewBag.Cities = new SelectList(cityQuery.Distinct().ToList());
-            ViewBag.Hotels = new SelectList(hotelQuery.Distinct().ToList());
+            ViewBag.Cities = new SelectList(cities.Distinct().ToList());
+            ViewBag.Hotels = new SelectList(hotels.Distinct().ToList());
+            ViewBag.ID = id;
 
-            return View();
+            var viewModel = GenerateCreateOfferViewModel(id);
+
+            return View(viewModel);
         }
 
-        // POST: OfferController/Edit/5
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        //[ValidateAntiForgeryToken]
+        //[Authorize]
+        public async Task<IActionResult> Edit(CreateOfferViewModel newModel)
         {
-            try
+            var offer = _context.Offer.Find(newModel.OfferId);
+            var hotelId = _context.Hotel.First(Hotel => Hotel.Name == newModel.Hotel).HotelId;
+            var cityId = _context.City.First(City => City.Name == newModel.DepartureCity).CityId;
+
+            offer.HotelId = hotelId;
+            offer.DepartureCityId = cityId;
+            offer.Price = (decimal)newModel.Price;
+            offer.DateTo = newModel.DateTo;
+            offer.DateFrom = newModel.DateFrom;
+            offer.FullBoard = newModel.FullBoard;
+
+            if (ModelState.IsValid)
             {
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+
+            ViewBag.ID = newModel.OfferId;
+            ViewBag.Cities = new SelectList(cities.Distinct().ToList());
+            ViewBag.Hotels = new SelectList(hotels.Distinct().ToList());
+
+            return View(GenerateCreateOfferViewModel(newModel.OfferId));
         }
 
         public ActionResult Details(int id = 1)
         {
-            Offer? offer = _context.Offer.First(of => of.OfferId == id);
+            var offer = _context.Offer.First(of => of.OfferId == id);
 
             if (offer == null)
                 return View("Index");
             else
             {
-                var hotel = _context.Hotel.Where(Hotel => Hotel.HotelId == offer.HotelId).First();
-                var city = _context.City.Where(City => City.CityId == hotel.CityId).First();
-                var country = _context.Country.Where(c => c.CountryId == city.CountryId).First();
-
-                var viewModel = new OfferViewModel()
-                {
-                    Country = country,
-                    Offer = offer,
-                    Hotel = hotel,
-                    City = city
-                };
+                var viewModel = GenerateOfferViewModel(id);
                 return View(viewModel);
             }
         }
 
-        public ActionResult Filter(string country)
-        {
-            var offers = _context.Offer.Where(o => o.Hotel.City.Country.Name == country);
-
-
-            if (offers == null)
-                return View("Index");
-            else
-                return View("Index", offers);
-        }
-
-
-        // GET: OfferController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
         // POST: OfferController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(int id, IFormCollection collection)
         {
+            var offer = _context.Offer.First(of => of.OfferId == id);
+
             try
             {
+                _context.Offer.Remove(offer);
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View("Index", _context.Offer);
             }
         }
 
@@ -260,6 +243,46 @@ namespace Backend.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public OfferViewModel GenerateOfferViewModel(int offerId)
+        {
+            var offer = _context.Offer.Find(offerId);
+            var hotel = _context.Hotel.Find(offer.HotelId);
+            var city = _context.City.Find(hotel.CityId);
+            var country = _context.Country.Find(city.CountryId);
+
+
+            var viewModel = new OfferViewModel()
+            {
+                Country = country,
+                Offer = offer,
+                Hotel = hotel,
+                City = city
+            };
+            return viewModel;
+        }
+
+        public CreateOfferViewModel GenerateCreateOfferViewModel(int offerId)
+        {
+            var offer = _context.Offer.Find(offerId);
+            var hotel = _context.Hotel.Find(offer.HotelId);
+            var city = _context.City.Find(hotel.CityId);
+            var country = _context.Country.Find(city.CountryId);
+            var cityDep = _context.City.Find(offer.DepartureCityId);
+
+
+            var viewModel = new CreateOfferViewModel()
+            {
+                OfferId = offerId,
+                Hotel = hotel.Name,
+                Price = (double)offer.Price,
+                DepartureCity = cityDep.Name,
+                DateFrom = offer.DateFrom,
+                DateTo = offer.DateTo,
+                FullBoard = offer.FullBoard
+            };
+            return viewModel;
         }
     }
 }
