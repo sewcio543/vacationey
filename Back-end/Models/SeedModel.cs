@@ -14,16 +14,23 @@ namespace Backend.Models
                 {
                     return;   // DB has been seeded
                 }
+
                 var Spain = new Country("Spain");
                 var France = new Country("France");
                 var Italy = new Country("Italy");
                 var Portugal = new Country("Portugal");
-                var Germany = new Country("Germany");
                 var Poland = new Country("Poland");
+                var Germany = new Country("Germany");
+                var Austria = new Country("Austria");
+                var Belgium = new Country("Belgium");
+                var Turkey = new Country("Turkey");
+                var Brasil = new Country("Brasil");
+                var England = new Country("England");
+                var Ireland = new Country("Ireland");
 
                 var Countries = new List<Country>()
                 {
-                    Spain, France, Italy, Portugal, Germany, Poland
+                    Spain, France, Italy, Portugal, Germany, Poland, Austria, Belgium, Turkey, Brasil, England, Ireland  
                 };
 
                 var Cities = new List<City>()
@@ -45,6 +52,10 @@ namespace Backend.Models
                     new City("Braga", Portugal),
                     new City("Paris", France),
                     new City("Lyon", France),
+                    new City("Nicea", France),
+                    new City("Lille", France),
+                    new City("Nantes", France),
+                    new City("Bordeaux", France),
                 };
 
                 var Hotels = new List<Hotel>();

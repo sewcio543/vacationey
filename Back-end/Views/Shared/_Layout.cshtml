@@ -4,25 +4,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vacationey</title>
+
     <link rel="shortcut icon" type="image/x-icon" href="~/images/icons/logo.png">
-
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/main_page.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/navbar.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/footer.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/Structure.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/scrollbar.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/details.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/auth.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/create.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/create.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/delete.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/slider.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/hotel.css" asp-append-version="true" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    @{
+        // css files
+        string[] files = Directory.GetFiles("wwwroot/css");
+        foreach (string file in files)
+        {
+            var path = $"~{file[7..]}";
+            <link rel="stylesheet" href=@path asp-append-version="true" />
+        }
+    }
 
 </head>
 <body>
@@ -30,16 +24,19 @@
     <partial name="Navbar" />
     @RenderBody()
     <partial name="Footer" />
-       
- 
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/clock.js" asp-append-version="true"></script>
-    <script src="~/js/header.js" asp-append-version="true"></script>
-    <script src="~/js/slider.js" asp-append-version="true"></script>
-
+    @{
+        // js files
+        string[] filesJS = Directory.GetFiles("wwwroot/js");
+        foreach (string file in filesJS)
+        {
+            var path = $"~{file[7..]}";
+            <script src=@path asp-append-version="true"></script>
+        }
+    }
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

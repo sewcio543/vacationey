@@ -3,9 +3,11 @@ import pandas as pd
 from faker import Faker
 
 adjectives = ["Beautiful", "Fancy", "Happy", "Imperial",
-              "Luxury", "Quiet", "Rosy", "Spring", "Sunny", "Urban"]
+              "Luxury", "Quiet", "Rosy", "Spring", "Sunny", 
+              "Urban", "Dreamy", "Gleamy", "Peaceful"]
 nouns = ["Beach", "Downs", "Gardens", "Heights", "Hills",
-         "Lake", "Meadows", "Mountains", "Sea", "Shore", "Valley"]
+         "Lake", "Meadows", "Mountains", "Sea", "Shore", "Valley", 
+         "Cottage", "Abode"]
 suffixes = ["Apartments", "B&B", "Club", "Hotel",
             "Inn", "Resorts", "Spa", "Suites", "Towers"]
 
@@ -37,7 +39,7 @@ def get_fake_city(count=1):
 
 
 def main():
-    # save_to_file('hotel_names.txt', 200)
+    save_to_file('hotel_names.txt', 1000)
     print(get_fake_city(10))
 
 if __name__ == '__main__':

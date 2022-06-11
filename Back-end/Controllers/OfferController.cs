@@ -58,7 +58,7 @@ namespace Backend.Controllers
 
             foreach (var offer in offers)
             {
-    
+
                 var hotel = _context.Hotel.Find(offer.HotelId);
                 var city = _context.City.Find(hotel.CityId);
                 var cityDep = _context.City.Find(offer.DepartureCityId);
@@ -207,15 +207,18 @@ namespace Backend.Controllers
 
         public IActionResult Details(int id = 1)
         {
-            var offer = _context.Offer.First(of => of.OfferId == id);
-
-            if (offer == null)
-                return View("Index");
-            else
+            try
             {
-                var viewModel = GenerateOfferViewModel(id);
-                return View(viewModel);
+                var offer = _context.Offer.First(of => of.OfferId == id);
             }
+            catch (Exception ex)
+            {
+                return View("Index", _context.Offer);
+            }
+
+            var viewModel = GenerateOfferViewModel(id);
+            return View(viewModel);
+
         }
 
         [Authorize]
