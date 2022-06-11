@@ -15,6 +15,9 @@ namespace Backend.Controllers
         private readonly DatabaseContext _context;
         private readonly IQueryable<string> cities;
         private readonly IQueryable<string> hotels;
+        private readonly IQueryable<string> countries;
+        private readonly string[] orders;
+
 
         public OfferController(DatabaseContext context)
         {
@@ -26,23 +29,17 @@ namespace Backend.Controllers
             hotels = from h in _context.Hotel
                      orderby h.Name
                      select h.Name;
+
+            countries = from c in _context.Country
+                        orderby c.Name
+                        select c.Name;
+
+            orders = new string[] { "Ascending", "Descending" };
         }
 
         [AllowAnonymous]
         public IActionResult Index(string countrySearch, string sortOrder, string cityFrom, string cityTo, int hotelId, int page = 1)
         {
-
-            IQueryable<string> countryQuery = from c in _context.Country
-                                              where c.Name != countrySearch
-                                              orderby c.Name
-                                              select c.Name;
-
-            IQueryable<string> cityQuery = from c in _context.City
-                                           where c.Name != cityFrom && c.Name != cityTo
-                                           orderby c.Name
-                                           select c.Name;
-
-
 
             var offers = from o in _context.Offer
                          select o;
@@ -61,11 +58,10 @@ namespace Backend.Controllers
 
             foreach (var offer in offers)
             {
+    
                 var hotel = _context.Hotel.Find(offer.HotelId);
                 var city = _context.City.Find(hotel.CityId);
                 var cityDep = _context.City.Find(offer.DepartureCityId);
-
-
                 var country = _context.Country.First(c => c.CountryId == city.CountryId);
 
 
@@ -90,27 +86,28 @@ namespace Backend.Controllers
                 }
             }
 
-            ViewBag.Country = string.IsNullOrEmpty(countrySearch) ? "All" : countrySearch;
-            ViewBag.Order = string.IsNullOrEmpty(sortOrder) ? "" : sortOrder;
-            ViewBag.CityFrom = string.IsNullOrEmpty(cityFrom) ? "All" : cityFrom;
-            ViewBag.CityTo = string.IsNullOrEmpty(cityTo) ? "All" : cityTo;
+            ViewBag.Orders = new SelectList(orders, (string.IsNullOrEmpty(sortOrder) || !orders.Contains(sortOrder)) ? "" : sortOrder);
+            ViewBag.Countries = new SelectList(countries, (string.IsNullOrEmpty(countrySearch) || !countries.Contains(countrySearch)) ? "All" : countrySearch);
+            ViewBag.CitiesFrom = new SelectList(cities, (string.IsNullOrEmpty(cityFrom) || !cities.Contains(cityFrom)) ? "All" : cityFrom);
+            ViewBag.CitiesTo = new SelectList(cities, (string.IsNullOrEmpty(cityTo) || !cities.Contains(cityTo)) ? "All" : cityTo);
 
-            ViewBag.Countries = new SelectList(countryQuery.Distinct().ToList());
-            ViewBag.CitiesFrom = new SelectList(cityQuery.Distinct().ToList());
-
-
-
+            // cities only from selected country
             if (!string.IsNullOrEmpty(countrySearch))
             {
-                var countryId = _context.Country.Where(c => c.Name == countrySearch).First().CountryId;
-                cityQuery = from c in _context.City
-                            join cn in _context.Country on c.CountryId equals cn.CountryId
-                            where c.Name != cityFrom && c.Name != cityTo && c.CountryId == countryId
-                            orderby c.Name
-                            select c.Name;
-            }
+                try
+                {
+                    var countryId = _context.Country.First(c => c.Name == countrySearch).CountryId;
 
-            ViewBag.CitiesTo = new SelectList(cityQuery.Distinct().ToList());
+                    var cityQuery = from c in _context.City
+                                    join cn in _context.Country on c.CountryId equals cn.CountryId
+                                    where c.Name != cityFrom && c.Name != cityTo && c.CountryId == countryId
+                                    orderby c.Name
+                                    select c.Name;
+
+                    ViewBag.CitiesTo = new SelectList(cityQuery, (string.IsNullOrEmpty(cityTo) || !cities.Contains(cityTo)) ? "All" : cityTo);
+                }
+                catch (InvalidOperationException) { }
+            }
 
             // pagination
             offerViewModels = offerViewModels.Skip((page - 1) * 10).Take(10).ToList();

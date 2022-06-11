@@ -6,9 +6,11 @@
         return active ? "Yes" : "No";
     }
 
+    string[] files = Directory.GetFiles("wwwroot/images/photos");
+    int count = System.IO.Directory.EnumerateFiles("wwwroot/images/photos").Count();
     var random = new Random();
-    var photoID = random.Next(1, 11);
-    var path = $"/images/photos/test{photoID}.jpg";
+    var photoID = random.Next(1, count);
+    var path = files[photoID][7..];
 
 }
 

@@ -14,11 +14,7 @@
         </p>
 
         <select id="selectCountry" asp-items=@ViewBag.Countries>
-            <option>@ViewBag.Country</option>
-            @if (@ViewBag.Country != "All")
-            {
-                <option>All</option>
-            }
+            <option>All</option>
         </select>
     </div>
 
@@ -26,21 +22,8 @@
         <p>
             Price
         </p>
-        <select id="priceOrder">
-            <option>@ViewBag.Order</option>
-            @if (@ViewBag.Order != "Ascending")
-            {
-                <option>Ascending</option>
-            }
-            @if (@ViewBag.Order != "Descending")
-            {
-                <option>Descending</option>
-            }
-            @if (@ViewBag.Order != "")
-            {
+        <select id="priceOrder" asp-items=@ViewBag.Orders>
                 <option></option>
-            }
-
         </select>
     </div>
 
@@ -50,11 +33,7 @@
         </p>
 
         <select id="selectFrom" asp-items=@ViewBag.CitiesFrom>
-            <option>@ViewBag.CityFrom</option>
-            @if (@ViewBag.CityFrom != "All")
-            {
-                <option>All</option>
-            }
+            <option>All</option>
         </select>
     </div>
 
@@ -63,12 +42,7 @@
             To
         </p>
         <select id="selectTo" asp-items=@ViewBag.CitiesTo>
-            >
-            <option>@ViewBag.CityTo</option>
-            @if (@ViewBag.CityTo != "All")
-            {
-                <option>All</option>
-            }
+            <option>All</option>
         </select>
     </div>
 
@@ -81,7 +55,8 @@
     <partial name="Offer" model=item />
 }
 
-@try{
+@try
+{
     Model.First();
 
     <div class="buttons">
@@ -90,5 +65,6 @@
     </div>
 
 
-} catch{}
+}
+catch { }
 
