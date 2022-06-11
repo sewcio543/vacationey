@@ -158,13 +158,12 @@ namespace Backend.Controllers
 
         }
 
-        [Authorize]
         public ActionResult Edit(int id)
         {
-            var offer = _context.Offer.First(of => of.OfferId == id);
+            var offer = _context.Offer.Find(id);
 
             if (offer == null)
-                return View("Index");
+                return View("Index", _context.Offer);
 
             ViewBag.Cities = new SelectList(cities.Distinct().ToList());
             ViewBag.Hotels = new SelectList(hotels.Distinct().ToList());

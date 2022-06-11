@@ -51,32 +51,53 @@
 
     .details .infoDetails {
         width: 35%;
+        height: 100%;
         border-style: outset;
         border-radius: 20px;
-        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         float: right;
     }
 
-        .details .infoDetails p {
-            width: 100%;
-            height: 9%;
-            font-family: 'Montserrat', sans-seri;
-            font-size: 1.5rem;
-            font-weight: bold;
-            display: flex;
-            justify-content: left;
-            margin: auto;
-            margin-left: 4%;
-            margin-top: 1%;
+        .details .infoDetails a:hover {
+            transform: scale(0.95);
+            border: 2px solid black;
+            cursor: pointer;
         }
+
+        .details .infoDetails .textInfo {
+            display: flex;
+            flex-direction: column;
+            width: 90%;
+            height: 60%
+        }
+
+            .details .infoDetails .textInfo p {
+                padding: 2%;
+                width: 100%;
+                height: 9%;
+                font-family: 'Montserrat', sans-seri;
+                font-size: 1.5rem;
+                font-weight: bold;
+                display: flex;
+                justify-content: left;
+                margin: auto;
+                margin-left: 4%;
+                margin-top: 1%;
+            }
+
 
     .details .details-links {
         width: 90%;
         height: 30%;
+        display: flex;
+        flex-direction: column;
+        align-content: end;
     }
 
         .details .details-links a {
-            width: 90%;
+            width: 80%;
             height: 28%;
             font-family: 'Montserrat', sans-seri;
             font-size: 1.5rem;
@@ -84,15 +105,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 2%;
             border-radius: 50px;
             border-style: outset;
             background-color: var(--imageClassColor);
             transition: transform .5s, visibility .25s ease-in;
         }
 
-    .details .infoDetails a:hover {
-        transform: scale(0.95);
-        border: 2px solid black;
-        cursor: pointer;
-    }
+#stars {
+    height: 18%;
+}
