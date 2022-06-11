@@ -188,11 +188,12 @@ namespace Backend.Controllers
             var hotelId = _context.Hotel.First(Hotel => Hotel.Name == newModel.Hotel).HotelId;
             var cityId = _context.City.First(City => City.Name == newModel.DepartureCity).CityId;
 
-            offer.DepartureCityId = cityId;
             offer.Price = (decimal)newModel.Price;
             offer.DateTo = newModel.DateTo;
             offer.DateFrom = newModel.DateFrom;
             offer.FullBoard = newModel.FullBoard;
+            offer.DepartureCityId = cityId;
+            offer.HotelId = hotelId;
 
             if (ModelState.IsValid)
             {

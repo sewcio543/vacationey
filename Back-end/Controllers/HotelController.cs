@@ -149,7 +149,7 @@ namespace Backend.Controllers
             }
             ViewBag.Cities = new SelectList(cities);
             ViewBag.ID = id;
-            
+
             var viewModel = GenerateCreateHotelViewModel(id);
             return View(viewModel);
         }
@@ -160,54 +160,38 @@ namespace Backend.Controllers
         {
             var city = _context.City.First(c => c.Name == model.City);
             var hotel = _context.Hotel.Find(model.HotelId);
-          
+
             hotel.Name = model.Name;
             hotel.CityId = city.CityId;
             hotel.Rate = model.Rate;
             hotel.Pool = model.Pool;
             hotel.WiFi = model.WiFi;
-               
+
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(hotel);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!HotelExists(hotel.HotelId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                // try catch
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CityId"] = new SelectList(_context.City, "CityId", "Name", hotel.CityId);
-            return View(hotel);
+
+            ViewBag.Cities = new SelectList(cities);
+            ViewBag.ID = hotel.HotelId;
+
+            return View(model.HotelId);
         }
 
         // GET: Hotel/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null || _context.Hotel == null)
-            {
-                return NotFound();
-            }
+            var hotel = _context.Hotel.First(h => h.HotelId == id);
 
-            var hotel = await _context.Hotel
-                .Include(h => h.City)
-                .FirstOrDefaultAsync(m => m.HotelId == id);
             if (hotel == null)
+                return View("Index");
+            else
             {
-                return NotFound();
+                var viewModel = GenerateHotelViewModel(id);
+                return View(viewModel);
             }
-
-            return View(hotel);
         }
 
         // POST: Hotel/Delete/5
