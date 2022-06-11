@@ -37,11 +37,20 @@
         <p>
             To: &nbsp;&nbsp; @Model.Offer.DateTo.ToString("dd.MM.yyy")
         </p>
-     
-            <a>Buy</a>
 
+        <div class="details-links">
 
+            <a asp-area="" asp-controller="Hotel" asp-action="Details" asp-route-id=@Model.Hotel.HotelId>Hotel</a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a asp-area="" asp-controller="Offer" asp-action="Edit" asp-route-id=@Model.Offer.OfferId>Edit</a>
+            }
+            <a asp-area="" asp-controller="Offer" asp-action="Index" asp-route-page=1>Back to List</a>
+
+        </div>
     </div>
+
+
 </div>
 
 

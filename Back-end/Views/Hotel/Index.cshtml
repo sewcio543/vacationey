@@ -1,17 +1,64 @@
 ﻿@model IEnumerable<Backend.Models.ViewModels.HotelViewModel>
 
+<div id="filter-hotels" class="query">
+
+    <div class="filter">
+        <p>
+            Rate
+        </p>
+        <select id="rateOrder">
+            <option>@ViewBag.Order</option>
+            @if (@ViewBag.Order != "Ascending")
+            {
+                <option>Ascending</option>
+            }
+            @if (@ViewBag.Order != "Descending")
+            {
+                <option>Descending</option>
+            }
+            @if (@ViewBag.Order != "")
+            {
+                <option></option>
+            }
+
+        </select>
+    </div>
+
+    <div class="filter">
+        <p>
+            City
+        </p>
+
+        <select id="selectCity" asp-items=@ViewBag.Cities>
+            <option>@ViewBag.City</option>
+            @if (@ViewBag.City != "All")
+            {
+                <option>All</option>
+            }
+        </select>
+    </div>
+
+    <input class="submit" type="submit" onclick="submitFormHotel(0)" value="Filter" />
+    <a class="submit" asp-area="" asp-controller="Hotel" asp-action="Create">Create</a>
+
+</div>
+
+
+
 @foreach (var item in Model)
 {
     <partial name="Hotel" model=item />
 }
 
-@try{
+@try
+{
     Model.First();
 
     <div class="buttons">
-        <a id="prevPage" onclick="submitForm(-1)"> &lt; </a>
-        <a id="nextPage" onclick="submitForm(1)"> > </a>
+        <a id="prevPage" onclick="submitFormHotel(-1)"> &lt; </a>
+        <a id="nextPage" onclick="submitFormHotel(1)"> > </a>
     </div>
 
 
-} catch{}
+}
+catch { }

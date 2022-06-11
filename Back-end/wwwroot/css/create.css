@@ -1,16 +1,15 @@
 ﻿
-
 .createForm {
     width: 40%;
-    height: 70vh;
+    height: 80vh;
     margin-top: 2%;
     border-style: outset;
     margin-bottom: 10%;
     border-radius: 30px;
 }
 
-    .createForm .form-group {
-        margin-top: 4%;
+    .createForm .form-group{
+        margin-top: 5%;
         width: 60%;
         height: 7vh;
     }
@@ -31,19 +30,29 @@
         margin-bottom: 2%
     }
 
-
-#submitCreate {
-    width: 40%;
-    height: 5vh;
-    border-radius: 40px;
-    color: black;
-    font-size: 1.5rem;
-    font-weight: bold;
-    border-style: outset;
-    background-color: aliceblue;
-    transition: transform .5s, visibility .25s ease-in;
+.checks {
+    margin-top: 8%;
 }
+    .checks .form-group{
+        margin-top: 0;
+    }
+
+    #submitCreate {
+        width: 40%;
+        height: 5vh;
+        border-radius: 40px;
+        color: black;
+        font-size: 1.5rem;
+        font-weight: bold;
+        border-style: outset;
+        background-color: aliceblue;
+        transition: transform .5s, visibility .25s ease-in;
+    }
 
     #submitCreate:hover {
         transform: scale(1.02);
     }
+
+#createHotel{
+    height: 70vh;
+}

@@ -29,7 +29,7 @@ namespace Backend.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Index(string countrySearch, string sortOrder, string cityFrom, string cityTo, int page)
+        public IActionResult Index(string countrySearch, string sortOrder, string cityFrom, string cityTo, int hotelId, int page = 1)
         {
 
             IQueryable<string> countryQuery = from c in _context.Country
@@ -66,7 +66,7 @@ namespace Backend.Controllers
                 var cityDep = _context.City.Find(offer.DepartureCityId);
 
 
-                var country = _context.Country.Where(c => c.CountryId == city.CountryId).First();
+                var country = _context.Country.First(c => c.CountryId == city.CountryId);
 
 
                 if (country.Name == countrySearch || string.IsNullOrEmpty(countrySearch))
@@ -75,13 +75,16 @@ namespace Backend.Controllers
                     {
                         if (city.Name == cityTo || string.IsNullOrEmpty(cityTo))
                         {
-                            offerViewModels.Add(new OfferViewModel()
+                            if (hotel.HotelId == hotelId || hotelId == 0)
                             {
-                                Country = country,
-                                Offer = offer,
-                                Hotel = hotel,
-                                City = city
-                            });
+                                offerViewModels.Add(new OfferViewModel()
+                                {
+                                    Country = country,
+                                    Offer = offer,
+                                    Hotel = hotel,
+                                    City = city
+                                });
+                            }
                         }
                     }
                 }

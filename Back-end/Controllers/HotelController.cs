@@ -13,16 +13,43 @@ namespace Backend.Controllers
     public class HotelController : Controller
     {
         private readonly DatabaseContext _context;
+        private readonly IQueryable<string> cities;
+        private readonly IQueryable<string> hotels;
 
         public HotelController(DatabaseContext context)
         {
             _context = context;
+            cities = from c in _context.City
+                     group c by c.Name
+                     into distinct
+                     orderby distinct.First().Name
+                     select distinct.First().Name;
+
         }
 
         // GET: Hotel
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string citySearch, string sortOrder, int page = 1)
         {
-            var hotels = _context.Hotel;
+
+            IQueryable<string> cityQuery = from c in _context.City
+                                           where c.Name != citySearch
+                                           orderby c.Name
+                                           select c.Name;
+
+            var hotels = from h in _context.Hotel
+                         select h;
+
+
+            switch (sortOrder)
+            {
+                case "Descending":
+                    hotels = hotels.OrderByDescending(s => s.Rate);
+                    break;
+                case "Ascending":
+                    hotels = hotels.OrderBy(s => s.Rate);
+                    break;
+            }
+
 
             var viewModels = new List<HotelViewModel>();
 
@@ -30,33 +57,25 @@ namespace Backend.Controllers
             {
                 var city = _context.City.Find(hotel.CityId);
 
-                viewModels.Add(new HotelViewModel()
+                if (city.Name == citySearch || string.IsNullOrEmpty(citySearch))
                 {
-                    Hotel = hotel,
-                    City = city
-                });
+                    viewModels.Add(new HotelViewModel()
+                    {
+                        Hotel = hotel,
+                        City = city
+                    });
+                }
             }
+
+            ViewBag.Order = string.IsNullOrEmpty(sortOrder) ? "" : sortOrder;
+            ViewBag.City = string.IsNullOrEmpty(citySearch) ? "All" : citySearch;
+            ViewBag.Cities = new SelectList(cityQuery.Distinct().ToList());
+
+            viewModels = viewModels.Skip((page - 1) * 10).Take(10).ToList();
+
             return View(viewModels);
         }
 
-        // GET: Hotel/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null || _context.Hotel == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var hotel = await _context.Hotel
-        //        .Include(h => h.City)
-        //        .FirstOrDefaultAsync(m => m.HotelId == id);
-        //    if (hotel == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(hotel);
-        //}
 
         public async Task<IActionResult> Details(int? id)
         {
@@ -68,30 +87,35 @@ namespace Backend.Controllers
             var hotel = _context.Hotel.Find(id);
             var city = _context.City.Find(hotel.CityId);
 
+            if (hotel == null || city == null)
+            {
+                return NotFound();
+            }
+
             var viewModel = new HotelViewModel()
             {
                 Hotel = hotel,
                 City = city
             };
 
-            if (hotel == null)
-            {
-                return NotFound();
-            }
-
             return View(viewModel);
         }
 
-        // GET: Hotel/Create
+
         public IActionResult Create()
         {
-            ViewData["CityId"] = new SelectList(_context.City, "CityId", "Name");
-            return View();
+            var rates = from h in _context.Hotel
+                        group h by h.Rate
+                        into distinct
+                        orderby distinct.First().Rate
+                        select distinct.First().Rate;
+
+            ViewBag.Cities = new SelectList(cities);
+            ViewBag.Rates = new SelectList(rates, 3);
+            var viewModel = new CreateHotelViewModel();
+            return View(viewModel);
         }
 
-        // POST: Hotel/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("HotelId,Name,Rate,CityId,Pool,WiFi")] Hotel hotel)
@@ -107,21 +131,21 @@ namespace Backend.Controllers
         }
 
         // GET: Hotel/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Hotel == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Edit(int? id)
+        //{
+        //    if (id == null || _context.Hotel == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var hotel = await _context.Hotel.FindAsync(id);
-            if (hotel == null)
-            {
-                return NotFound();
-            }
-            ViewData["CityId"] = new SelectList(_context.City, "CityId", "Name", hotel.CityId);
-            return View(hotel);
-        }
+        //    var hotel = await _context.Hotel.FindAsync(id);
+        //    if (hotel == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    ViewData["CityId"] = new SelectList(_context.City, "CityId", "Name", hotel.CityId);
+        //    return View(hotel);
+        //}
 
         // POST: Hotel/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -192,14 +216,14 @@ namespace Backend.Controllers
             {
                 _context.Hotel.Remove(hotel);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool HotelExists(int id)
         {
-          return (_context.Hotel?.Any(e => e.HotelId == id)).GetValueOrDefault();
+            return (_context.Hotel?.Any(e => e.HotelId == id)).GetValueOrDefault();
         }
     }
 }

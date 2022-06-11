@@ -34,7 +34,6 @@
     float: left;
     box-shadow: var(--imgshadows) 3px 1px 3px;
     border-radius: 20px;
-    box-shadow: var(--imgshadows) 3px 3px 3px;
     transform-origin: right bottom 10px;
     transition: transform .5s, visibility .25s ease-in;
 }
@@ -112,15 +111,15 @@
     width: 70vw;
     height: 10vh;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
 
 
     .query .filter {
+        margin-left: 2%;
         width: 20%;
         height: 100%;
-        float: left;
     }
 
 .filter p {
@@ -133,26 +132,38 @@
     height: 40%;
 }
 
-#submit {
+.submit {
     width: 10%;
     height: 60%;
     font-family: 'Montserrat', sans-seri;
     font-size: 1.2rem;
     font-weight: bold;
-    margin-left: 1%;
+    margin-left: 3%;
+    margin-right: 2%;
     border-radius: 50px;
     border-style: outset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: var(--textColor);
     background-color: var(--imageClassColor);
     transition: transform .5s, visibility .25s ease-in;
 }
 
 
-    #submit:hover {
+    .submit:hover {
         transform: scale(0.95);
         border: 2px solid black;
         cursor: pointer;
     }
+
+
+#filter-hotels{
+    margin-top: 7%;
+}
+
+
+
 
 .buttons {
     width: 20%;

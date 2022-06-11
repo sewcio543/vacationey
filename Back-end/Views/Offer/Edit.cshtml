@@ -8,7 +8,7 @@
     <form asp-action="Edit">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <div class="form-group">
+        <div class="form-group" style="display:none">
             <label asp-for="OfferId" class="control-label">ID</label>
             <input asp-for="OfferId" class="form-control" value=@ViewBag.ID/>
         </div>

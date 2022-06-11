@@ -20,7 +20,7 @@
 
         <div class="form-group" id="s">
             <label asp-for="Price" class="control-label">Price</label>
-            <input asp-for="Price" class="form-control" value=2000/>
+            <input asp-for="Price" class="form-control" value=2000 />
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
 
@@ -42,16 +42,17 @@
 
         </div>
 
-        <div class="form-group form-check">
-            <label class="form-check-label">
-                <input class="form-check-input" asp-for="FullBoard" /> Full Board
-            </label>
-        </div>
+        <div class="checks">
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="FullBoard" /> Full Board
+                </label>
+            </div>
 
-        <div>
-            <button id="submitCreate" type="submit">Create</button>
+            <div>
+                <button id="submitCreate" type="submit">Create</button>
+            </div>
         </div>
-
     </form>
 </div>
 

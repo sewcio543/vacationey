@@ -42,10 +42,14 @@
         <p>
             Pool: &nbsp;&nbsp;  @Model.Hotel.Pool
         </p>
-
-        <a asp-area="" asp-controller="Hotel" asp-action="Edit">Edit</a>
-        <a asp-area="" asp-controller="Hotel" asp-action="Index">Back To List</a>
-
+        <div class="details-links">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a asp-area="" asp-controller="Hotel" asp-action="Edit">Edit</a>
+            }
+            <a asp-area="" asp-controller="Offer" asp-action="Index"  asp-route-hotelId=@Model.Hotel.HotelId asp-route-page=1>Offers</a>
+            <a asp-area="" asp-controller="Hotel" asp-action="Index">Back To List</a>
+        </div>
 
     </div>
 </div>
