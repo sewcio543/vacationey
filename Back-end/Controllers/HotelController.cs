@@ -19,22 +19,21 @@ namespace Backend.Controllers
         public HotelController(DatabaseContext context)
         {
             _context = context;
+
             cities = from c in _context.City
                      group c by c.Name
                      into distinct
                      orderby distinct.First().Name
                      select distinct.First().Name;
-
         }
 
         // GET: Hotel
         public async Task<IActionResult> Index(string citySearch, string sortOrder, int page = 1)
         {
 
-            IQueryable<string> cityQuery = from c in _context.City
-                                           where c.Name != citySearch
-                                           orderby c.Name
-                                           select c.Name;
+
+            var cityQuery = cities.ToList().Where(c => c != citySearch);
+
 
             var hotels = from h in _context.Hotel
                          select h;
@@ -104,61 +103,70 @@ namespace Backend.Controllers
 
         public IActionResult Create()
         {
-            var rates = from h in _context.Hotel
-                        group h by h.Rate
-                        into distinct
-                        orderby distinct.First().Rate
-                        select distinct.First().Rate;
-
             ViewBag.Cities = new SelectList(cities);
-            ViewBag.Rates = new SelectList(rates, 3);
             var viewModel = new CreateHotelViewModel();
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("HotelId,Name,Rate,CityId,Pool,WiFi")] Hotel hotel)
+        public async Task<IActionResult> Create(CreateHotelViewModel model)
         {
+            var city = _context.City.First(c => c.Name == model.City);
+
+            var hotel = new Hotel()
+            {
+                Name = model.Name,
+                CityId = city.CityId,
+                WiFi = model.WiFi,
+                Pool = model.Pool,
+                Rate = model.Rate
+            };
+
             if (ModelState.IsValid)
             {
                 _context.Add(hotel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CityId"] = new SelectList(_context.City, "CityId", "Name", hotel.CityId);
-            return View(hotel);
+
+            ViewBag.Cities = new SelectList(cities);
+            return View(model);
         }
 
-        // GET: Hotel/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null || _context.Hotel == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var hotel = await _context.Hotel.FindAsync(id);
-        //    if (hotel == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ViewData["CityId"] = new SelectList(_context.City, "CityId", "Name", hotel.CityId);
-        //    return View(hotel);
-        //}
-
-        // POST: Hotel/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("HotelId,Name,Rate,CityId,Pool,WiFi")] Hotel hotel)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id != hotel.HotelId)
+            if (_context.Hotel == null)
             {
                 return NotFound();
             }
 
+            var hotel = await _context.Hotel.FindAsync(id);
+
+            if (hotel == null)
+            {
+                return NotFound();
+            }
+            ViewBag.Cities = new SelectList(cities);
+            ViewBag.ID = id;
+            
+            var viewModel = GenerateCreateHotelViewModel(id);
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(CreateHotelViewModel model)
+        {
+            var city = _context.City.First(c => c.Name == model.City);
+            var hotel = _context.Hotel.Find(model.HotelId);
+          
+            hotel.Name = model.Name;
+            hotel.CityId = city.CityId;
+            hotel.Rate = model.Rate;
+            hotel.Pool = model.Pool;
+            hotel.WiFi = model.WiFi;
+               
             if (ModelState.IsValid)
             {
                 try
@@ -225,5 +233,37 @@ namespace Backend.Controllers
         {
             return (_context.Hotel?.Any(e => e.HotelId == id)).GetValueOrDefault();
         }
+
+        //
+        public HotelViewModel GenerateHotelViewModel(int hotelId)
+        {
+            var hotel = _context.Hotel.Find(hotelId);
+            var city = _context.City.Find(hotel.CityId);
+
+            var viewModel = new HotelViewModel()
+            {
+                City = city,
+                Hotel = hotel,
+            };
+            return viewModel;
+        }
+
+        public CreateHotelViewModel GenerateCreateHotelViewModel(int hotelId)
+        {
+            var hotel = _context.Hotel.Find(hotelId);
+            var city = _context.City.Find(hotel.CityId);
+
+            var viewModel = new CreateHotelViewModel()
+            {
+                HotelId = hotelId,
+                Name = hotel.Name,
+                City = city.Name,
+                Rate = hotel.Rate,
+                WiFi = hotel.WiFi,
+                Pool = hotel.Pool
+            };
+            return viewModel;
+        }
     }
 }
+

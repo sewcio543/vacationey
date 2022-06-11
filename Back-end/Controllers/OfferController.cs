@@ -157,7 +157,7 @@ namespace Backend.Controllers
 
             ViewBag.Cities = new SelectList(cities.Distinct().ToList());
             ViewBag.Hotels = new SelectList(hotels.Distinct().ToList());
-            return View(offer);
+            return View(offerModel);
 
         }
 
@@ -188,7 +188,6 @@ namespace Backend.Controllers
             var hotelId = _context.Hotel.First(Hotel => Hotel.Name == newModel.Hotel).HotelId;
             var cityId = _context.City.First(City => City.Name == newModel.DepartureCity).CityId;
 
-            offer.HotelId = hotelId;
             offer.DepartureCityId = cityId;
             offer.Price = (decimal)newModel.Price;
             offer.DateTo = newModel.DateTo;

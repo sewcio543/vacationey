@@ -2,7 +2,7 @@
 {
     public class CreateHotelViewModel
     {
-        public string? HotelId { get; set; }
+        public int HotelId { get; set; }
         public string? Name { get; set; }
         public int Rate { get; set; }
         public string? City { get; set; }
