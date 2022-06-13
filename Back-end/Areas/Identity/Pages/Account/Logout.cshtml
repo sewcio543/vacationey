@@ -12,11 +12,10 @@
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
                 <button type="submit" class="nav-link btn btn-link btnlogout center">Logout</button>
             </form> 
-
         }
         else
         {
-            <p>You have successfully logged out of the application.</p>
+            <p>You have successfully logged out of the application!</p>
         }
     }
 </header>
