@@ -29,15 +29,7 @@ namespace Backend.Models
 
                 var Countries = new List<Country>()
                 {
-<<<<<<< HEAD
                     Spain, France, Italy, Portugal, Germany, Poland, Austria, Belgium, Turkey,  England, Ireland
-=======
-<<<<<<< HEAD
-                    Spain, France, Italy, Portugal, Germany, Poland, Austria, Belgium, Turkey,  England, Ireland  
-=======
-                    Spain, France, Italy, Portugal, Germany, Poland, Austria, Belgium, Turkey, England, Ireland  
->>>>>>> 0a7a7324b22f6bc35adea95e3a1dba042d2ae9ab
->>>>>>> a58abe99516650f500b9b364bb306d3811dea156
                 };
 
                 var Cities = new List<City>()
@@ -49,12 +41,10 @@ namespace Backend.Models
                     new City("Malaga", Spain),
                     new City("Cracow", Poland),
                     new City("Warsaw", Poland),
-<<<<<<< HEAD
                     new City("Sopot", Poland),
                     new City("Milan", Italy ),
                     new City("Rome", Italy ),
                     new City("Venice", Italy),
-=======
                     new City("Gdansk", Poland),
                     new City("Kielce", Poland),
                     new City("Sopot", Poland),
@@ -64,29 +54,24 @@ namespace Backend.Models
                     new City("Piza", Italy ),
                     new City("Venice", Italy),
                     new City("Coimbra", Portugal),
->>>>>>> a58abe99516650f500b9b364bb306d3811dea156
                     new City("Aveiro", Portugal),
                     new City("Porto", Portugal),
                     new City("Lisboa", Portugal),
                     new City("Paris", France),
                     new City("Lyon", France),
                     new City("Nicea", France),
-<<<<<<< HEAD
                     new City("Berlin", Germany),
                     new City("Munich", Germany),
-=======
                     new City("Lille", France),
                     new City("Nantes", France),
                     new City("Berlin", Germany),
                     new City("Munich", Germany),
                     new City("Bonn", Germany),
                     new City("Frankfurt", Germany),
->>>>>>> a58abe99516650f500b9b364bb306d3811dea156
                     new City("Hambur", Germany),
                     new City("Vienna", Austria),
                     new City("Graz", Austria),
                     new City("Salzburg", Austria),
-<<<<<<< HEAD
                     new City("Antwerp", Belgium),
                     new City("Ghent", Belgium),
                     new City("Antalya", Turkey),
@@ -98,7 +83,6 @@ namespace Backend.Models
                     new City("Dublin", Ireland),
                     new City("Galway", Ireland),
                     new City("Cork", Ireland),
-=======
                     new City("Innsbruck", Austria),
                     new City("Linz", Austria),
                     new City("Brussels", Belgium),
@@ -121,7 +105,6 @@ namespace Backend.Models
                     new City("Kinsale", Ireland),
                     new City("Cork", Ireland),
                     new City("Clifden", Ireland),
->>>>>>> a58abe99516650f500b9b364bb306d3811dea156
             };
 
                 var Hotels = new List<Hotel>();
