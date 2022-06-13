@@ -1,11 +1,10 @@
 ﻿@page
 @model LogoutModel
-@{
-    ViewData["Info"] = "Are you sure you want to log out? If so click the button under our logo and see you soon again!";
-}
 
 <header>
-    <h1>@ViewData["Info"]</h1>
+    <h1>            Are you sure you want to log out? 
+        If so click the button under our logo, see you soon again!";
+</h1>
     <img src="~/images/icons/logo.png" class="logovacationey" alt="vacationey logo">
     @{
         if (User.Identity.IsAuthenticated)
