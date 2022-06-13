@@ -6,9 +6,9 @@
     }
 
     string[] files = Directory.GetFiles("wwwroot/images/photos");
-    int count = System.IO.Directory.EnumerateFiles("wwwroot/images/photos").Count();
+    int count = files.Count();
     var random = new Random();
-    var photoID = random.Next(1, count);
+    var photoID = random.Next(0, count);
     var path = files[photoID][7..];
 
 }

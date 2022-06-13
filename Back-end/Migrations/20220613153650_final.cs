@@ -5,24 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Backend.Migrations
 {
-    public partial class _2 : Migration
+    public partial class final : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Admin",
-                columns: table => new
-                {
-                    AdminId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Password = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    Login = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Admin", x => x.AdminId);
-                });
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -232,27 +218,14 @@ namespace Backend.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     HotelId = table.Column<int>(type: "INTEGER", nullable: false),
                     Price = table.Column<double>(type: "decimal(18, 2)", nullable: false),
-                    DateFrom = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DateTo = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DateFrom = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "getdate()"),
+                    DateTo = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "getdate()"),
                     DepartureCityId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ArrivalCityId = table.Column<int>(type: "INTEGER", nullable: false),
-                    FullBoard = table.Column<bool>(type: "INTEGER", nullable: false),
-                    AdminId = table.Column<int>(type: "INTEGER", nullable: true)
+                    FullBoard = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Offer", x => x.OfferId);
-                    table.ForeignKey(
-                        name: "FK_Offer_Admin_AdminId",
-                        column: x => x.AdminId,
-                        principalTable: "Admin",
-                        principalColumn: "AdminId");
-                    table.ForeignKey(
-                        name: "FK_Offer_City_ArrivalCityId",
-                        column: x => x.ArrivalCityId,
-                        principalTable: "City",
-                        principalColumn: "CityId",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Offer_City_DepartureCityId",
                         column: x => x.DepartureCityId,
@@ -315,16 +288,6 @@ namespace Backend.Migrations
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Offer_AdminId",
-                table: "Offer",
-                column: "AdminId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Offer_ArrivalCityId",
-                table: "Offer",
-                column: "ArrivalCityId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Offer_DepartureCityId",
                 table: "Offer",
                 column: "DepartureCityId");
@@ -360,9 +323,6 @@ namespace Backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Admin");
 
             migrationBuilder.DropTable(
                 name: "Hotel");

@@ -11,34 +11,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220609210442_xd")]
-    partial class xd
+    [Migration("20220613153650_final")]
+    partial class final
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.5");
-
-            modelBuilder.Entity("Backend.Models.DbModels.Admin", b =>
-                {
-                    b.Property<int>("AdminId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Login")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("AdminId");
-
-                    b.ToTable("Admin");
-                });
 
             modelBuilder.Entity("Backend.Models.DbModels.City", b =>
                 {
@@ -113,17 +92,15 @@ namespace Backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("AdminId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ArrivalCityId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateTime>("DateFrom")
-                        .HasColumnType("TEXT");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<DateTime>("DateTo")
-                        .HasColumnType("TEXT");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<int>("DepartureCityId")
                         .HasColumnType("INTEGER");
@@ -138,10 +115,6 @@ namespace Backend.Migrations
                         .HasColumnType("decimal(18, 2)");
 
                     b.HasKey("OfferId");
-
-                    b.HasIndex("AdminId");
-
-                    b.HasIndex("ArrivalCityId");
 
                     b.HasIndex("DepartureCityId");
 
@@ -370,16 +343,6 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Models.DbModels.Offer", b =>
                 {
-                    b.HasOne("Backend.Models.DbModels.Admin", "Admin")
-                        .WithMany()
-                        .HasForeignKey("AdminId");
-
-                    b.HasOne("Backend.Models.DbModels.City", "ArrivalCity")
-                        .WithMany()
-                        .HasForeignKey("ArrivalCityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Backend.Models.DbModels.City", "DepartureCity")
                         .WithMany()
                         .HasForeignKey("DepartureCityId")
@@ -391,10 +354,6 @@ namespace Backend.Migrations
                         .HasForeignKey("HotelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Admin");
-
-                    b.Navigation("ArrivalCity");
 
                     b.Navigation("DepartureCity");
 

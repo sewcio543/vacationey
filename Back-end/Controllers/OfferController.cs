@@ -210,7 +210,7 @@ namespace Backend.Controllers
             {
                 var offer = _context.Offer.First(of => of.OfferId == id);
             }
-            catch (Exception ex)
+            catch
             {
                 return View("Index", _context.Offer);
             }
