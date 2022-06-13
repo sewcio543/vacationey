@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 .center {
+=======
+.logovacationey{
+>>>>>>> 6ac30858d296dd033a5488f06050520c0c291cc9
     margin: 0 35vw;
+}
+.center{
+    margin: 0 auto;
 }
 
 .logo-logout {
@@ -7,6 +14,7 @@
     width: 30vw;
 }
 
+<<<<<<< HEAD
 .btnlogout {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: xx-large;
@@ -21,3 +29,22 @@
     background-color: transparent;
     color: antiquewhite;
 }
+=======
+.btnlogout{
+font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+font-size: xx-large;
+font-weight: bolder;
+text-align: center;
+border: solid 1px black;
+border-radius: 10px;
+background-color: #3e3e47;
+color:antiquewhite;
+transition: 0.5s;
+}
+
+.btnlogut:hover{
+background-color: #101012;
+color: rgb(198, 175, 145);
+
+}
+>>>>>>> 6ac30858d296dd033a5488f06050520c0c291cc9
