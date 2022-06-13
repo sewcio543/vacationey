@@ -20,9 +20,11 @@ function submitFormOffer(page) {
     if (cityFrom != "All") { url += 'cityFrom=' + cityFrom + '&' };
     if (cityTo != "All") { url += 'cityTo=' + cityTo + '&' };
 
-    var actual_page = parseInt(window.location.href.slice(-1));
-    
-    if (page == 0 || actual_page == null) { url += 'page=1'; actual_page = 1 }
+    var queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    var actual_page = parseInt(urlParams.get('page'));
+
+    if (page == 0 || isNaN(actual_page)) { url += 'page=1'; actual_page = 1}
     else if (page == 1) { url += 'page=' + (actual_page + 1) }
     else if (page == -1) { url += 'page=' + (actual_page - 1) }
 

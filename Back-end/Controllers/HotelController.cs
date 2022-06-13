@@ -25,8 +25,6 @@ namespace Backend.Controllers
         // GET: Hotel
         public async Task<IActionResult> Index(string citySearch, string sortOrder, int page = 1)
         {
-
-
             var cityQuery = cities.ToList().Where(c => c != citySearch);
 
 

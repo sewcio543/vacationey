@@ -38,7 +38,7 @@ namespace Backend.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Index(string countrySearch, string sortOrder, string cityFrom, string cityTo, int hotelId, int page = 1)
+        public async Task<IActionResult> Index(string countrySearch, string sortOrder, string cityFrom, string cityTo, int hotelId, int page = 1)
         {
 
             var offers = from o in _context.Offer

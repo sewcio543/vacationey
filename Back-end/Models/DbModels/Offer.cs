@@ -5,8 +5,8 @@ namespace Backend.Models.DbModels
 {
     public class Offer
     {
-        public Offer(string? name, Hotel? hotel, decimal price, DateTime dateFrom, DateTime dateTo, City? 
-            departureCity, City? arrivalCity, bool fullBoard, int numberOfPeople)
+        public Offer(Hotel? hotel, decimal price, DateTime dateFrom, DateTime dateTo, City?
+            departureCity, bool fullBoard)
         {
             Hotel = hotel;
             Price = price;
