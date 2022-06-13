@@ -1,5 +1,8 @@
-.center{
+.logovacationey{
     margin: 0 35vw;
+}
+.center{
+    margin: 0 auto;
 }
 
 .logo-logout{
@@ -12,12 +15,14 @@ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida San
 font-size: xx-large;
 font-weight: bolder;
 text-align: center;
-background-color: antiquewhite;
-color:transparent;
+border-radius: 10px;
+background-color: #3e3e47;
+color:antiquewhite;
 transition: 0.5s;
 }
 
 .btnlogut:hover{
-background-color: transparent;
-color: antiquewhite;
+background-color: #101012;
+color: rgb(198, 175, 145);
+
 }
