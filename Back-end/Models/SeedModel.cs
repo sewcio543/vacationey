@@ -29,7 +29,7 @@ namespace Backend.Models
 
                 var Countries = new List<Country>()
                 {
-                    Spain, France, Italy, Portugal, Germany, Poland, Austria, Belgium, Turkey, Brasil, England, Ireland  
+                    Spain, France, Italy, Portugal, Germany, Poland, Austria, Belgium, Turkey, England, Ireland  
                 };
 
                 var Cities = new List<City>()
@@ -63,7 +63,7 @@ namespace Backend.Models
                     new City("Munich", Germany),
                     new City("Bonn", Germany),
                     new City("Frankfurt", Germany),
-                    new City("Hamburg", Germany),
+                    new City("Hambur", Germany),
                     new City("Vienna", Austria),
                     new City("Graz", Austria),
                     new City("Salzburg", Austria),
