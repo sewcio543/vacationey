@@ -92,7 +92,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 1%;
+    margin-top: 2%;
     border-radius: 50px;
     border-style: outset;
     background-color: var(--imageClassColor);
@@ -107,6 +107,7 @@
     }
 
 .query {
+    margin-bottom: 4%;
     margin-top: 2%;
     width: 70vw;
     height: 10vh;
