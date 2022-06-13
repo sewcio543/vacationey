@@ -1,0 +1,23 @@
+.center{
+    margin: 0 35vw;
+}
+
+.logo-logout{
+    height: 30vw;
+    width: 30vw;
+}
+
+.btnlogout{
+font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+font-size: xx-large;
+font-weight: bolder;
+text-align: center;
+background-color: antiquewhite;
+color:transparent;
+transition: 0.5s;
+}
+
+.btnlogut:hover{
+background-color: transparent;
+color: antiquewhite;
+}
