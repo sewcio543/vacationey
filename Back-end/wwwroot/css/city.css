@@ -1,0 +1,20 @@
+﻿:root {
+    --imgshadows: #596A7A;
+    --imageClassColor: #484C58;
+    --textColor: #C9C5CE;
+    --hoverLinkColor: #ffffff;
+    --background: #333;
+    --bodyBackground: linear-gradient(to right top, #484c58, #434550, #3e3e47, #39373f, #333037);
+}
+
+.table {
+    width: 75vw;
+    color: var(--textColor);
+}
+
+    .table th {
+        font-weight: bold;
+        font-size: 2em;
+    }
+
+

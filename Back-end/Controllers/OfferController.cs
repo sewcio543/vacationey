@@ -100,7 +100,7 @@ namespace Backend.Controllers
 
                     var cityQuery = from c in _context.City
                                     join cn in _context.Country on c.CountryId equals cn.CountryId
-                                    where c.Name != cityFrom && c.Name != cityTo && c.CountryId == countryId
+                                    where c.CountryId == countryId
                                     orderby c.Name
                                     select c.Name;
 
@@ -120,8 +120,8 @@ namespace Backend.Controllers
         [Authorize]
         public ActionResult Create()
         {
-            ViewBag.Cities = new SelectList(cities.Distinct().ToList());
-            ViewBag.Hotels = new SelectList(hotels.Distinct().ToList());
+            ViewBag.Cities = new SelectList(cities);
+            ViewBag.Hotels = new SelectList(hotels);
 
             var model = new CreateOfferViewModel();
             return View(model);
@@ -152,8 +152,8 @@ namespace Backend.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewBag.Cities = new SelectList(cities.Distinct().ToList());
-            ViewBag.Hotels = new SelectList(hotels.Distinct().ToList());
+            ViewBag.Cities = new SelectList(cities);
+            ViewBag.Hotels = new SelectList(hotels);
             return View(offerModel);
 
         }
@@ -165,8 +165,8 @@ namespace Backend.Controllers
             if (offer == null)
                 return View("Index", _context.Offer);
 
-            ViewBag.Cities = new SelectList(cities.Distinct().ToList());
-            ViewBag.Hotels = new SelectList(hotels.Distinct().ToList());
+            ViewBag.Cities = new SelectList(cities);
+            ViewBag.Hotels = new SelectList(hotels);
             ViewBag.ID = id;
 
             var viewModel = GenerateCreateOfferViewModel(id);
@@ -198,8 +198,8 @@ namespace Backend.Controllers
             }
 
             ViewBag.ID = newModel.OfferId;
-            ViewBag.Cities = new SelectList(cities.Distinct().ToList());
-            ViewBag.Hotels = new SelectList(hotels.Distinct().ToList());
+            ViewBag.Cities = new SelectList(cities);
+            ViewBag.Hotels = new SelectList(hotels);
 
             return View(GenerateCreateOfferViewModel(newModel.OfferId));
         }

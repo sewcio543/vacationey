@@ -37,8 +37,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DatabaseContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("SL-Connection")));
 
-builder.Services.AddDbContext<DatabaseContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SS-Connection")));
+//builder.Services.AddDbContext<DatabaseContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("SS-Connection")));
 
 builder.Services.AddRazorPages();
 

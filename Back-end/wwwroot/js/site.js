@@ -59,3 +59,27 @@ function submitFormHotel(page) {
 
 };
 
+// redirecting with filters
+function submitFormCity(page) {
+
+    var selectRate = document.getElementById("sortOrder");
+    var order = selectRate.options[selectRate.selectedIndex].value;
+
+    var selectCity = document.getElementById("selectCountry");
+    var city = selectCity.options[selectCity.selectedIndex].value;
+
+    var url = "?"
+
+    if (city != "All") { url += 'countrySearch=' + city + '&' };
+    if (order != "") { url += 'sortOrder=' + order + '&' };
+
+    var actual_page = parseInt(window.location.href.slice(-1));
+    if (page == 0 || isNaN(actual_page) || actual_page == 'N') { url += 'page=1' }
+    else if (page == 1) { url += 'page=' + (actual_page + 1) }
+    else if (page == -1) { url += 'page=' + (actual_page - 1) }
+
+    window.location.replace(url);
+    //delay(5000).then(() => console.log('ran after 1 second1 passed'));
+    //document.getElementById("query-filters").scrollIntoView();
+
+};

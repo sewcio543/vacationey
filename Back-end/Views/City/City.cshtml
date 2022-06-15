@@ -1,0 +1,18 @@
+﻿@model Backend.Models.ViewModels.CityViewModel
+
+
+<tr class="city">
+    <td>
+        @Model.City.Name
+    </td>
+    <td>
+        @Model.Country.Name
+    </td>
+    <td>
+        <a asp-action="Edit" asp-route-id="@Model.City.CityId">Edit</a> |
+        <form asp-action="Delete">
+            <input type="submit" value="Delete" />
+        </form>
+        @*<a asp-action="Delete" asp-route-id="@Model.City.CityId">Delete</a>*@
+    </td>
+</tr>

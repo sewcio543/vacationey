@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Backend.Models.ViewModels.CityViewModel>
+
+<div id="filter-hotels" class="query">
+
+    <div class="filter">
+        <p>
+            Sort
+        </p>
+        <select id="sortOrder" asp-items=@ViewBag.Orders>
+            <option></option>
+            }
+
+        </select>
+    </div>
+
+    <div class="filter">
+        <p>
+            Country
+        </p>
+
+        <select id="selectCountry" asp-items=@ViewBag.Countries>
+            <option>All</option>
+        </select>
+    </div>
+
+    <input class="submit" type="submit" onclick="submitFormCity(0)" value="Filter" />
+    <a class="submit" asp-action="Create">Create</a>
+
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Country
+            </th>
+            <th>
+                Options
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <partial name="City" model=item />
+        }
+    </tbody>
+</table>
+
+@try
+{
+    Model.First();
+
+    <div class="buttons">
+        <a id="prevPage" onclick="submitFormCity(-1)"> &lt; </a>
+        <a id="nextPage" onclick="submitFormCity(1)"> > </a>
+    </div>
+
+
+}
+catch { }

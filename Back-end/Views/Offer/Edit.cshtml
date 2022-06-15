@@ -10,7 +10,7 @@
 
         <div class="form-group" style="display:none">
             <label asp-for="OfferId" class="control-label">ID</label>
-            <input asp-for="OfferId" class="form-control" value=@ViewBag.ID/>
+            <input asp-for="OfferId" class="form-control" value=@ViewBag.ID />
         </div>
 
         <div class="form-group">
@@ -20,7 +20,7 @@
 
         <div class="form-group" id="s">
             <label asp-for="Price" class="control-label">Price</label>
-            <input asp-for="Price" class="form-control"/>
+            <input asp-for="Price" class="form-control" />
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
 
@@ -42,12 +42,13 @@
 
         </div>
 
-        <div class="form-group form-check">
-            <label class="form-check-label">
-                <input class="form-check-input" asp-for="FullBoard" /> Full Board
-            </label>
+        <div class="checks">
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="FullBoard" /> Full Board
+                </label>
+            </div>
         </div>
-
         <div>
             <button id="submitCreate" type="submit">Save</button>
         </div>

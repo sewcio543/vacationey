@@ -6,21 +6,8 @@
         <p>
             Rate
         </p>
-        <select id="rateOrder">
-            <option>@ViewBag.Order</option>
-            @if (@ViewBag.Order != "Ascending")
-            {
-                <option>Ascending</option>
-            }
-            @if (@ViewBag.Order != "Descending")
-            {
-                <option>Descending</option>
-            }
-            @if (@ViewBag.Order != "")
-            {
-                <option></option>
-            }
-
+        <select id="rateOrder" asp-items=@ViewBag.Orders>
+            <option></option>
         </select>
     </div>
 
@@ -28,18 +15,13 @@
         <p>
             City
         </p>
-
         <select id="selectCity" asp-items=@ViewBag.Cities>
-            <option>@ViewBag.City</option>
-            @if (@ViewBag.City != "All")
-            {
-                <option>All</option>
-            }
+            <option>All</option>
         </select>
     </div>
 
     <input class="submit" type="submit" onclick="submitFormHotel(0)" value="Filter" />
-    <a class="submit" asp-area="" asp-controller="Hotel" asp-action="Create">Create</a>
+    <a class="submit" asp-action="Create">Create</a>
 
 </div>
 

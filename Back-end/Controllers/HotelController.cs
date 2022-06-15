@@ -10,24 +10,24 @@ namespace Backend.Controllers
         private readonly DatabaseContext _context;
         private readonly IQueryable<string> cities;
         private readonly IQueryable<string> hotels;
+        private readonly string[] orders;
+
 
         public HotelController(DatabaseContext context)
         {
             _context = context;
 
             cities = from c in _context.City
-                     group c by c.Name
-                     into distinct
-                     orderby distinct.First().Name
-                     select distinct.First().Name;
+                     orderby c.Name
+                     select c.Name;
+
+            orders = new string[] { "Ascending", "Descending" };
+
         }
 
         // GET: Hotel
         public async Task<IActionResult> Index(string citySearch, string sortOrder, int page = 1)
         {
-            var cityQuery = cities.ToList().Where(c => c != citySearch);
-
-
             var hotels = from h in _context.Hotel
                          select h;
 
@@ -59,9 +59,8 @@ namespace Backend.Controllers
                 }
             }
 
-            ViewBag.Order = string.IsNullOrEmpty(sortOrder) ? "" : sortOrder;
-            ViewBag.City = string.IsNullOrEmpty(citySearch) ? "All" : citySearch;
-            ViewBag.Cities = new SelectList(cityQuery.Distinct().ToList());
+            ViewBag.Orders = new SelectList(orders, (string.IsNullOrEmpty(sortOrder) || !orders.Contains(sortOrder)) ? "" : sortOrder);
+            ViewBag.Cities = new SelectList(cities, (string.IsNullOrEmpty(citySearch) || !cities.Contains(citySearch)) ? "All" : citySearch);
 
             viewModels = viewModels.Skip((page - 1) * 10).Take(10).ToList();
 
