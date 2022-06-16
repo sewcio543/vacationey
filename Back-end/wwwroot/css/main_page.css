@@ -14,6 +14,12 @@
     text-align: center;
 }
 
+.map {
+    height: 30vh;
+    width: 70vw;
+    margin:0 15.5vw 50px 14.5vw;
+    border-radius:50px
+}
 
 #landing-page {
     width: 100%;
