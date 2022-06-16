@@ -62,7 +62,7 @@ namespace Backend.Controllers
                 var hotel = _context.Hotel.Find(offer.HotelId);
                 var city = _context.City.Find(hotel.CityId);
                 var cityDep = _context.City.Find(offer.DepartureCityId);
-                var country = _context.Country.First(c => c.CountryId == city.CountryId);
+                var country = _context.Country.FirstOrDefault(c => c.CountryId == city.CountryId);
 
 
                 if (country.Name == countrySearch || string.IsNullOrEmpty(countrySearch))
@@ -96,7 +96,7 @@ namespace Backend.Controllers
             {
                 try
                 {
-                    var countryId = _context.Country.First(c => c.Name == countrySearch).CountryId;
+                    var countryId = _context.Country.FirstOrDefault(c => c.Name == countrySearch).CountryId;
 
                     var cityQuery = from c in _context.City
                                     join cn in _context.Country on c.CountryId equals cn.CountryId
@@ -132,8 +132,8 @@ namespace Backend.Controllers
         [Authorize]
         public async Task<IActionResult> Create(CreateOfferViewModel offerModel)
         {
-            var hotelId = _context.Hotel.First(Hotel => Hotel.Name == offerModel.Hotel).HotelId;
-            var cityId = _context.City.First(City => City.Name == offerModel.DepartureCity).CityId;
+            var hotelId = _context.Hotel.FirstOrDefault(Hotel => Hotel.Name == offerModel.Hotel).HotelId;
+            var cityId = _context.City.FirstOrDefault(City => City.Name == offerModel.DepartureCity).CityId;
 
             var offer = new Offer
             {
@@ -181,15 +181,21 @@ namespace Backend.Controllers
         public async Task<IActionResult> Edit(CreateOfferViewModel newModel)
         {
             var offer = _context.Offer.Find(newModel.OfferId);
-            var hotelId = _context.Hotel.First(Hotel => Hotel.Name == newModel.Hotel).HotelId;
-            var cityId = _context.City.First(City => City.Name == newModel.DepartureCity).CityId;
-
-            offer.Price = (decimal)newModel.Price;
-            offer.DateTo = newModel.DateTo;
-            offer.DateFrom = newModel.DateFrom;
-            offer.FullBoard = newModel.FullBoard;
-            offer.DepartureCityId = cityId;
-            offer.HotelId = hotelId;
+            var hotelId = _context.Hotel.FirstOrDefault(Hotel => Hotel.Name == newModel.Hotel).HotelId;
+            var cityId = _context.City.FirstOrDefault(City => City.Name == newModel.DepartureCity).CityId;
+            try
+            {
+                offer.Price = (decimal)newModel.Price;
+                offer.DateTo = newModel.DateTo;
+                offer.DateFrom = newModel.DateFrom;
+                offer.FullBoard = newModel.FullBoard;
+                offer.DepartureCityId = cityId;
+                offer.HotelId = hotelId;
+            }
+            catch
+            {
+                return View("Error");
+            }
 
             if (ModelState.IsValid)
             {
@@ -208,7 +214,7 @@ namespace Backend.Controllers
         {
             try
             {
-                var offer = _context.Offer.First(of => of.OfferId == id);
+                var offer = _context.Offer.FirstOrDefault(of => of.OfferId == id);
             }
             catch
             {
@@ -223,7 +229,7 @@ namespace Backend.Controllers
         [Authorize]
         public IActionResult Delete(int id)
         {
-            var offer = _context.Offer.First(of => of.OfferId == id);
+            var offer = _context.Offer.FirstOrDefault(of => of.OfferId == id);
 
             if (offer == null)
                 return View("Index");
@@ -240,7 +246,7 @@ namespace Backend.Controllers
         [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var offer = _context.Offer.First(of => of.OfferId == id);
+            var offer = _context.Offer.FirstOrDefault(of => of.OfferId == id);
 
             try
             {

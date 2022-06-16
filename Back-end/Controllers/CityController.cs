@@ -86,7 +86,10 @@ namespace Backend.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateCityViewModel model)
         {
-            var country = _context.Country.First(c => c.Name == model.CountryName);
+            var country = _context.Country.FirstOrDefault(c => c.Name == model.CountryName);
+            
+            if (country == null)
+                return View("Error");
 
             var city = new City()
             {
@@ -134,7 +137,11 @@ namespace Backend.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(CreateCityViewModel model)
         {
-            var country = _context.Country.First(c => c.Name == model.CountryName);
+            var country = _context.Country.FirstOrDefault(c => c.Name == model.CountryName);
+
+            if (country == null)
+                return View("Error");
+
             var city = _context.City.Find(model.CityId);
 
             city.Name = model.CityName;
