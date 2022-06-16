@@ -1,18 +1,16 @@
-.logovacationey{
+.logovacationey {
     margin: 0 35vw;
 }
-.center{
-    margin: 0 auto;
-}
 
-.logo-logout {
+#logout img {
     height: 30vw;
     width: 30vw;
+    transition: transform 3.5s, visibility .25s ease-in;
 }
 
-.additional30px{
-    margin-left:37vw;
-}
+    #logout img:hover {
+        transform: scale(1.2);
+    }
 
 .btnlogout {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -23,52 +21,14 @@
     border-radius: 10px;
     background-color: #3e3e47;
     color: antiquewhite;
-    transition: 0.5s;
+    /*transition: transform .5s, visibility .25s ease-in;*/
+}
+
+.additional30px{
+    margin-left:37vw;
 }
 
 .topzero{
     margin-top:30px;
 }
 
-.btnlogut:hover{
-background-color: #101012;
-color: rgb(198, 175, 145);
-}
-
-.linear-wipe {
-    text-align: center;
-    
-    background: linear-gradient(-60deg,#939093, #242525);
-    background-size: 200% 100%;
-    background-clip: text;
-    color: transparent;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradient 3s ease infinite;
-  }
-
-  .line{
-    display: flex;
-    font-size: 1.2rem;
-    text-decoration: none;
-    font-weight: bold;
-    position:relative;
-    padding: .2em;
-    width: 35vw;
-}
-
-.line::after{
-    content: '';
-    position: absolute;
-    left:0;
-    bottom:0;
-    width: 0%;
-    height: .2em;
-    border-radius: 10px;
-    transition: .4s ease-in-out;
-    background: linear-gradient(-60deg,#939093, #242525);
-    background-size: 200% 100%;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-    animation: gradient 3s ease infinite;
-}
