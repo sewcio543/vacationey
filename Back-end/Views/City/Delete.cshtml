@@ -1,32 +1,13 @@
-﻿@model Backend.Models.DbModels.City
+﻿@model Backend.Models.ViewModels.CityViewModel
 
-@{
-    ViewData["Title"] = "Delete";
-}
 
-<h1>Delete</h1>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>City</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Country)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Country.Name)
-        </dd>
-    </dl>
+<div class="deleteCity">
+    <h3>Are you sure you want to delete @Model.City.Name </h3>
 
-    <form asp-action="Delete">
-        <input type="submit" value="Delete"/> |
+    <form asp-action="Delete" id="deleteForm">
+        <input type="submit" value="Delete" />
         <a asp-action="Index">Back to List</a>
     </form>
+
 </div>

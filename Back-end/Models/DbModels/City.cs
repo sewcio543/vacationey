@@ -13,11 +13,11 @@ namespace Backend.Models.DbModels
         [StringLength(50)]
         public string? Name { get; set; }
 
-        [Required]
-        [ForeignKey("Country")]
         public int CountryId { get; set; }
 
-        public Country? Country{ get; set; }
+        [Required]
+        [ForeignKey("CountryId")]
+        public virtual Country? Country{ get; set; }
 
         public City(){}
 

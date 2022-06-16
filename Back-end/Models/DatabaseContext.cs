@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Data.Entity.ModelConfiguration.Conventions;
 //using System.Data.Entity;
 
 
@@ -35,6 +36,7 @@ namespace Backend.Models.DbModels
             modelBuilder.Entity<Offer>()
            .Property(o => o.DateTo)
            .HasDefaultValueSql("getdate()");
+
         }
 
     }

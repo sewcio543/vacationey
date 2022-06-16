@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Backend.Models.DbModels;
 using Backend.Models.ViewModels;
+using Backend.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Backend.Controllers
 {
@@ -9,7 +11,6 @@ namespace Backend.Controllers
     {
         private readonly DatabaseContext _context;
         private readonly IQueryable<string> cities;
-        private readonly IQueryable<string> hotels;
         private readonly string[] orders;
 
 
@@ -22,15 +23,16 @@ namespace Backend.Controllers
                      select c.Name;
 
             orders = new string[] { "Ascending", "Descending" };
-
         }
 
-        // GET: Hotel
-        public async Task<IActionResult> Index(string citySearch, string sortOrder, int page = 1)
+        [AllowAnonymous]
+        public IActionResult Index(string citySearch, string sortOrder, int page = 1)
         {
+            if (_context.Hotel == null || _context.Offer == null || _context.Country == null || _context.City == null)
+                return View("Error", new ErrorViewModel("Problem with database"));
+
             var hotels = from h in _context.Hotel
                          select h;
-
 
             switch (sortOrder)
             {
@@ -41,13 +43,14 @@ namespace Backend.Controllers
                     hotels = hotels.OrderBy(s => s.Rate);
                     break;
             }
-
-
             var viewModels = new List<HotelViewModel>();
 
             foreach (Hotel hotel in hotels)
             {
                 var city = _context.City.Find(hotel.CityId);
+
+                if (city == null)
+                    continue;
 
                 if (city.Name == citySearch || string.IsNullOrEmpty(citySearch))
                 {
@@ -67,21 +70,21 @@ namespace Backend.Controllers
             return View(viewModels);
         }
 
-
-        public async Task<IActionResult> Details(int? id)
+        [AllowAnonymous]
+        public IActionResult Details(int id)
         {
-            if (id == null || _context.Hotel == null)
-            {
-                return NotFound();
-            }
+            if (_context.Hotel == null || _context.Offer == null || _context.Country == null || _context.City == null)
+                return View("Error", new ErrorViewModel("Problem with database"));
 
             var hotel = _context.Hotel.Find(id);
+
+            if (hotel == null)
+                return View("Error", new ErrorViewModel("Hotel not found"));
+
             var city = _context.City.Find(hotel.CityId);
 
-            if (hotel == null || city == null)
-            {
-                return NotFound();
-            }
+            if (city == null)
+                return View("Error", new ErrorViewModel("Hotel not found"));
 
             var viewModel = new HotelViewModel()
             {
@@ -92,7 +95,7 @@ namespace Backend.Controllers
             return View(viewModel);
         }
 
-
+        [Authorize]
         public IActionResult Create()
         {
             ViewBag.Cities = new SelectList(cities);
@@ -102,65 +105,85 @@ namespace Backend.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create(CreateHotelViewModel model)
         {
-            var city = _context.City.FirstOrDefault(c => c.Name == model.City);
-            try
-            {
-                var hotel = new Hotel()
-                {
-                    Name = model.Name,
-                    CityId = city.CityId,
-                    WiFi = model.WiFi,
-                    Pool = model.Pool,
-                    Rate = model.Rate
-                };
+            if (_context.Hotel == null || _context.Offer == null || _context.Country == null || _context.City == null)
+                return View("Error", new ErrorViewModel("Problem with database"));
 
-                if (ModelState.IsValid)
+            var city = _context.City.FirstOrDefault(c => c.Name == model.City);
+
+            if (city == null)
+                return View("Error", new ErrorViewModel("Incorrect city"));
+
+            var hotel = new Hotel()
+            {
+                Name = model.Name,
+                CityId = city.CityId,
+                WiFi = model.WiFi,
+                Pool = model.Pool,
+                Rate = model.Rate
+            };
+
+            if (ModelState.IsValid)
+            {
+                try
                 {
                     _context.Add(hotel);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
-            }
-            catch
-            {
-                return View("Error");
+                catch
+                {
+                    return View("Error", new ErrorViewModel("Problem with database - hotel was not created"));
+                }
             }
 
             ViewBag.Cities = new SelectList(cities);
             return View(model);
         }
 
+
+        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
-            if (_context.Hotel == null)
-            {
-                return NotFound();
-            }
+            if (_context.Hotel == null || _context.Offer == null || _context.Country == null || _context.City == null)
+                return View("Error", new ErrorViewModel("Problem with database"));
 
             var hotel = await _context.Hotel.FindAsync(id);
 
             if (hotel == null)
-            {
-                return NotFound();
-            }
+                return View("Error", new ErrorViewModel("Hotel not found"));
+
+
             ViewBag.Cities = new SelectList(cities);
             ViewBag.ID = id;
 
             var viewModel = GenerateCreateHotelViewModel(id);
+
+            if (viewModel == null)
+                return View("Index", _context.Hotel);
+
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(CreateHotelViewModel model)
         {
+            if (_context.Hotel == null || _context.Offer == null || _context.Country == null || _context.City == null)
+                return View("Error", new ErrorViewModel("Problem with database"));
+
             var city = _context.City.FirstOrDefault(c => c.Name == model.City);
-            var hotel = _context.Hotel.Find(model.HotelId);
 
             if (city == null)
-                return View("Error");
+                return View("Error", new ErrorViewModel("Incorrect city"));
+
+            var hotel = _context.Hotel.Find(model.HotelId);
+
+            if (hotel == null)
+                return View("Error", new ErrorViewModel("Incorrect hotel"));
 
             hotel.Name = model.Name;
             hotel.CityId = city.CityId;
@@ -170,9 +193,15 @@ namespace Backend.Controllers
 
             if (ModelState.IsValid)
             {
-                // try catch
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch
+                {
+                    return View("Error", new ErrorViewModel("Problem with database - hotel was not edited"));
+                }
             }
 
             ViewBag.Cities = new SelectList(cities);
@@ -181,63 +210,90 @@ namespace Backend.Controllers
             return View(model.HotelId);
         }
 
-        // GET: Hotel/Delete/5
-        public async Task<IActionResult> Delete(int id)
+        [Authorize]
+        public IActionResult Delete(int id)
         {
-            var hotel = _context.Hotel.FirstOrDefault(h => h.HotelId == id);
+            if (_context.Hotel == null || _context.Offer == null || _context.Country == null || _context.City == null)
+                return View("Error", new ErrorViewModel("Problem with database"));
+
+            var hotel = _context.Hotel.Find(id);
 
             if (hotel == null)
-                return View("Index");
-            else
-            {
-                var viewModel = GenerateHotelViewModel(id);
-                return View(viewModel);
-            }
+                return View("Error", new ErrorViewModel("Hotel not found"));
+
+            var viewModel = GenerateHotelViewModel(id);
+
+            if (viewModel == null)
+                return View("Index", _context.Hotel);
+
+            return View(viewModel);
         }
 
-        // POST: Hotel/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Hotel == null)
-            {
-                return Problem("Entity set 'DatabaseContext.Hotel'  is null.");
-            }
-            var hotel = await _context.Hotel.FindAsync(id);
+            if (_context.Hotel == null || _context.Offer == null || _context.Country == null || _context.City == null)
+                return View("Error", new ErrorViewModel("Problem with database"));
 
-            if (hotel != null)
+            var hotel = _context.Hotel.Find(id);
+
+            if (hotel == null)
+                return View("Error", new ErrorViewModel("Hotel not found"));
+
+            try
             {
                 _context.Hotel.Remove(hotel);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            catch
+            {
+                return View("Error", new ErrorViewModel("Problem with database - hotel was not deleted"));
+            }
         }
 
-        private bool HotelExists(int id)
-        {
-            return (_context.Hotel?.Any(e => e.HotelId == id)).GetValueOrDefault();
-        }
 
-        //
-        public HotelViewModel GenerateHotelViewModel(int hotelId)
+        public HotelViewModel? GenerateHotelViewModel(int hotelId)
         {
+            if (_context.Hotel == null || _context.Offer == null || _context.Country == null || _context.City == null)
+                return null;
+
             var hotel = _context.Hotel.Find(hotelId);
+
+            if (hotel == null)
+                return null;
+
             var city = _context.City.Find(hotel.CityId);
+
+            if (city == null)
+                return null;
 
             var viewModel = new HotelViewModel()
             {
                 City = city,
                 Hotel = hotel,
             };
+
             return viewModel;
         }
 
-        public CreateHotelViewModel GenerateCreateHotelViewModel(int hotelId)
+        public CreateHotelViewModel? GenerateCreateHotelViewModel(int hotelId)
         {
+            if (_context.Hotel == null || _context.Offer == null || _context.Country == null || _context.City == null)
+                return null;
+
             var hotel = _context.Hotel.Find(hotelId);
+
+            if (hotel == null)
+                return null;
+
             var city = _context.City.Find(hotel.CityId);
+
+            if (city == null)
+                return null;
 
             var viewModel = new CreateHotelViewModel()
             {
@@ -248,6 +304,7 @@ namespace Backend.Controllers
                 WiFi = hotel.WiFi,
                 Pool = hotel.Pool
             };
+
             return viewModel;
         }
     }

@@ -12,10 +12,11 @@ namespace Backend.Controllers
         {
             _logger = logger;
         }
-        //test
+
         public IActionResult Index()
         {
-            return View();
+            return View(new ErrorViewModel());
+
         }
 
         public IActionResult Privacy()
@@ -26,7 +27,7 @@ namespace Backend.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel());
         }
     }
 }

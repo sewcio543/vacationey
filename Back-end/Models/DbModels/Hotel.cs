@@ -16,11 +16,11 @@ namespace Backend.Models.DbModels
         [Range(1, 5, ErrorMessage = "Value out of range")] 
         public int Rate { get; set; }
 
-        [ForeignKey("City")]
         public int CityId { get; set; }
 
         [Required]
-        public City? City { get; set; }
+        [ForeignKey("CityId")]
+        public virtual City? City { get; set; }
 
         public bool Pool { get; set; }
         public bool WiFi { get; set; }

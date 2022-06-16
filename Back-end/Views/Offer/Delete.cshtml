@@ -17,29 +17,31 @@
 <div class="details">
     <img src=@path />
     <div class="infoDetails">
-        <p>
-            Country: &nbsp;&nbsp; @Model.Country.Name
-        </p>
-        <p>
-            City: &nbsp;&nbsp; @Model.City.Name
-        </p>
-        <p>
-            Hotel: &nbsp;&nbsp; @Model.Hotel.Name
-        </p>
-        <p>
-            Price: &nbsp;&nbsp; @Model.Offer.Price
-            $
-        </p>
-        <p>
-            Full-board: &nbsp;&nbsp;  @YesNo(Model.Offer.FullBoard)
-        </p>
-        <p>
-            From: &nbsp;&nbsp;  @Model.Offer.DateFrom.ToString("dd.MM.yyy")
-        </p>
-        <p>
-            To: &nbsp;&nbsp; @Model.Offer.DateTo.ToString("dd.MM.yyy")
-        </p>
+        <div class="textInfo">
 
+            <p>
+                Country: &nbsp;&nbsp; @Model.Country.Name
+            </p>
+            <p>
+                City: &nbsp;&nbsp; @Model.City.Name
+            </p>
+            <p>
+                Hotel: &nbsp;&nbsp; @Model.Hotel.Name
+            </p>
+            <p>
+                Price: &nbsp;&nbsp; @Model.Offer.Price
+                $
+            </p>
+            <p>
+                Full-board: &nbsp;&nbsp;  @YesNo(Model.Offer.FullBoard)
+            </p>
+            <p>
+                From: &nbsp;&nbsp;  @Model.Offer.DateFrom.ToString("dd.MM.yyy")
+            </p>
+            <p>
+                To: &nbsp;&nbsp; @Model.Offer.DateTo.ToString("dd.MM.yyy")
+            </p>
+        </div>
         <form asp-action="Delete" asp-route-id=@Model.Offer.OfferId id="deleteForm">
             <input type="submit" value="Delete" />
             <a asp-action="Index" asp-route-page=1>Back to List</a>
