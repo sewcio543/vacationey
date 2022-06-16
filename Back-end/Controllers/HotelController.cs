@@ -104,22 +104,28 @@ namespace Backend.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateHotelViewModel model)
         {
-            var city = _context.City.First(c => c.Name == model.City);
-
-            var hotel = new Hotel()
+            var city = _context.City.FirstOrDefault(c => c.Name == model.City);
+            try
             {
-                Name = model.Name,
-                CityId = city.CityId,
-                WiFi = model.WiFi,
-                Pool = model.Pool,
-                Rate = model.Rate
-            };
+                var hotel = new Hotel()
+                {
+                    Name = model.Name,
+                    CityId = city.CityId,
+                    WiFi = model.WiFi,
+                    Pool = model.Pool,
+                    Rate = model.Rate
+                };
 
-            if (ModelState.IsValid)
+                if (ModelState.IsValid)
+                {
+                    _context.Add(hotel);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            catch
             {
-                _context.Add(hotel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View("Error");
             }
 
             ViewBag.Cities = new SelectList(cities);
@@ -150,8 +156,11 @@ namespace Backend.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(CreateHotelViewModel model)
         {
-            var city = _context.City.First(c => c.Name == model.City);
+            var city = _context.City.FirstOrDefault(c => c.Name == model.City);
             var hotel = _context.Hotel.Find(model.HotelId);
+
+            if (city == null)
+                return View("Error");
 
             hotel.Name = model.Name;
             hotel.CityId = city.CityId;
@@ -175,7 +184,7 @@ namespace Backend.Controllers
         // GET: Hotel/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
-            var hotel = _context.Hotel.First(h => h.HotelId == id);
+            var hotel = _context.Hotel.FirstOrDefault(h => h.HotelId == id);
 
             if (hotel == null)
                 return View("Index");
