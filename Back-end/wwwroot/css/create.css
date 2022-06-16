@@ -55,6 +55,9 @@
     margin-top: 10%;
 }
 
+[title='forCountry'] {
+    margin-top: 13%;
+}
 #submitCreate:hover {
     transform: scale(1.02);
 }
@@ -64,5 +67,9 @@
 }
 
 #createCity {
+    height: 40vh;
+}
+
+#createCountry {
     height: 40vh;
 }

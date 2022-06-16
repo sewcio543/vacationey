@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Backend.Models.DbModels.Country>
+
+<div id="filter-hotels" class="query">
+
+    <div class="filter">
+        <p>
+            Sort
+        </p>
+        <select id="sortOrder" asp-items=@ViewBag.Orders>
+            <option></option>
+            }
+
+        </select>
+    </div>
+
+    <input class="submit" type="submit" onclick="submitFormCountry(0)" value="Filter" />
+    <a class="submit" asp-action="Create">Create</a>
+
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    <div id="deleteForm">
+                        <a asp-action="Edit" asp-route-id="@item.CountryId">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.CountryId">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@try
+{
+    Model.First();
+
+    <div class="buttons">
+        <a id="prevPage" onclick="submitFormCountry(-1)"> &lt; </a>
+        <a id="nextPage" onclick="submitFormCountry(1)"> > </a>
+    </div>
+
+
+}
+catch { }
