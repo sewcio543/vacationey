@@ -6,10 +6,10 @@
     margin-top: 8vh;
 }
 
-    #slider img {
-        width: 100%;
-        height: 100vh;
-    }
+#slider img {
+    width: 100%;
+    height: 100vh;
+}
 
 /* Fading animation */
 .fade {

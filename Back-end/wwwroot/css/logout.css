@@ -8,9 +8,9 @@
     transition: transform 3.5s, visibility .25s ease-in;
 }
 
-    #logout img:hover {
-        transform: scale(1.2);
-    }
+#logout img:hover {
+    transform: scale(1.2);
+}
 
 .btnlogout {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;

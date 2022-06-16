@@ -1,5 +1,40 @@
 ﻿
 <img src="~/images/photos/home.jpg" class="full"/>
+
+<h1>Zapraszamy do śledzenia naszej oferty!</h1>
+ <div id="image_container">
+    <input type="radio" name="radio-btn" onclick="jeden()" id="btn1">
+    <input type="radio" name="radio-btn" onclick="dwa()" id="btn2">
+    <input type="radio" name="radio-btn" onclick="trzy()" id="btn3">
+    <input type="radio" name="radio-btn" onclick="cztery()" id="btn4">
+    <div class="slide first">      
+      <img src="~/images/photos/test3.jpg" class="photo" id="p1" alt="" />
+    </div>
+    <div class="slide">
+      <img src="~/images/photos/test2.jpg" class="photo" id="p2" alt="">
+    </div>
+    <div class="slide">
+      <img src="~/images/photos/test4.jpg" class="photo" id="p3" alt="">
+    </div>
+    <div class="slide">
+      <img src="~/images/photos/test15.jpg" class="photo" id="p4" alt="">
+    </div>
+
+    <div class="navig-auto">
+      <div class="auto-btn1"></div>
+      <div class="auto-btn2"></div>
+      <div class="auto-btn3"></div>
+      <div class="auto-btn4"></div>
+    </div>
+    <div class="nav-manual">
+      <label for="btn1" class="manual-btn"></label>
+      <label for="btn2" class="manual-btn"></label>
+      <label for="btn3" class="manual-btn"></label>
+      <label for="btn4" class="manual-btn"></label>
+    </div>
+  </div>
+@*
 <div id="slider">
     <img id="slidePhoto fade" src="~/images/photos/test1.jpg" alt="">
 </div>
+*@
