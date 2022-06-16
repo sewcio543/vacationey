@@ -6,44 +6,48 @@
         return active ? "Yes" : "No";
     }
 
+    string[] files = Directory.GetFiles("wwwroot/images/photos");
+    int count = System.IO.Directory.EnumerateFiles("wwwroot/images/photos").Count();
     var random = new Random();
-    var photoID = random.Next(1, 11);
-    var path = $"/images/photos/test{photoID}.jpg";
+    var photoID = random.Next(1, count);
+    var path = files[photoID][7..];
 
 }
 
 <div class="details">
     <img src=@path />
     <div class="infoDetails">
-        <p>
-            Name: &nbsp;&nbsp; @Model.Hotel.Name
-        </p>
-        <p>
-            City: &nbsp;&nbsp; @Model.City.Name
-        </p>
+        <div class="textInfo">
 
-        <p id="stars">
-            @*<div id="stars">*@
+            <p>
+                Name: &nbsp;&nbsp; @Model.Hotel.Name
+            </p>
+            <p>
+                City: &nbsp;&nbsp; @Model.City.Name
+            </p>
 
-            @for (int i = 0; i < Model.Hotel.Rate; i++)
-            {
-                <span class="star">&#9733;</span>
-            }
-            @for (int i = Model.Hotel.Rate; i < 5; i++)
-            {
-                <span class="star">&#9734;</span>
-            }
+            <p id="stars">
+                @*<div id="stars">*@
 
-            @*</div>*@
+                @for (int i = 0; i < Model.Hotel.Rate; i++)
+                {
+                    <span class="star">&#9733;</span>
+                }
+                @for (int i = Model.Hotel.Rate; i < 5; i++)
+                {
+                    <span class="star">&#9734;</span>
+                }
 
-        </p>
-        <p>
-            Wi-Fi: &nbsp;&nbsp;  @YesNo(Model.Hotel.WiFi)
-        </p>
-        <p>
-            Pool: &nbsp;&nbsp;  @Model.Hotel.Pool
-        </p>
+                @*</div>*@
 
+            </p>
+            <p>
+                Wi-Fi: &nbsp;&nbsp;  @YesNo(Model.Hotel.WiFi)
+            </p>
+            <p>
+                Pool: &nbsp;&nbsp;  @Model.Hotel.Pool
+            </p>
+        </div>
         <form asp-action="Delete" id="deleteForm">
             <input type="submit" value="Delete" />
             <a asp-action="Index" asp-route-page=1>Back to List</a>

@@ -235,10 +235,10 @@ namespace Backend.Controllers
         }
 
         // POST: OfferController/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var offer = _context.Offer.First(of => of.OfferId == id);
 

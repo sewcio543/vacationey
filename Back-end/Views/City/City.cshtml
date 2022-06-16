@@ -10,8 +10,10 @@
     </td>
     <td>
         <a asp-action="Edit" asp-route-id="@Model.City.CityId">Edit</a> |
+
         <form asp-action="Delete">
-            <input type="submit" value="Delete" />
+            <input type="submit" value="Delete" /> |
+            <a asp-action="Index">Back to List</a>
         </form>
         @*<a asp-action="Delete" asp-route-id="@Model.City.CityId">Delete</a>*@
     </td>
