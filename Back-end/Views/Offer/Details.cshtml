@@ -14,47 +14,64 @@
 
 }
 
-<div class="details">
-    <img src=@path />
-    <div class="infoDetails">
-        <div class="textInfo">
-            <p>
-                Country: &nbsp;&nbsp; @Model.Country.Name
-            </p>
-            <p>
-                City: &nbsp;&nbsp; @Model.City.Name
-            </p>
-            <p>
-                Hotel: &nbsp;&nbsp; @Model.Hotel.Name
-            </p>
-            <p>
-                Price: &nbsp;&nbsp; @Model.Offer.Price
-                $
-            </p>
-            <p>
-                Full-board: &nbsp;&nbsp;  @YesNo(Model.Offer.FullBoard)
-            </p>
-            <p>
-                From: &nbsp;&nbsp;  @Model.Offer.DateFrom.ToString("dd.MM.yyy")
-            </p>
-            <p>
-                To: &nbsp;&nbsp; @Model.Offer.DateTo.ToString("dd.MM.yyy")
-            </p>
-        </div>
-        <div class="details-links">
+@if (Model.Offer != null)
+{
+    <div class="details">
+        <img src=@path />
+        <div class="infoDetails">
+            <div class="textInfo">
+                <p>
+                    Country: &nbsp;&nbsp;
+                    @if (Model.Country != null)
+                    {
+                        @Model.Country.Name
+                    }
+                </p>
+                <p>
+                    City: &nbsp;&nbsp;
+                    @if (Model.City != null)
+                    {
+                        @Model.City.Name
+                    }
+                </p>
+                <p>
+                    Hotel: &nbsp;&nbsp;
+                    @if (Model.Hotel != null)
+                    {
+                        @Model.Hotel.Name
+                    }
+                </p>
+                <p>
+                    Price: &nbsp;&nbsp;  @Model.Offer.Price
+                    $
+                </p>
+                <p>
+                    Full-board: &nbsp;&nbsp;  @YesNo(Model.Offer.FullBoard)
+                </p>
+                <p>
+                    From: &nbsp;&nbsp;  @Model.Offer.DateFrom.ToString("dd.MM.yyy")
+                </p>
+                <p>
+                    To: &nbsp;&nbsp;  @Model.Offer.DateTo.ToString("dd.MM.yyy")
+                </p>
+            </div>
+            <div class="details-links">
+                @if (Model.Hotel != null)
+                {
+                    <a asp-action="Details" asp-route-id=@Model.Hotel.HotelId>Hotel</a>
+                }
+                @if (User.Identity != null && User.Identity.IsAuthenticated && Model.Offer != null)
+                {
+                    <a asp-area="" asp-controller="Offer" asp-action="Edit" asp-route-id=@Model.Offer.OfferId>Edit</a>
+                }
+                <a onclick="window.history.back()">Back to List</a>
 
-            <a asp-area="" asp-controller="Hotel" asp-action="Details" asp-route-id=@Model.Hotel.HotelId>Hotel</a>
-            @if (User.Identity.IsAuthenticated)
-            {
-                <a asp-area="" asp-controller="Offer" asp-action="Edit" asp-route-id=@Model.Offer.OfferId>Edit</a>
-            }
-            <a asp-area="" asp-controller="Offer" asp-action="Index" asp-route-page=1>Back to List</a>
-
+            </div>
         </div>
+
+
     </div>
-
-
-</div>
+}
 
 
 

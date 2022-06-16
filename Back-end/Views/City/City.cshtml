@@ -1,20 +1,26 @@
 ﻿@model Backend.Models.ViewModels.CityViewModel
 
 
-<tr class="city">
-    <td>
-        @Model.City.Name
-    </td>
-    <td>
-        @Model.Country.Name
-    </td>
-    <td>
+@if (Model.City != null)
+{
+    <tr class="city">
+        <td>
+            @Model.City.Name
+        </td>
+        <td>
+            @if (Model.Country != null)
+            {
+                @Model.Country.Name
+            }
+        </td>
+        <td>
 
-        <div id="deleteForm">
-            <a asp-action="Edit" asp-route-id="@Model.City.CityId">Edit</a>
-            <a asp-action="Delete" asp-route-id="@Model.City.CityId">Delete</a>
-        </div>
+            <div id="deleteForm">
+                <a asp-action="Edit" asp-route-id="@Model.City.CityId">Edit</a>
+                <a asp-action="Delete" asp-route-id="@Model.City.CityId">Delete</a>
+            </div>
 
-    </td>
+        </td>
 
-</tr>
+    </tr>
+}

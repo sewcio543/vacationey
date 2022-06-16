@@ -24,12 +24,15 @@
 
 
 .authButtons {
+    border: 2px solid red;
     width: 40%;
     height: 20vh;
     margin-top: 2%;
 }
 
-    .authButtons button {
+    .authButtons button
+    {
+        border: 2px solid red;
         margin-top: 5%;
         width: 100%;
         height: 25%;

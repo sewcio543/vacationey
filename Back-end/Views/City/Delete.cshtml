@@ -3,7 +3,12 @@
 
 
 <div class="deleteCity">
-    <h3>Are you sure you want to delete @Model.City.Name </h3>
+    <h3>Are you sure you want to delete 
+        @if (Model.City != null)
+        {
+            @Model.City.Name
+        }
+    </h3>
 
     <form asp-action="Delete" id="deleteForm">
         <input type="submit" value="Delete" />

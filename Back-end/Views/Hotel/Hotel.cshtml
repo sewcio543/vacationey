@@ -8,47 +8,50 @@
     var path = files[photoID][7..];
 }
 
-<a  asp-action="Details" asp-route-id=@Model.Hotel.HotelId>
+@if (Model.Hotel != null)
+{
+    <a asp-action="Details" asp-route-id=@Model.Hotel.HotelId>
 
-    <div class="offer">
+        <div class="offer">
 
-        <img src=@path>
+            <img src=@path>
 
-        <div class="info">
+            <div class="info">
 
-            <p>
-                @Model.Hotel.Name
+                <p>
+                    @Model.Hotel.Name
 
-            </p>
-            <p>
-                @Model.City.Name
-            </p>
-           <div id="stars">
+                </p>
+                <p>
+                    @Model.City.Name
+                </p>
+                <div id="stars">
 
-                @for (int i = 0; i < Model.Hotel.Rate; i++)
-                {
-                    <span class="star">&#9733;</span>
-                }
-                @for (int i = Model.Hotel.Rate; i < 5; i++)
-                {
-                    <span class="star">&#9734;</span>
-                }
+                    @for (int i = 0; i < Model.Hotel.Rate; i++)
+                    {
+                        <span class="star">&#9733;</span>
+                    }
+                    @for (int i = Model.Hotel.Rate; i < 5; i++)
+                    {
+                        <span class="star">&#9734;</span>
+                    }
+
+                </div>
 
             </div>
+            <div class="edit-delete">
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    <a asp-action="Edit" asp-route-id=@Model.Hotel.HotelId class="edit">Edit</a>
+                    <a asp-action="Delete" asp-route-id=@Model.Hotel.HotelId class="edit">Delete</a>
+
+                }
+            </div>
+
 
         </div>
-        <div class="edit-delete">
-            @if (User.Identity.IsAuthenticated)
-            {
-                <a asp-area="" asp-controller="Hotel" asp-action="Edit" asp-route-id=@Model.Hotel.HotelId class="edit">Edit</a>
-                <a asp-area="" asp-controller="Hotel" asp-action="Delete" asp-route-id=@Model.Hotel.HotelId class="edit">Delete</a>
 
-            }
-        </div>
-
-
-    </div>
-
-</a>
+    </a>
+}
 
 

@@ -8,42 +8,48 @@
     var path = files[photoID][7..];
 }
 
-<a asp-area="" asp-controller="Offer" asp-action="Details" asp-route-id=@Model.Offer.OfferId>
+@if (Model.Offer != null)
+{
+    <a asp-action="Details" asp-route-id=@Model.Offer.OfferId>
 
-    <div class="offer">
+        <div class="offer">
 
-        <img src=@path>
+            <img src=@path>
 
-        <div class="info">
+            <div class="info">
 
-            <p>
-                @Model.Country.Name
+                <p>
+                    @if (Model.Country != null)
+                    {
+                        @Model.Country.Name
+                    }
 
-            </p>
-            <p>
-                @Model.Hotel.Name
-            </p>
-            <p>
-                @Model.Offer.Price
-                $
-            </p>
-            <p>
-                @Model.Offer.DateFrom.ToString("dd.MM.yyy") -
-                @Model.Offer.DateTo.ToString("dd.MM.yyy")
-            </p>
+                </p>
+                <p>
+                    @if (Model.Hotel != null)
+                    {
+                        @Model.Hotel.Name
+                    }
+                </p>
+                <p>
+                    @Model.Offer.Price
+                    $
+                </p>
+                <p>
+                    @Model.Offer.DateFrom.ToString("dd.MM.yyy")
+                    -
+                    @Model.Offer.DateTo.ToString("dd.MM.yyy")
+                </p>
+            </div>
+            <div class="edit-delete">
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    <a asp-action="Edit" asp-route-id=@Model.Offer.OfferId class="edit">Edit</a>
+                    <a asp-action="Delete" asp-route-id=@Model.Offer.OfferId class="edit">Delete</a>
+                }
+            </div>
         </div>
-        <div class="edit-delete">
-            @if (User.Identity.IsAuthenticated)
-            {
-                <a asp-area="" asp-controller="Offer" asp-action="Edit" asp-route-id=@Model.Offer.OfferId class="edit">Edit</a>
-                <a asp-area="" asp-controller="Offer" asp-action="Delete" asp-route-id=@Model.Offer.OfferId class="edit">Delete</a>
-
-            }
-        </div>
-
-
-    </div>
-
-</a>
+    </a>
+}
 
 
