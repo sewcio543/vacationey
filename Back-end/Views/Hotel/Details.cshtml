@@ -5,7 +5,7 @@
         return active ? "Yes" : "No";
     }
 
-    string[] files = Directory.GetFiles("wwwroot/images/photos");
+    string[] files = Directory.GetFiles("wwwroot/images/hotels");
     int count = files.Count();
     var random = new Random();
     var photoID = random.Next(0, count);

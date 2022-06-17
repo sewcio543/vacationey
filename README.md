@@ -35,10 +35,12 @@ and adjust Program.cs, providing adequate DbContext options:
 
     builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("SL-Connection")));
 
-
 In Visual Studio Run Tools -> NuGet Package Manager -> Package Manager Console and type:
+* enable-migartions
 * add-migration test_migration
 * update-database
+
+You can also use different database provider, adjusting your connection string and builder.Services DbContext options
 
 </br>
 #### Entity Framework
