@@ -98,6 +98,9 @@ namespace Backend.Controllers
         [Authorize]
         public IActionResult Create()
         {
+            if (_context.Hotel == null || _context.Offer == null || _context.Country == null || _context.City == null)
+                return View("Error", new ErrorViewModel("Problem with database"));
+
             ViewBag.Cities = new SelectList(cities);
             var viewModel = new CreateHotelViewModel();
             return View(viewModel);

@@ -19,7 +19,12 @@ namespace Backend.Controllers
             orders = new string[] { "Ascending", "Descending" };
 
         }
-
+        /// <summary>
+        /// Hello
+        /// </summary>
+        /// <param name="sortOrder"></param>
+        /// <param name="page"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         public IActionResult Index(string sortOrder, int page = 1)
         {
@@ -49,6 +54,9 @@ namespace Backend.Controllers
         [Authorize]
         public IActionResult Create()
         {
+            if (_context.Hotel == null || _context.Offer == null || _context.Country == null || _context.City == null)
+                return View("Error", new ErrorViewModel("Problem with database"));
+
             return View();
         }
 
@@ -58,6 +66,9 @@ namespace Backend.Controllers
         [Authorize]
         public async Task<IActionResult> Create(Country country)
         {
+            if (_context.Hotel == null || _context.Offer == null || _context.Country == null || _context.City == null)
+                return View("Error", new ErrorViewModel("Problem with database"));
+
             if (ModelState.IsValid)
             {
                 try

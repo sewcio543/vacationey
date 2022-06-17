@@ -2,7 +2,7 @@ using Backend.Models;
 using Backend.Models.DbModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +40,10 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 //    options.UseSqlServer(builder.Configuration.GetConnectionString("SS-Connection")));
 
 builder.Services.AddRazorPages();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+});
 
 var app = builder.Build();
 
@@ -51,6 +55,15 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+// Enable middleware to serve generated Swagger as a JSON endpoint.
+app.UseSwagger();
+// Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+// specifying the Swagger JSON endpoint.
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+});
 
 
 // adding data to db
@@ -67,6 +80,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.UseEndpoints(endpoints =>
 {
