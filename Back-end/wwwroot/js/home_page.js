@@ -1,4 +1,4 @@
-﻿let tab = ["~/images/photos/test3.jpg", "~/images/photos/test2.jpg", "~/images/photos/test4.jpg", "~/images/photos/test15.jpg"];
+﻿let tab = ["~/images/photos/test3.jpg", "~/images/photos/test2.jpg", "~/images/icons/test4.jpg", "~/images/photos/test15.jpg"];
 
 window.onload = function () {
     let index1 = Math.floor(Math.random() * 4);
