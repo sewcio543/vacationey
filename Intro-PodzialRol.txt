@@ -9,7 +9,7 @@ Mateusz Mulka - odpowiedzialny za warstwę wizualną (FrontEnd), modyfikacja wid
 Anastazja Spólnik - odpowiedzialna za dokumentację projektu, graficzną warstwę strony (icony, logo, dobrze dobrane zdjęcia),
 					projektowanie bazy danych, modeli do niej oraz stworzenia Seeda dla bazy danych
 					
-Wojciech Seweryn - odpowiedzialny za niewidzialną warstwę stron (BackEnd), kontrolery, widoki oraz ich funkcjonalność (tak, że niby mają kontakt z bazą) 
+Wojciech Seweryn - odpowiedzialny za niewidzialną warstwę strony (BackEnd), kontrolery, widoki oraz ich funkcjonalność (tak, że niby mają kontakt z bazą) 
 					i siłą rzeczy za jakość i czystość kodu. Jak coś nie działa, to prawdopodobnie jego wina.
 					
 Życzymy niezapomnianego wrażenia podczas korzystania z naszej strony!
