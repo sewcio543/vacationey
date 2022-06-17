@@ -60,7 +60,7 @@
     color: #fff;
     text-transform: uppercase;
     animation: waviy 2s infinite;
-    animation-delay: calc(.1s * var(--i))
+    animation-delay: calc(.1s * 8)
     }
 
 @keyframes waviy {
@@ -84,6 +84,7 @@ input {
 
 .map {
     outline: 2px solid white;
+    border-radius: 40px;
 }
 
 .nav-manual {
