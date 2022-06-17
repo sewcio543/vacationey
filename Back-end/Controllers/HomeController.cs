@@ -1,6 +1,5 @@
 ﻿using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace Backend.Controllers
 {

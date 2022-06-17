@@ -1,5 +1,4 @@
-﻿using Backend.Models.DbModels;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 //using System.Data.Entity;
@@ -7,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Models.DbModels
 {
-    public class DatabaseContext : IdentityDbContext<IdentityUser, IdentityRole, string>
+    public class DatabaseContext : IdentityDbContext<IdentityUser>
     {
         private readonly DbContextOptions _options;
 
@@ -26,6 +25,7 @@ namespace Backend.Models.DbModels
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Offer>().Property(o => o.Price).HasConversion<double>();
 
             modelBuilder.Entity<Offer>()
