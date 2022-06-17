@@ -1,5 +1,4 @@
-﻿using Backend.Models.DbModels;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 //using System.Data.Entity;
@@ -26,6 +25,7 @@ namespace Backend.Models.DbModels
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Offer>().Property(o => o.Price).HasConversion<double>();
 
             modelBuilder.Entity<Offer>()
