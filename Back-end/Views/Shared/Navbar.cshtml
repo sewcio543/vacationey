@@ -32,9 +32,9 @@
             <div class="dropdown">
                 <div class="dropbtn">Manage</div>
                 <div class="dropdown-content">
-                    <a class="dropbtn" asp-area="" asp-controller="Hotel" asp-action="Index" asp-route-page=1>Hotels</a>
-                    <a class="dropbtn" asp-area="" asp-controller="City" asp-action="Index">Cities</a>
-                    <a class="dropbtn" asp-area="" asp-controller="Country" asp-action="Index">Countries</a>
+                    <a class="dropbtn" asp-controller="Hotel" asp-action="Index" asp-route-page=1>Hotels</a>
+                    <a class="dropbtn" asp-controller="City" asp-action="Index" asp-route-page=1>Cities</a>
+                    <a class="dropbtn" asp-controller="Country" asp-action="Index" asp-route-page=1>Countries</a>
                 </div>
             </div>
         }
@@ -44,9 +44,9 @@
             @if (User.Identity != null && User.Identity.IsAuthenticated)
             {
                 <div class="dropdown-content">
-                    <a class="dropbtn" asp-area="" asp-controller="Offer" asp-action="Index" asp-route-page=1>Search</a>
-                    <a class="dropbtn" asp-area="" asp-controller="Offer" asp-action="Create">Create</a>
-                    <a class="dropbtn" asp-area="" asp-controller="Hotel" asp-action="Index" asp-route-page=1>Hotels</a>
+                    <a class="dropbtn" asp-controller="Offer" asp-action="Index" asp-route-page=1>Search</a>
+                    <a class="dropbtn" asp-controller="Offer" asp-action="Create">Create</a>
+                    <a class="dropbtn" asp-controller="Hotel" asp-action="Index" asp-route-page=1>Hotels</a>
                 </div>
             }
         </div>

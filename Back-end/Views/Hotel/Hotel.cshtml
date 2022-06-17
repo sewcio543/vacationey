@@ -23,7 +23,10 @@
 
                 </p>
                 <p>
-                    @Model.City.Name
+                    @if (Model.City != null)
+                    {
+                        @Model.City.Name
+                    }
                 </p>
                 <div id="stars">
 

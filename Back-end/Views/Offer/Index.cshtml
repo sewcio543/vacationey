@@ -23,7 +23,7 @@
             Price
         </p>
         <select id="priceOrder" asp-items=@ViewBag.Orders>
-                <option></option>
+            <option></option>
         </select>
     </div>
 
@@ -60,8 +60,22 @@
     Model.First();
 
     <div class="buttons">
-        <a id="prevPage" onclick="submitFormOffer(-1)"> &lt; </a>
-        <a id="nextPage" onclick="submitFormOffer(1)"> > </a>
+        @if (ViewBag.DisabledLeft)
+        {
+            <a id="prevPage" class="disabled"> &lt; </a>
+        }
+        else
+        {
+            <a id="prevPage" class="active" onclick="submitFormOffer(-1)"> &lt; </a>
+        }
+        @if (ViewBag.DisabledRight)
+        {
+            <a id="nextPage" class="disabled"> > </a>
+        }
+        else
+        {
+            <a id="nextPage" class="active" onclick="submitFormOffer(1)"> > </a>
+        }
     </div>
 
 

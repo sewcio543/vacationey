@@ -50,3 +50,7 @@ h3 {
     padding: 5% 0% 2% 0%;
     text-shadow: -0.5px -0.5px 1px var(--textshadow);
 }
+
+.error{
+    font-size: 3em;
+}

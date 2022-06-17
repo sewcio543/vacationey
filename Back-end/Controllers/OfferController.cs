@@ -122,8 +122,25 @@ namespace Backend.Controllers
                 }
             }
 
+            offerViewModels = offerViewModels.Skip((page - 1) * 10).ToList();
+
+            ViewBag.DisabledRight = false;
+            ViewBag.DisabledLeft = false;
+
+            if (offerViewModels.Count == 0)
+            {
+                ViewBag.DisabledRight = true;
+                ViewBag.DisabledLeft = true;
+            }
+
+            if (offerViewModels.Count < 11)
+                ViewBag.DisabledRight = true;
+
+            if (page == 1)
+                ViewBag.DisabledLeft = true;
+
             // pagination
-            offerViewModels = offerViewModels.Skip((page - 1) * 10).Take(10).ToList();
+            offerViewModels = offerViewModels.Take(10).ToList();
 
             return View(offerViewModels);
         }

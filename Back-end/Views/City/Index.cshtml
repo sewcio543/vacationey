@@ -56,8 +56,22 @@
     Model.First();
 
     <div class="buttons">
-        <a id="prevPage" onclick="submitFormCity(-1)"> &lt; </a>
-        <a id="nextPage" onclick="submitFormCity(1)"> > </a>
+        @if (ViewBag.DisabledLeft)
+        {
+            <a id="prevPage" class="disabled"> &lt; </a>
+        }
+        else
+        {
+            <a id="prevPage" class="active" onclick="submitFormCity(-1)"> &lt; </a>
+        }
+        @if (ViewBag.DisabledRight)
+        {
+            <a id="nextPage" class="disabled"> > </a>
+        }
+        else
+        {
+            <a id="nextPage" class="active" onclick="submitFormCity(1)"> > </a>
+        }
     </div>
 
 

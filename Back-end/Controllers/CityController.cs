@@ -66,7 +66,24 @@ namespace Backend.Controllers
             ViewBag.Orders = new SelectList(orders, (string.IsNullOrEmpty(sortOrder) || !orders.Contains(sortOrder)) ? "" : sortOrder);
             ViewBag.Countries = new SelectList(countries, (string.IsNullOrEmpty(countrySearch) || !countries.Contains(countrySearch)) ? "All" : countrySearch);
 
-            viewModels = viewModels.Skip((page - 1) * 20).Take(20).ToList();
+            viewModels = viewModels.Skip((page - 1) * 20).ToList();
+
+            ViewBag.DisabledRight = false;
+            ViewBag.DisabledLeft = false;
+
+            if (viewModels.Count == 0)
+            {
+                ViewBag.DisabledRight = true;
+                ViewBag.DisabledLeft = true;
+            }
+
+            if (viewModels.Count < 21)
+                ViewBag.DisabledRight = true;
+
+            if (page == 1)
+                ViewBag.DisabledLeft = true;
+
+            viewModels = viewModels.Take(20).ToList();
 
             return View(viewModels);
         }
