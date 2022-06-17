@@ -6,10 +6,10 @@
     margin-top: 8vh;
 }
 
-    #slider img {
-        width: 100%;
-        height: 100vh;
-    }
+#slider img {
+    width: 100%;
+    height: 100vh;
+}
 
 
 
@@ -60,7 +60,7 @@
     color: #fff;
     text-transform: uppercase;
     animation: waviy 2s infinite;
-    animation-delay: calc(.1s * var(--i))
+    animation-delay: calc(.1s * var(--i));
     }
 
 @keyframes waviy {
@@ -89,7 +89,7 @@ input {
 .nav-manual {
     position: absolute;
     width: 70vw;
-    margin-top: 466px;
+    margin-top: 50vh;
     display: flex;
     justify-content: center;
 }
@@ -99,13 +99,13 @@ input {
     display: flex;
     width: 70vw;
     justify-content: center;
-    margin-top: 466px;
+    margin-top: 50vh;
 }
 
 .manual-btn {
     border: 5px solid #333;
     padding: 5px;
-    margin: 10px;
+    margin: 0.2vh;
     border-radius: 10px;
     cursor: pointer;
     transition: 0.5s
@@ -134,7 +134,7 @@ input {
 .navig-auto div {
     border: 5px solid #333;
     padding: 5px;
-    margin: 10px;
+    margin: 0.2vh;
     border-radius: 10px;
     transition: 0.5s;
 }
