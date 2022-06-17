@@ -55,4 +55,4 @@ DbContext model has a simple structure - four models with relations one-to-many:
 
 Run project on your localhost through visual studio and find the best holidays for you
 
-![image](Back-end/wwwroot/images/demo)
+![image](Back-end/wwwroot/images/demo/home_page.png)
