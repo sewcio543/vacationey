@@ -21,6 +21,9 @@ Back-end/database.db-wal
 Back-end/database.db-shm
 Back-end/database.db
 
+#migrations
+Back-end/Migrations
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
