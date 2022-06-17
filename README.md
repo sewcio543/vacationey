@@ -97,7 +97,9 @@ Controllers:
 
 Index action uses parameters for filtering database
 Edit, Delete, Details views require id of the entity as a parameter
-ex. Hotel/Edit/12
+ex.:
+* Hotel/Edit/12
+* Offer/Index?countrySearch=Spain&page=1
 
 # Frontend
 
