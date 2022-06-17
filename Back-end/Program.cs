@@ -42,7 +42,7 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 builder.Services.AddRazorPages();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Vacationey API", Version = "v1" });
 });
 
 var app = builder.Build();
@@ -62,7 +62,7 @@ app.UseSwagger();
 // specifying the Swagger JSON endpoint.
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
 });
 
 

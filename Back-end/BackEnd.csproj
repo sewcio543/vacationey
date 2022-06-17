@@ -9,15 +9,8 @@
     <DocumentationFile>Documentation\WebAPI.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="wwwroot\js\Nowy folder\**" />
-    <Content Remove="wwwroot\js\Nowy folder\**" />
-    <EmbeddedResource Remove="wwwroot\js\Nowy folder\**" />
-    <None Remove="wwwroot\js\Nowy folder\**" />
-  </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNet.WebApi.HelpPage" Version="5.2.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.6" />
