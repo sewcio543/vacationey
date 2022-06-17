@@ -34,16 +34,7 @@ namespace Backend.Controllers
             orders = new string[] { "Ascending", "Descending" };
         }
 
-        /// <summary>
-        /// XDD noon
-        /// </summary>
-        /// <param name="countrySearch"></param>
-        /// <param name="sortOrder"></param>
-        /// <param name="cityFrom"></param>
-        /// <param name="cityTo"></param>
-        /// <param name="hotelId"></param>
-        /// <param name="page"></param>
-        /// <returns></returns>
+
         [AllowAnonymous]
         public IActionResult Index(string countrySearch, string sortOrder, string cityFrom, string cityTo, int hotelId, int page = 1)
         {

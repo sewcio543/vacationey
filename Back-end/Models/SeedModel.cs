@@ -10,7 +10,7 @@ namespace Backend.Models
             using (var context = new DatabaseContext(serviceProvider.GetRequiredService<DbContextOptions<DatabaseContext>>()))
             {
                 // Look for any movies.
-                if (context.Country.Any())
+                if (context == null || context.Country == null || context.Offer == null || context.Country.Any())
                 {
                     return;   // DB has been seeded
                 }
@@ -73,8 +73,8 @@ namespace Backend.Models
 
                 using (StreamReader sr = File.OpenText("Data/hotel_names.txt"))
                 {
-                    string s;
-                    while ((s = sr.ReadLine()) != null)
+                    string? s = sr.ReadLine();
+                    while (s != null)
                     {
                         Random random = new Random();
                         var index = random.Next(Cities.Count);
@@ -82,6 +82,7 @@ namespace Backend.Models
                             random.Next(0, 2) == 1 ? true : false,
                             random.Next(0, 2) == 1 ? true : false);
                         Hotels.Add(hotel);
+                        s = sr.ReadLine();
                     }
                 }
 
