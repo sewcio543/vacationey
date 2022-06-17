@@ -4,6 +4,8 @@ Fictional company Vacationey is a travel agency.
 This project is a user-friendly webpage providing functionality for this brand.
 Potential client can search for the perfect offer in a desired location.
 
+![image](Back-end/wwwroot/images/icons/logo.png)
+
 # Backend
 
 ### Technologies
@@ -56,3 +58,50 @@ DbContext model has a simple structure - four models with relations one-to-many:
 Run project on your localhost through visual studio and find the best holidays for you
 
 ![image](Back-end/wwwroot/images/demo/home_page.png)
+
+### Authentication 
+
+User has an option to login, register and logout provided by AspNetCore.Identity
+Views for these actions were modified to enhance user experience
+Registered user can modify databse - edit, create and delete entities
+
+![image](Back-end/wwwroot/images/demo/login_page.png)
+
+## Pages
+
+This action displays offers in databse.
+Offer page as well as other pages supports filtering and is paginated
+
+![image](Back-end/wwwroot/images/demo/offer_page.png)
+
+## Filters
+
+Through fiters you can specify your requirements and query databse
+
+![image](Back-end/wwwroot/images/demo/filters.png)
+
+## CRUD
+
+All entities' controllers support CRUD operations - create, read, update, delete
+
+## Routing
+
+Webpage has a very intuitive layout, can be easily navigated through with buttons
+Default routing: /Controller = Home/Action = Index/?id
+Controllers:
+* Home
+* Offer
+* Hotel
+* City
+* Country
+
+Index action uses parameters for filtering database
+Edit, Delete, Details views require id of the entity as a parameter
+ex. Hotel/Edit/12
+
+# Frontend
+
+Frontend was build using css and javascript
+External libraries:
+* JQuery
+* Bootstrap

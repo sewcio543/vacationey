@@ -60,12 +60,13 @@
     color: #fff;
     text-transform: uppercase;
     animation: waviy 2s infinite;
-    animation-delay: calc(.1s * var(--i));
+    animation-delay: calc(.1s * var(--i))
     }
 
 @keyframes waviy {
     0%,40%,100% {
         transform: translateY(0)
+        
     }
 
     20% {
