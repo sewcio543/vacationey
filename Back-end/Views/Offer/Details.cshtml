@@ -58,11 +58,11 @@
             <div class="details-links">
                 @if (Model.Hotel != null)
                 {
-                    <a asp-action="Details" asp-route-id=@Model.Hotel.HotelId>Hotel</a>
+                    <a asp-controller="Hotel" asp-action="Details" asp-route-id=@Model.Hotel.HotelId>Hotel</a>
                 }
                 @if (User.Identity != null && User.Identity.IsAuthenticated && Model.Offer != null)
                 {
-                    <a asp-area="" asp-controller="Offer" asp-action="Edit" asp-route-id=@Model.Offer.OfferId>Edit</a>
+                    <a asp-controller="Offer" asp-action="Edit" asp-route-id=@Model.Offer.OfferId>Edit</a>
                 }
                 <a onclick="window.history.back()">Back to List</a>
 

@@ -17,13 +17,14 @@
     .createForm label {
         font-size: 1.5rem;
         font-weight: bold;
-        margin-bottom: 2%
+        margin-bottom: 2%;
     }
 
     .createForm input {
         font-size: 1.2rem;
         margin-top: 2%;
-        margin-bottom: 2%
+        margin-bottom: 2%;
+        margin-top: 1%;
     }
 
     .createForm select {

@@ -19,7 +19,7 @@
 }
 
     .details img {
-        width: 60%;
+        width: 58%;
         height: 100%;
         float: left;
         box-shadow: var(--imgshadows) 3px 1px 3px;
@@ -34,7 +34,7 @@
         }
 
     .details .infoDetails {
-        width: 35%;
+        width: 40%;
         height: 100%;
         border-style: outset;
         border-radius: 20px;
@@ -53,23 +53,24 @@
         .details .infoDetails .textInfo {
             display: flex;
             flex-direction: column;
-            width: 90%;
-            height: 60%
+            width: 100%;
+            height: 55%;
         }
 
+
             .details .infoDetails .textInfo p {
-                padding: 2%;
-                width: 100%;
-                height: 9%;
+                width: 120%;
+                height: 10%;
                 font-family: 'Montserrat', sans-seri;
-                font-size: 1.5rem;
+                font-size: 1.5em;
                 font-weight: bold;
                 display: flex;
                 justify-content: left;
                 margin: auto;
-                margin-left: 4%;
-                margin-top: 1%;
+                margin-left: 8%;
+                margin-top: 3%;
             }
+
 
 
     .details .details-links {
