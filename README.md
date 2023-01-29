@@ -42,14 +42,15 @@ In Visual Studio Run Tools -> NuGet Package Manager -> Package Manager Console a
 
 You can also use different database provider, adjusting your connection string and builder.Services DbContext options
 
-</br>
 #### Entity Framework
 Database is created with Code First approach using Entity Framework Core
 DbContext model has a simple structure - four models with relations one-to-many:
-* Country
-* City
-* Hotel
-* Offer
+<ul>
+<li>Country</li>
+<li>City</li>
+<li>Hotel</li>
+<li>Offer</li>
+</ul>
 
 
 Run project on your localhost through visual studio and find the best holidays for you
